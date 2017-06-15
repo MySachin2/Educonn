@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_green">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:background="@color/green"
+        card_view:titleTextColor="@color/white"
+        card_view:popupTheme="@style/AppTheme.PopupOverlay"
+        >
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+        <com.phacsin.student.customfonts.NiceFont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10dp"
+            android:textSize="35sp"
+            android:text="Teacher" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_add_attendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            android:minHeight="100dp"
+            card_view:cardElevation="5dp"
+            card_view:cardCornerRadius="4dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_marginBottom="15dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <ImageView
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/atte"/>
+                <com.phacsin.student.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:text="Attendance" />
+             <!--   <com.phacsin.student.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="View and Edit"/>-->
+                <!--        <View
+                       android:layout_width="1dp"
+                       android:layout_height="30dp"
+                       android:layout_gravity="center"
+                       android:background="@color/grey"/>-->
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_add_mark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            android:minHeight="100sp"
+            card_view:cardElevation="5dp"
+            card_view:cardCornerRadius="4dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_marginBottom="15dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <ImageView
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/mark"/>
+                <com.phacsin.student.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:text="Mark" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+       <android.support.v7.widget.CardView
+            android:id="@+id/card_view_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            android:minHeight="100sp"
+            card_view:cardElevation="5dp"
+            card_view:cardCornerRadius="4dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_marginBottom="15dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <ImageView
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/message"/>
+                <com.phacsin.student.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:text="Messages" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "841344227049",
+    "firebase_url": "https://student-2c02a.firebaseio.com",
+    "project_id": "student-2c02a",
+    "storage_bucket": "student-2c02a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841344227049:android:8a50c36ebfe33f6a",
+        "android_client_info": {
+          "package_name": "com.phacsin.student"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "841344227049-9sqrmovbrnn236mri81qn8ds37o7vsme.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.phacsin.student",
+            "certificate_hash": "233A7EE8330C12477A28ACCA9EDE3C0FA7FAFBBA"
+          }
+        },
+        {
+          "client_id": "841344227049-jg7up0uct89d0cv8se3eu2m42s8nactn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoWltrqbDrgt8WwswXf2NzKOUVW1MPLx8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "841344227049-jg7up0uct89d0cv8se3eu2m42s8nactn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
