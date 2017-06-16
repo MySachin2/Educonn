@@ -1,16 +1,21 @@
 package com.phacsin.student.main.admin;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.phacsin.student.LoginActivity;
@@ -33,6 +38,28 @@ public class AdminMainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private FirebaseAuth mAuth;
+    TextView text;
+    GridView gridView;
+    Context context;
+    ArrayList arrayList;
+
+    public static String[] gridViewStrings = {
+            "Profile",
+            "Message",
+            "Staffs",
+            "Students",
+            "Subjects",
+            "Help Desk",
+
+    };
+    public static int[] gridViewImages = {
+            R.mipmap.student,
+            R.mipmap.msg_admin,
+            R.mipmap.admin_profile_icon,
+            R.mipmap.students_admin,
+            R.mipmap.subject_admin,
+            R.mipmap.helpdesk_admin,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +68,16 @@ public class AdminMainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Student App");
         setSupportActionBar(toolbar);
+        gridView = (GridView) findViewById(R.id.grid);
+        gridView.setAdapter(new CustomAndroidGridViewAdapter(this, gridViewStrings, gridViewImages));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("ON_ITEM_CLICK_LISTENER", "item clicked");
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
-        card_profile =(CardView)findViewById(R.id.card_admin_profile);
+       /* card_profile =(CardView)findViewById(R.id.card_admin_profile);
         card_messages =(CardView)findViewById(R.id.card_admin_messages);
         card_staffs =(CardView)findViewById(R.id.card_admin_staffs);
         card_students =(CardView)findViewById(R.id.card_admin_students);
@@ -94,7 +129,7 @@ public class AdminMainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
             }
-        });
+        });*/
        /* card_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

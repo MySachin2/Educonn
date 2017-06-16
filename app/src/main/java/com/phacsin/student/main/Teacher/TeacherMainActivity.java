@@ -1,6 +1,7 @@
 package com.phacsin.student.main.Teacher;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,13 +12,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.phacsin.student.LoginActivity;
 import com.phacsin.student.R;
 import com.phacsin.student.customfonts.HelveticaButton;
 import com.phacsin.student.customfonts.HelveticaEditText;
+import com.phacsin.student.main.admin.CustomAndroidGridViewAdapter;
 import com.phacsin.student.main.admin.Message_Admin;
+
+import java.util.ArrayList;
 
 /**
  * Created by Bineesh P Babu on 26-01-2017.
@@ -29,6 +34,24 @@ public class TeacherMainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    GridView gridView;
+    Context context;
+    ArrayList arrayList;
+
+    public static String[] gridViewStrings = {
+            "Attendance",
+            "Mark",
+            "Message",
+            "Help Desk",
+
+    };
+    public static int[] gridViewImages = {
+            R.drawable.atte,
+            R.drawable.mark,
+            R.mipmap.msg_admin,
+            R.mipmap.helpdesk_admin
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +60,9 @@ public class TeacherMainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Student App");
         setSupportActionBar(toolbar);
-        card1=(CardView)findViewById(R.id.card_add_attendance);
+        gridView = (GridView) findViewById(R.id.grid);
+        gridView.setAdapter(new CustomAndroidGridViewAdapter(this, gridViewStrings, gridViewImages));
+        /*card1=(CardView)findViewById(R.id.card_add_attendance);
         card2=(CardView)findViewById(R.id.card_add_mark);
         card3=(CardView)findViewById(R.id.card_view_message);
         card1.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +91,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
         });
-
+*/
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
