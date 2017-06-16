@@ -86,7 +86,7 @@ public class ListSubject extends AppCompatActivity {
             }
         });
 
-        mRef.child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("College").child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BigSnapshot = dataSnapshot;
@@ -110,7 +110,7 @@ public class ListSubject extends AppCompatActivity {
                 String batch = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
                 String semester = spinner_sem.getItems().get(spinner_sem.getSelectedIndex()).toString();
                 data.clear();
-                mRef.child("Subject_Taken").child(batch).child(semester).addListenerForSingleValueEvent(new ValueEventListener() {
+                mRef.child("College").child("Subject_Taken").child(batch).child(semester).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -179,7 +179,7 @@ public class ListSubject extends AppCompatActivity {
                 final MaterialSpinner spinner_staff = (MaterialSpinner) mMaterialDialog.findViewById(R.id.spinner_staff);
                 final MaterialSpinner spinner_subject = (MaterialSpinner) mMaterialDialog.findViewById(R.id.spinner_subject);
 
-                mRef.child("Staff").orderByChild("Name").addValueEventListener(new ValueEventListener() {
+                mRef.child("College").child("Staff").orderByChild("Name").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -196,7 +196,7 @@ public class ListSubject extends AppCompatActivity {
                     }
                 });
 
-                mRef.child("Subject").child(batch_selected).child(semester_selected).orderByChild("Subject Code").addValueEventListener(new ValueEventListener() {
+                mRef.child("College").child("Subject").child(batch_selected).child(semester_selected).orderByChild("Subject Code").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -223,7 +223,7 @@ public class ListSubject extends AppCompatActivity {
                         Map<String,String> map = new HashMap<String, String>();
                         map.put("Staff",staff_name);
                         map.put("Subject",subject_name);
-                        mRef.child("Subject_Taken").child(batch_selected).child(semester_selected).push().setValue(map);
+                        mRef.child("College").child("Subject_Taken").child(batch_selected).child(semester_selected).push().setValue(map);
                         DataSubject dataSubject = new DataSubject();
                         dataSubject.name = subject_name;
                         dataSubject.teacher = staff_name;

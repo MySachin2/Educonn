@@ -84,7 +84,7 @@ public class AttendanceFragment extends Fragment  {
         recyclerView.setAdapter(adapter);
 
 
-        mref.child("Working Days").child(batch).child(semester).addValueEventListener(new ValueEventListener() {
+        mref.child("College").child("Working Days").child(batch).child(semester).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> added_months = new ArrayList<String>();
@@ -122,7 +122,7 @@ public class AttendanceFragment extends Fragment  {
             @Override
             public void onClick(View view) {
                 final String month_selected = spinner.getItems().get(spinner.getSelectedIndex()).toString();
-                mref.child("Attendance").child(batch).child(semester).addListenerForSingleValueEvent(new ValueEventListener() {
+                mref.child("College").child("Attendance").child(batch).child(semester).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         data.clear();

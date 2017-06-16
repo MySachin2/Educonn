@@ -69,7 +69,7 @@ public class ListStaff extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRef.child("Staff").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("College").child("Staff").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 data.clear();
@@ -124,7 +124,7 @@ public class ListStaff extends AppCompatActivity {
                         Map notification = new HashMap<>();
                         notification.put("Name", name_editText.getText().toString());
                         notification.put("Email", email_editText.getText().toString());
-                        mRef.child("Staff").push().setValue(notification);
+                        mRef.child("College").child("Staff").push().setValue(notification);
                         data.add(name_editText.getText().toString());
                         adapter.notifyDataSetChanged();
                         mMaterialDialog.dismiss();

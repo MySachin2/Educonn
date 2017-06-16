@@ -95,7 +95,7 @@ public class InputMarkList extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         data = new ArrayList<String>();
-        mref.child("Students").child(batch).addValueEventListener(new ValueEventListener() {
+        mref.child("College").child("Students").child(batch).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -150,14 +150,14 @@ public class InputMarkList extends AppCompatActivity {
                 }
             }
         }
-        mref.child("Mark").child(batch).child(semester).child(sessional).child(subject).addValueEventListener(new ValueEventListener() {
+        mref.child("College").child("Mark").child(batch).child(semester).child(sessional).child(subject).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(MarkClass markClass:adapter.lstChk) {
                     if(!markClass.marks.equals(""))
-                        mref.child("Mark").child(batch).child(semester).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue(markClass.marks + " out of " + total);
+                        mref.child("College").child("Mark").child(batch).child(semester).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue(markClass.marks + " out of " + total);
                     else
-                        mref.child("Mark").child(batch).child(semester).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue("Absent");
+                        mref.child("College").child("Mark").child(batch).child(semester).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue("Absent");
                 }
                 Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_LONG).show();
                 finish();

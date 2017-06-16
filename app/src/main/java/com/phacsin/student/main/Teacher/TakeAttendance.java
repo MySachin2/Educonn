@@ -89,7 +89,7 @@ public class TakeAttendance extends AppCompatActivity {
         date = getIntent().getStringExtra("date");
         semester = getIntent().getStringExtra("semester");
         subject = getIntent().getStringExtra("subject");
-        mref.child("Students").child(batch).addValueEventListener(new ValueEventListener() {
+        mref.child("College").child("Students").child(batch).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -126,8 +126,8 @@ public class TakeAttendance extends AppCompatActivity {
 
     private void uploadToFireBase() {
                 for(String reg_no:adapter.lstChk)
-                    mref.child("Attendance").child(batch).child(semester).child(subject).child(date).child(reg_no).setValue(true);
-                 mref.child("Working Days").child(batch).child(semester).child(date).setValue(true);
+                    mref.child("College").child("Attendance").child(batch).child(semester).child(subject).child(date).child(reg_no).setValue(true);
+                 mref.child("College").child("Working Days").child(batch).child(semester).child(date).setValue(true);
         Toast.makeText(getApplicationContext(),"Uploaded Attendance",Toast.LENGTH_LONG).show();
         finish();
     }

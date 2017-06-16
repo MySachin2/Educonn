@@ -85,7 +85,7 @@ public class MarkFragment extends Fragment {
                 semester = sharedPreferences.getString("Semester","");
                 String sessional = spinner.getItems().get(spinner.getSelectedIndex()).toString();
                 mref.keepSynced(true);
-                mref.child("Mark").child(batch).child(semester).child(sessional).addListenerForSingleValueEvent(new ValueEventListener() {
+                mref.child("College").child("Mark").child(batch).child(semester).child(sessional).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         data.clear();

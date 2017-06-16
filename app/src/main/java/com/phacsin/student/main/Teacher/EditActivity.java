@@ -56,7 +56,7 @@ public class EditActivity extends AppCompatActivity {
         spinner_subject = (MaterialSpinner) findViewById(R.id.spinner_subject_take_attendance);
         spinner_batch = (MaterialSpinner) findViewById(R.id.spinner_batch_take_attendance);
 
-        mref.child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mref.child("College").child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> spinner_list = new ArrayList<String>();
@@ -65,7 +65,7 @@ public class EditActivity extends AppCompatActivity {
                 }
                 if(spinner_list.size()!=0) {
                     spinner_batch.setItems(spinner_list);
-                    mref.child("Subject").child(spinner_list.get(0)).child(spinner_semester.getItems().get(0).toString()).addValueEventListener(new ValueEventListener() {
+                    mref.child("College").child("Subject").child(spinner_list.get(0)).child(spinner_semester.getItems().get(0).toString()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             List<String> list = new ArrayList<String>();
@@ -105,7 +105,7 @@ public class EditActivity extends AppCompatActivity {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 String batch_selected = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
-                mref.child("Subject").child(batch_selected).child(item).addValueEventListener(new ValueEventListener() {
+                mref.child("College").child("Subject").child(batch_selected).child(item).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         List<String> list = new ArrayList<String>();

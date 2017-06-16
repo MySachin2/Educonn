@@ -90,7 +90,7 @@ public class Messages_Send_Admin extends AppCompatActivity {
             }
         });
         final MaterialSpinner spinner_batch = (MaterialSpinner)findViewById(R.id.spinner);
-        mRef.child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("College").child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> batch_list = new ArrayList<String>();
@@ -125,7 +125,7 @@ public class Messages_Send_Admin extends AppCompatActivity {
                 map.put("title",title);
                 map.put("message",message);
                 map.put("batch_name",batch);
-                mRef.child("notificationRequests").push().setValue(map);
+                mRef.child("College").child("notificationRequests").push().setValue(map);
                 DBHandler dbHandler = new DBHandler(getApplicationContext());
                 Calendar c = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");

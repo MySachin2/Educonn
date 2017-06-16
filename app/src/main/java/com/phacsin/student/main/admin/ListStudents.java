@@ -80,7 +80,7 @@ public class ListStudents extends AppCompatActivity {
             }
         });
 
-        mRef.child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("College").child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> batch_list = new ArrayList<String>();
@@ -182,7 +182,7 @@ public class ListStudents extends AppCompatActivity {
                             map.put("Name",name);
                             map.put("Registration Number",reg);
                             map.put("Contact Number",phone);
-                            mRef.child("Students").child(batch_selected).push().setValue(map);
+                            mRef.child("College").child("Students").child(batch_selected).push().setValue(map);
                             DataStudent dataStudent = new DataStudent();
                             dataStudent.name = name;
                             dataStudent.reg_no = reg;

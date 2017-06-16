@@ -71,14 +71,14 @@ public class InputMark  extends AppCompatActivity {
         spinner_semester.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                mref.child("Subjects").child(item).orderByKey().addListenerForSingleValueEvent(subject_change_listener);
+                mref.child("College").child("Subjects").child(item).orderByKey().addListenerForSingleValueEvent(subject_change_listener);
             }
         });
         spinner_subject = (MaterialSpinner) findViewById(R.id.spinner_mark_add_subject);
         spinner_sessional = (MaterialSpinner) findViewById(R.id.spinner_mark_add_sessional);
         spinner_sessional.setItems("Sessional 1","Sessional 2","Sessional 3");
 
-        mref.child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
+        mref.child("College").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> list = new ArrayList<String>();
@@ -87,7 +87,7 @@ public class InputMark  extends AppCompatActivity {
                 }
                 spinner_batch.setItems(list);
                 //Defaullt Subject
-                mref.child("Subject").child(list.get(0)).child(spinner_semester.getItems().get(0).toString()).addValueEventListener(new ValueEventListener() {
+                mref.child("College").child("Subject").child(list.get(0)).child(spinner_semester.getItems().get(0).toString()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         List<String> list = new ArrayList<String>();
@@ -115,7 +115,7 @@ public class InputMark  extends AppCompatActivity {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                     String batch_selected = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
-                    mref.child("Subject").child(batch_selected).child(item).addValueEventListener(new ValueEventListener() {
+                    mref.child("College").child("Subject").child(batch_selected).child(item).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             List<String> list = new ArrayList<String>();
