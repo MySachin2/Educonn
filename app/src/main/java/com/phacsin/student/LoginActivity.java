@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.phacsin.student.customfonts.Helvetica;
 import com.phacsin.student.main.Teacher.TeacherMainActivity;
 import com.phacsin.student.customfonts.HelveticaButton;
 import com.phacsin.student.customfonts.HelveticaEditText;
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     @InjectView(R.id.input_password) HelveticaEditText _passwordText;
     @InjectView(R.id.btn_login)
     HelveticaButton _loginButton;
+    Helvetica forgot_pass;
     private DatabaseReference mDatabase;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -51,6 +53,14 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        forgot_pass = (Helvetica)findViewById(R.id.forgot_password_text);
+        forgot_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i= new Intent(LoginActivity.this,Forgot_Password.class);
+                startActivity(i);
+            }
+        });
         mDatabase = FirebaseDatabase.getInstance().getReference();
         sharedPreferences = getSharedPreferences("prefs",MODE_PRIVATE);
         mAuthListener = new FirebaseAuth.AuthStateListener() {

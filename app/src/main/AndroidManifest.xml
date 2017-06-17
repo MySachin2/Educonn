@@ -23,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Forgot_Password"
+            android:theme="@style/MyMaterialTheme"/>
         <!--admin_phase_begins-->
         <activity android:name=".main.admin.AdminMainActivity"
             android:theme="@style/MyMaterialTheme"/>
@@ -33,6 +35,8 @@
                 android:theme="@style/MyMaterialTheme"/>
             <activity android:name=".main.admin.Payment_Admin_Details"
                 android:theme="@style/MyMaterialTheme"/>
+        <activity android:name=".main.admin.Admin_Change_Password"
+            android:theme="@style/MyMaterialTheme"/>
         <activity android:name=".main.admin.Admin_Batches"
             android:theme="@style/MyMaterialTheme"/>
         <!-- Profile phase end-->
