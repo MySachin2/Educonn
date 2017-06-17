@@ -1,5 +1,6 @@
 package com.phacsin.student.main.Teacher;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -21,6 +23,8 @@ import com.phacsin.student.main.admin.Profile_Admin_Edit;
 import com.phacsin.student.recyclerview.DataModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -40,6 +44,8 @@ public class TakeAttendance extends AppCompatActivity {
     private CheckBox select_all;
     String date,semester,subject,batch;
     private DatabaseReference mref;
+    SharedPreferences sharedPreferences;
+    String institution_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,8 @@ public class TakeAttendance extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Edit Profile");
         setSupportActionBar(toolbar);
+        sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
+        institution_name = sharedPreferences.getString("Institution Name","");
         toolbar.setNavigationIcon(R.drawable.ic_left_arrow);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +97,7 @@ public class TakeAttendance extends AppCompatActivity {
         date = getIntent().getStringExtra("date");
         semester = getIntent().getStringExtra("semester");
         subject = getIntent().getStringExtra("subject");
-        mref.child("College").child("Students").child(batch).addValueEventListener(new ValueEventListener() {
+        mref.child("College").child(institution_name).child("Students").child(batch).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -125,9 +133,32 @@ public class TakeAttendance extends AppCompatActivity {
     }
 
     private void uploadToFireBase() {
-                for(String reg_no:adapter.lstChk)
-                    mref.child("College").child("Attendance").child(batch).child(semester).child(subject).child(date).child(reg_no).setValue(true);
-                 mref.child("College").child("Working Days").child(batch).child(semester).child(date).setValue(true);
+                for(String reg_no:adapter.lstChk) {
+                    Log.d("SMD",reg_no);
+                    mref.child("College").child(institution_name).child("Attendance").child(batch).child(semester).child(subject).child(date).child(reg_no).setValue(true);
+                    Map<String,String> map = new HashMap<String, String>();
+                    map.put("title","Attendance Notification : " + date);
+                    map.put("message","The student with Register Number " + reg_no + " has attended the class of " + subject + " on "  + date);
+                    map.put("reg_no",reg_no);
+                    map.put("institution_name",institution_name);
+                    map.put("institution_type","College");
+                    map.put("batch",batch);
+                    mref.child("Notification Requests").child("Single").push().setValue(map);
+                }
+                Log.d("LST",adapter.lstChk.toString());
+                Log.d("DATA",data.toString());
+                data.removeAll(adapter.lstChk);
+                for(String reg_no:data) {
+                    Map<String,String> map = new HashMap<String, String>();
+                    map.put("title","Attendance Notification : " + date);
+                    map.put("message","The student with Register Number " + reg_no + " has not attended the class of " + subject + " on "  + date);
+                    map.put("reg_no",reg_no);
+                    map.put("institution_name",institution_name);
+                    map.put("institution_type","College");
+                    map.put("batch",batch);
+                    mref.child("Notification Requests").child("Single").push().setValue(map);
+                }
+                 mref.child("College").child(institution_name).child("Working Days").child(batch).child(semester).child(date).setValue(true);
         Toast.makeText(getApplicationContext(),"Uploaded Attendance",Toast.LENGTH_LONG).show();
         finish();
     }
@@ -137,7 +168,7 @@ public class TakeAttendance extends AppCompatActivity {
 
         new SweetAlertDialog(TakeAttendance.this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Are you sure?")
-                .setContentText("Leave attendnce register")
+                .setContentText("Leave attendance register")
                 .setConfirmText("Ok")
                 .setCancelText("Cancel")
                 .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {

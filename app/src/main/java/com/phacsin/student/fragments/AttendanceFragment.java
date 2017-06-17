@@ -47,11 +47,12 @@ public class AttendanceFragment extends Fragment  {
     private static ArrayList<Integer> removedItems;
     HelveticaButton btn_sbmt;
     private DatabaseReference mref;
-    SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String batch,semester,reg_no;
     List<String> month_list = new ArrayList<String>();
     int attended,total;
+    SharedPreferences sharedPreferences;
+    String institution_name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class AttendanceFragment extends Fragment  {
         final MaterialSpinner spinner = (MaterialSpinner) rootView.findViewById(R.id.spinner);
         mref = FirebaseDatabase.getInstance().getReference();
         sharedPreferences = getActivity().getSharedPreferences("prefs",MODE_PRIVATE);
+        institution_name = sharedPreferences.getString("Institution Name","");
         //editor = sharedPreferences.edit();
         batch = sharedPreferences.getString("Batch","");
         reg_no = sharedPreferences.getString("Register Number","");
@@ -84,7 +86,7 @@ public class AttendanceFragment extends Fragment  {
         recyclerView.setAdapter(adapter);
 
 
-        mref.child("College").child("Working Days").child(batch).child(semester).addValueEventListener(new ValueEventListener() {
+        mref.child("College").child(institution_name).child("Working Days").child(batch).child(semester).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> added_months = new ArrayList<String>();
@@ -122,7 +124,7 @@ public class AttendanceFragment extends Fragment  {
             @Override
             public void onClick(View view) {
                 final String month_selected = spinner.getItems().get(spinner.getSelectedIndex()).toString();
-                mref.child("College").child("Attendance").child(batch).child(semester).addListenerForSingleValueEvent(new ValueEventListener() {
+                mref.child("College").child(institution_name).child("Attendance").child(batch).child(semester).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         data.clear();

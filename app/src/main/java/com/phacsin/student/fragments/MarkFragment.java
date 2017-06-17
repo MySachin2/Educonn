@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -43,10 +44,12 @@ public class MarkFragment extends Fragment {
     private static ArrayList<Integer> removedItems;
     HelveticaButton btn_sbmt;
     private static AdapterMarkDetails adapter;
-    SharedPreferences sharedPreferences;
     String batch,reg_no;
     private DatabaseReference mref;
     private String semester;
+    private Button submit;
+    SharedPreferences sharedPreferences;
+    String institution_name;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +57,8 @@ public class MarkFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_mark, container, false);
         mref = FirebaseDatabase.getInstance().getReference();
-
+        sharedPreferences = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
+        institution_name = sharedPreferences.getString("Institution Name","");
         btn_sbmt = (HelveticaButton) rootView.findViewById(R.id.btn_submit_month);
         final MaterialSpinner spinner = (MaterialSpinner) rootView.findViewById(R.id.spinner);
         spinner.setItems("Sessional 1", "Sessional 2", "Sessional 3");
@@ -85,7 +89,7 @@ public class MarkFragment extends Fragment {
                 semester = sharedPreferences.getString("Semester","");
                 String sessional = spinner.getItems().get(spinner.getSelectedIndex()).toString();
                 mref.keepSynced(true);
-                mref.child("College").child("Mark").child(batch).child(semester).child(sessional).addListenerForSingleValueEvent(new ValueEventListener() {
+                mref.child("College").child(institution_name).child("Mark").child(batch).child(semester).child(sessional).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         data.clear();

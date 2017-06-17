@@ -1,5 +1,6 @@
 package com.phacsin.student.main.Teacher;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -23,6 +24,8 @@ import com.phacsin.student.R;
 import com.phacsin.student.recyclerview.DataModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -40,6 +43,8 @@ public class InputMarkList extends AppCompatActivity {
     TextView sessional_text,semester_text,subject_text;
     String batch,semester,subject,total,sessional;
     private DatabaseReference mref;
+    SharedPreferences sharedPreferences;
+    String institution_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,8 @@ public class InputMarkList extends AppCompatActivity {
         mref = FirebaseDatabase.getInstance().getReference();
 
         recyclerView.setHasFixedSize(true);
-
+        sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
+        institution_name = sharedPreferences.getString("Institution Name","");
         batch = getIntent().getStringExtra("batch");
         semester = getIntent().getStringExtra("semester");
         subject = getIntent().getStringExtra("subject");
@@ -95,7 +101,7 @@ public class InputMarkList extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         data = new ArrayList<String>();
-        mref.child("College").child("Students").child(batch).addValueEventListener(new ValueEventListener() {
+        mref.child("College").child(institution_name).child("Students").child(batch).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -150,16 +156,23 @@ public class InputMarkList extends AppCompatActivity {
                 }
             }
         }
-        mref.child("College").child("Mark").child(batch).child(semester).child(sessional).child(subject).addValueEventListener(new ValueEventListener() {
+        mref.child("College").child(institution_name).child("Mark").child(batch).child(semester).child(sessional).child(subject).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(MarkClass markClass:adapter.lstChk) {
                     if(!markClass.marks.equals(""))
-                        mref.child("College").child("Mark").child(batch).child(semester).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue(markClass.marks + " out of " + total);
+                        mref.child("College").child(institution_name).child("Mark").child(batch).child(semester).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue(markClass.marks + " out of " + total);
                     else
-                        mref.child("College").child("Mark").child(batch).child(semester).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue("Absent");
+                        mref.child("College").child(institution_name).child("Mark").child(batch).child(semester).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue("Absent");
                 }
                 Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_LONG).show();
+                Log.d("Hello","Hello");
+                Map<String,String> map = new HashMap<String, String>();
+                map.put("title",sessional + " Uploaded");
+                map.put("message", sessional  + " marks uploaded of " + batch + "," + semester);
+                map.put("topic_name",institution_name.replaceAll("[^a-zA-Z0-9]","")+ "_" + batch.replaceAll("[^a-zA-Z0-9]",""));
+                Log.d("Hello","Hello");
+                mref.child("Notification Requests").child("Group").push().setValue(map);
                 finish();
             }
 

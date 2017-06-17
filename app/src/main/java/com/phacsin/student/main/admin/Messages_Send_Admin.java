@@ -45,8 +45,9 @@ public class Messages_Send_Admin extends AppCompatActivity {
     EditText message_edittext,title_edittext;
     private Button send_msg,cancel_msg;
 
-    SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences;
+    String institution_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,8 @@ public class Messages_Send_Admin extends AppCompatActivity {
         mRef = FirebaseDatabase.getInstance().getReference();
         sharedPreferences = getSharedPreferences("prefs",MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        institution_name = sharedPreferences.getString("Institution Name","");
+
         message_edittext = (EditText) findViewById(R.id.admin_message_content);
         title_edittext = (EditText) findViewById(R.id.admin_subject);
         send_msg = (Button) findViewById(R.id.btn_send_msg);
@@ -90,7 +93,7 @@ public class Messages_Send_Admin extends AppCompatActivity {
             }
         });
         final MaterialSpinner spinner_batch = (MaterialSpinner)findViewById(R.id.spinner);
-        mRef.child("College").child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("College").child(institution_name).child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> batch_list = new ArrayList<String>();
@@ -124,8 +127,8 @@ public class Messages_Send_Admin extends AppCompatActivity {
                 Map<String,String> map = new HashMap<String, String>();
                 map.put("title",title);
                 map.put("message",message);
-                map.put("batch_name",batch);
-                mRef.child("College").child("notificationRequests").push().setValue(map);
+                map.put("topic_name",institution_name.replaceAll("[^a-zA-Z0-9]","")+ "_" + batch.replaceAll("[^a-zA-Z0-9]",""));
+                mRef.child("Notification Requests").child("Group").push().setValue(map);
                 DBHandler dbHandler = new DBHandler(getApplicationContext());
                 Calendar c = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");

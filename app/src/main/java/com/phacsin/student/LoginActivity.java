@@ -64,8 +64,11 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 String batch = dataSnapshot.child("Batch").getValue(String.class);
+                                String institution_name = dataSnapshot.child("Institution Name").getValue(String.class);
                                 String type = dataSnapshot.child("Type").getValue(String.class);
                                 String reg_no = dataSnapshot.child("Register Number").getValue(String.class);
+                                Log.d("INST",institution_name);
+                                editor.putString("Institution Name",institution_name);
                                 editor.putString("Type",type);
                                 editor.putString("Email",user.getEmail());
 
@@ -76,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.d("Batch", batch+ "%");
                                     String reg_token = sharedPreferences.getString("Registration Token","");
                                     mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("Registration Token").setValue(reg_token);
-                                    FirebaseMessaging.getInstance().subscribeToTopic(batch.replace(" ",""));
+                                    FirebaseMessaging.getInstance().subscribeToTopic(institution_name.replaceAll("[^a-zA-Z0-9]","") + "_" + batch.replaceAll("[^a-zA-Z0-9]",""));
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 }
                                 else if (type.equals("Teacher")) {

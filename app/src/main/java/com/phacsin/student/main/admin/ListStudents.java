@@ -1,6 +1,7 @@
 package com.phacsin.student.main.admin;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -50,6 +51,8 @@ public class ListStudents extends AppCompatActivity {
     MaterialSpinner spinner_batch,spinner_sem;
     private DatabaseReference mRef;
     private Button submit;
+    SharedPreferences sharedPreferences;
+    String institution_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,8 @@ public class ListStudents extends AppCompatActivity {
         toolbar.setTitle("Students");
         setSupportActionBar(toolbar);
         mRef = FirebaseDatabase.getInstance().getReference();
-
+        sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
+        institution_name = sharedPreferences.getString("Institution Name","");
         toolbar.setNavigationIcon(R.drawable.ic_left_arrow);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +84,7 @@ public class ListStudents extends AppCompatActivity {
             }
         });
 
-        mRef.child("College").child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("College").child(institution_name).child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> batch_list = new ArrayList<String>();
@@ -109,7 +113,7 @@ public class ListStudents extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 data.clear();
-                mRef.child("Students").child(batch_selected).addListenerForSingleValueEvent(new ValueEventListener() {
+                mRef.child("College").child(institution_name).child("Students").child(batch_selected).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -182,7 +186,7 @@ public class ListStudents extends AppCompatActivity {
                             map.put("Name",name);
                             map.put("Registration Number",reg);
                             map.put("Contact Number",phone);
-                            mRef.child("College").child("Students").child(batch_selected).push().setValue(map);
+                            mRef.child("College").child(institution_name).child("Students").child(batch_selected).push().setValue(map);
                             DataStudent dataStudent = new DataStudent();
                             dataStudent.name = name;
                             dataStudent.reg_no = reg;

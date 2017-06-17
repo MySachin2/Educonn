@@ -1,6 +1,7 @@
 package com.phacsin.student.main.admin;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -44,13 +45,16 @@ public class ListStaff extends AppCompatActivity {
     private static ArrayList<Integer> removedItems;
     com.github.clans.fab.FloatingActionButton fab_add;
     private DatabaseReference mRef;
+    SharedPreferences sharedPreferences;
+    String institution_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_staff_list);
         mRef = FirebaseDatabase.getInstance().getReference();
-
+        sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
+        institution_name = sharedPreferences.getString("Institution Name","");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Staffs");
@@ -69,7 +73,7 @@ public class ListStaff extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRef.child("College").child("Staff").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("College").child(institution_name).child("Staff").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 data.clear();
@@ -124,7 +128,7 @@ public class ListStaff extends AppCompatActivity {
                         Map notification = new HashMap<>();
                         notification.put("Name", name_editText.getText().toString());
                         notification.put("Email", email_editText.getText().toString());
-                        mRef.child("College").child("Staff").push().setValue(notification);
+                        mRef.child("College").child(institution_name).child("Staff").push().setValue(notification);
                         data.add(name_editText.getText().toString());
                         adapter.notifyDataSetChanged();
                         mMaterialDialog.dismiss();

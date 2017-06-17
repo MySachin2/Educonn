@@ -1,6 +1,7 @@
 package com.phacsin.student.main.admin;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +52,9 @@ public class ListSubject extends AppCompatActivity {
     MaterialSpinner spinner_batch ,spinner_sem;
     DataSnapshot BigSnapshot;
     Button submit;
+    SharedPreferences sharedPreferences;
+    String institution_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +73,10 @@ public class ListSubject extends AppCompatActivity {
         });
         spinner_batch = (MaterialSpinner) findViewById(R.id.spinner_year_subject);
         submit = (Button) findViewById(R.id.btn_submit_month);
+
+        sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
+        institution_name = sharedPreferences.getString("Institution Name","");
+
         spinner_batch.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -86,7 +94,7 @@ public class ListSubject extends AppCompatActivity {
             }
         });
 
-        mRef.child("College").child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("College").child(institution_name).child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BigSnapshot = dataSnapshot;
@@ -110,7 +118,7 @@ public class ListSubject extends AppCompatActivity {
                 String batch = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
                 String semester = spinner_sem.getItems().get(spinner_sem.getSelectedIndex()).toString();
                 data.clear();
-                mRef.child("College").child("Subject_Taken").child(batch).child(semester).addListenerForSingleValueEvent(new ValueEventListener() {
+                mRef.child("College").child(institution_name).child("Subject_Taken").child(batch).child(semester).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -179,7 +187,7 @@ public class ListSubject extends AppCompatActivity {
                 final MaterialSpinner spinner_staff = (MaterialSpinner) mMaterialDialog.findViewById(R.id.spinner_staff);
                 final MaterialSpinner spinner_subject = (MaterialSpinner) mMaterialDialog.findViewById(R.id.spinner_subject);
 
-                mRef.child("College").child("Staff").orderByChild("Name").addValueEventListener(new ValueEventListener() {
+                mRef.child("College").child(institution_name).child("Staff").orderByChild("Name").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -196,7 +204,7 @@ public class ListSubject extends AppCompatActivity {
                     }
                 });
 
-                mRef.child("College").child("Subject").child(batch_selected).child(semester_selected).orderByChild("Subject Code").addValueEventListener(new ValueEventListener() {
+                mRef.child("College").child(institution_name).child("Subject").child(batch_selected).child(semester_selected).orderByChild("Subject Code").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -223,7 +231,7 @@ public class ListSubject extends AppCompatActivity {
                         Map<String,String> map = new HashMap<String, String>();
                         map.put("Staff",staff_name);
                         map.put("Subject",subject_name);
-                        mRef.child("College").child("Subject_Taken").child(batch_selected).child(semester_selected).push().setValue(map);
+                        mRef.child("College").child(institution_name).child("Subject_Taken").child(batch_selected).child(semester_selected).push().setValue(map);
                         DataSubject dataSubject = new DataSubject();
                         dataSubject.name = subject_name;
                         dataSubject.teacher = staff_name;

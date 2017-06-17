@@ -245,12 +245,12 @@ public class MainActivity extends AppCompatActivity {
                                 mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("Semester").setValue(rb_new.getText().toString());
                                 editor.putString("Semester",rb_new.getText().toString());
                                 editor.commit();
-                                adapter.notifyDataSetChanged();
                                 final Handler handler  = new Handler();
                                 final Runnable runnable = new Runnable() {
                                     @Override
                                     public void run() {
-                                        mMaterialDialog.dismiss();
+                                        startActivity(new Intent(MainActivity.this,MainActivity.class));
+                                        finish();
                                     }
                                 };
                                 handler.postDelayed(runnable,300);
@@ -266,10 +266,12 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.logout:
-                String batch = sharedPreferences.getString("Batch","");
-                FirebaseMessaging.getInstance().unsubscribeFromTopic(batch.replace(" ",""));
+                String institution = sharedPreferences.getString("Institution Name","").replaceAll("[^a-zA-Z0-9]","");
+                String batch = sharedPreferences.getString("Batch","").replaceAll("[^a-zA-Z0-9]","");
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(institution + "_" + batch);
                 editor.remove("Type");
                 editor.remove("Batch");
+                editor.remove("Institution Name");
                 editor.commit();
                 mAuth.signOut();
 

@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +21,11 @@ import com.phacsin.student.R;
 import com.phacsin.student.customfonts.HelveticaButton;
 import com.phacsin.student.customfonts.HelveticaEditText;
 import com.phacsin.student.main.admin.CustomAndroidGridViewAdapter;
+import com.phacsin.student.main.admin.ListStaff;
+import com.phacsin.student.main.admin.ListStudents;
+import com.phacsin.student.main.admin.ListSubject;
 import com.phacsin.student.main.admin.Message_Admin;
+import com.phacsin.student.main.admin.Profile_Admin;
 
 import java.util.ArrayList;
 
@@ -62,36 +67,26 @@ public class TeacherMainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         gridView = (GridView) findViewById(R.id.grid);
         gridView.setAdapter(new CustomAndroidGridViewAdapter(this, gridViewStrings, gridViewImages));
-        /*card1=(CardView)findViewById(R.id.card_add_attendance);
-        card2=(CardView)findViewById(R.id.card_add_mark);
-        card3=(CardView)findViewById(R.id.card_view_message);
-        card1.setOnClickListener(new View.OnClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent edit=new Intent(getApplicationContext(),EditActivity.class);
-                startActivity(edit);
-                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position)
+                {
+                    case 0:
+                        startActivity(new Intent(getApplicationContext(),EditActivity.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                    case 1:
+                        startActivity(new Intent(getApplicationContext(),InputMark.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                    case 2:
+                        startActivity(new Intent(getApplicationContext(),Message_Admin.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                }
             }
         });
-        card2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent edit=new Intent(getApplicationContext(),InputMark.class);
-                startActivity(edit);
-                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-
-            }
-        });
-        card3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent edit=new Intent(getApplicationContext(),Message_Admin.class);
-                startActivity(edit);
-                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-            }
-        });
-*/
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

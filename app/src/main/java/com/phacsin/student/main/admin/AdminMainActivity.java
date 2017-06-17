@@ -73,7 +73,30 @@ public class AdminMainActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("ON_ITEM_CLICK_LISTENER", "item clicked");
+                switch (position)
+                {
+                    case 0:
+                        startActivity(new Intent(getApplicationContext(),Profile_Admin.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                            break;
+                    case 1:
+                        startActivity(new Intent(getApplicationContext(),Message_Admin.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                    case 2:
+                        startActivity(new Intent(getApplicationContext(),ListStaff.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                    case 3:
+                        startActivity(new Intent(getApplicationContext(),ListStudents.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                    case 4:
+                        startActivity(new Intent(getApplicationContext(),ListSubject.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+
+                }
             }
         });
         mAuth = FirebaseAuth.getInstance();
