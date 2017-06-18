@@ -84,12 +84,19 @@ public class MainActivity extends AppCompatActivity {
             mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String semester = dataSnapshot.child("Semester").getValue(String.class);
-                    editor.putString("Semester",semester);
-                    editor.commit();
-                    setupViewPager(viewPager);
-                    tabLayout.setupWithViewPager(viewPager);
-                    setupTabIcons();
+                    if(dataSnapshot.hasChild("Semester")) {
+                        String semester = dataSnapshot.child("Semester").getValue(String.class);
+                        editor.putString("Semester", semester);
+                        editor.commit();
+                    }
+                    else {
+                        String semester = "Semester 1";
+                        editor.putString("Semester", semester);
+                        editor.commit();
+                        setupViewPager(viewPager);
+                        tabLayout.setupWithViewPager(viewPager);
+                        setupTabIcons();
+                    }
                 }
 
                 @Override

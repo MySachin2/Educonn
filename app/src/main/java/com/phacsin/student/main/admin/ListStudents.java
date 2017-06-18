@@ -3,12 +3,14 @@ package com.phacsin.student.main.admin;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +18,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.phacsin.student.R;
+import com.phacsin.student.RandomPasswordGenerator;
 import com.phacsin.student.customfonts.HelveticaButton;
 import com.phacsin.student.customfonts.HelveticaEditText;
 import com.phacsin.student.customfonts.NiceFont;
@@ -53,6 +62,7 @@ public class ListStudents extends AppCompatActivity {
     private Button submit;
     SharedPreferences sharedPreferences;
     String institution_name;
+    private FirebaseAuth mAuth,mAuth_temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +71,23 @@ public class ListStudents extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Students");
         setSupportActionBar(toolbar);
+
         mRef = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
+                .setDatabaseUrl("https://student-2c02a.firebaseio.com/")
+                .setApiKey("AIzaSyCimNyM-hi4ET1boCA7138C02lqkRuQ6f0")
+                .setApplicationId("student-2c02a").build();
+        try {
+            FirebaseApp myApp = FirebaseApp.initializeApp(getApplicationContext(), firebaseOptions , RandomPasswordGenerator.generate(8));
+
+            mAuth_temp = FirebaseAuth.getInstance(myApp);
+        }catch (IllegalStateException e)
+        {
+            Log.e("FireBase",e.toString());
+        }
+
         sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
         institution_name = sharedPreferences.getString("Institution Name","");
         toolbar.setNavigationIcon(R.drawable.ic_left_arrow);
@@ -142,7 +168,6 @@ public class ListStudents extends AppCompatActivity {
 
         finish();
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
-
     }
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -163,6 +188,7 @@ public class ListStudents extends AppCompatActivity {
                 final HelveticaEditText editText_name = (HelveticaEditText) mMaterialDialog.findViewById(R.id.typed_name_student_name);
                 final HelveticaEditText editText_reg_no = (HelveticaEditText) mMaterialDialog.findViewById(R.id.typed_name_student_reg);
                 final HelveticaEditText editText_contact_no = (HelveticaEditText) mMaterialDialog.findViewById(R.id.typed_name_student_phone);
+                final HelveticaEditText editText_email = (HelveticaEditText) mMaterialDialog.findViewById(R.id.typed_name_student_email);
 
 
                 batch_selected_dialog=(NiceFont)mMaterialDialog.findViewById(R.id.batch_selected_student);
@@ -174,18 +200,46 @@ public class ListStudents extends AppCompatActivity {
                 add_student.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String name = editText_name.getText().toString();
-                        String reg = editText_reg_no.getText().toString();
-                        String phone = editText_contact_no.getText().toString();
+                        final String name = editText_name.getText().toString();
+                        final String reg = editText_reg_no.getText().toString();
+                        final String phone = editText_contact_no.getText().toString();
+                        final String email = editText_email.getText().toString();
 
                         if(name.equals("")||reg.equals("")||phone.equals(""))
                             Toast.makeText(getApplicationContext(),"One or more fields are empty",Toast.LENGTH_LONG).show();
                         else
                         {
-                            Map<String,String> map = new HashMap<String, String>();
+                            final Map<String,String> map = new HashMap<String, String>();
                             map.put("Name",name);
                             map.put("Registration Number",reg);
+                            map.put("Email",email);
                             map.put("Contact Number",phone);
+                            String randomPass = RandomPasswordGenerator.generate(16);
+                            mAuth_temp.createUserWithEmailAndPassword(email,randomPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful())
+                                    {
+                                        Map<String,String> user = new HashMap<String, String>();
+                                        user.put("Name",name);
+                                        user.put("Registration Number",reg);
+                                        user.put("Email",email);
+                                        user.put("Contact Number",phone);
+                                        user.put("Institution Name",institution_name);
+                                        user.put("Institution Type","College");
+                                        user.put("Type","Student");
+                                        mRef.child("Users").child(task.getResult().getUser().getUid()).setValue(user);
+                                        mAuth_temp.signOut();
+                                        Toast.makeText(getApplicationContext(),"Successfully Created",Toast.LENGTH_LONG).show();
+
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(getApplicationContext(),"Unsuccessful",Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                            });
                             mRef.child("College").child(institution_name).child("Students").child(batch_selected).push().setValue(map);
                             DataStudent dataStudent = new DataStudent();
                             dataStudent.name = name;

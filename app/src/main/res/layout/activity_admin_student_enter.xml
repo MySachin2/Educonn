@@ -64,6 +64,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="100sp"
+            android:id="@+id/typed_name_student_email"
+            android:hint="Email"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:maxLength="120"
+            android:textStyle="bold"
+            android:textColor="@color/black_dark" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:background="@color/grey_divider"
+            android:layout_gravity="bottom"/>
+        <com.phacsin.student.customfonts.HelveticaEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="100sp"
             android:inputType="number"
             android:id="@+id/typed_name_student_phone"
             android:hint="Contact no if any "

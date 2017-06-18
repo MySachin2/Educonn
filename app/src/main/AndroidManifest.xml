@@ -47,13 +47,15 @@
             android:theme="@style/MyMaterialTheme"/>
         <!-- LIST STAFF -->
         <activity android:name=".main.admin.ListStaff"
-            android:theme="@style/MyMaterialTheme"/>
+            android:theme="@style/MyMaterialTheme"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <!-- LIST SUBJECTS -->
         <activity android:name=".main.admin.ListSubject"
             android:theme="@style/MyMaterialTheme"/>
         <!-- LIST STUDENTS -->
         <activity android:name=".main.admin.ListStudents"
-        android:theme="@style/MyMaterialTheme"/>
+        android:theme="@style/MyMaterialTheme"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name=".main.admin.Download_Data"
             android:theme="@style/MyMaterialTheme"/>
         <!--admin_phase_end-->
