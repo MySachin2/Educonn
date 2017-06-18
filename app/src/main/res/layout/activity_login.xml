@@ -63,7 +63,7 @@
             android:padding="12dp"
             android:text="Login"/>
         <com.phacsin.student.customfonts.Helvetica
-            android:text="Forgot password ?"
+            android:text="Reset Password"
             android:id="@+id/forgot_password_text"
             android:textSize="18sp"
             android:textColor="@color/green"

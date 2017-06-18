@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -10,16 +12,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
         <com.phacsin.student.customfonts.HelveticaEditText
-            android:id="@+id/typed_name_staff"
+            android:id="@+id/admin_insti_name"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text=""
-            android:hint="Enter Name"
+            android:hint="Institution name"
             android:gravity="center"
-            android:textSize="20sp"
-            android:maxLength="120"
             android:textStyle="bold"
-            android:textColor="@color/black_dark"
             android:layout_width="match_parent"
             android:layout_height="45sp"
             android:layout_margin="10dp"
@@ -33,21 +32,17 @@
             android:background="@color/grey_divider"
             android:layout_gravity="bottom"/>
         <com.phacsin.student.customfonts.HelveticaEditText
-            android:id="@+id/typed_email_id_staff"
+            android:id="@+id/admin_batch_name"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text=""
-            android:hint="Enter Email"
             android:gravity="center"
-            android:textSize="20sp"
-            android:maxLength="120"
             android:textStyle="bold"
-            android:textColor="@color/black_dark"
+            android:hint="Batch"
             android:layout_width="match_parent"
             android:layout_height="45sp"
             android:layout_margin="10dp"
             android:background="@drawable/admin_profile_edit_edit_text" />
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -56,6 +51,7 @@
             android:layout_marginRight="5sp"
             android:background="@color/grey_divider"
             android:layout_gravity="bottom"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,7 +64,7 @@
                 android:layout_margin="15dp"
                 android:layout_height="40dp">
                 <com.phacsin.student.customfonts.HelveticaButton
-                    android:id="@+id/btn_cancel_staff_adding"
+                    android:id="@+id/btn_cancel_subject_adding"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="40sp"
@@ -79,7 +75,7 @@
                     android:background="@drawable/button_cancel_yellow"
                     android:text="Cancel"/>
                 <com.phacsin.student.customfonts.HelveticaButton
-                    android:id="@+id/btn_add_staff"
+                    android:id="@+id/btn_add_subject"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="40sp"
@@ -88,7 +84,21 @@
                     android:text="Add"/>
 
             </LinearLayout>
-
+            <!--<LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.phacsin.student.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/msg_count"
+                    android:hint="Maximum 120 Characters"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/grey" />
+            </LinearLayout>-->
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

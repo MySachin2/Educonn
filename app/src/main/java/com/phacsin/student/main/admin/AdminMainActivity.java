@@ -1,6 +1,5 @@
 package com.phacsin.student.main.admin;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,12 +18,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.phacsin.student.LoginActivity;
 import com.phacsin.student.R;
-import com.phacsin.student.customfonts.HelveticaButton;
-import com.phacsin.student.customfonts.HelveticaEditText;
-import com.phacsin.student.main.Teacher.TeacherMainActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -44,20 +38,24 @@ public class AdminMainActivity extends AppCompatActivity {
     ArrayList arrayList;
 
     public static String[] gridViewStrings = {
-            "Profile",
             "Message",
+            "Add Batches",
             "Staffs",
             "Students",
-            "Subjects",
+            "Add Subjects",
+            "Assign Subject",
+            "Settings",
             "Help Desk",
 
     };
     public static int[] gridViewImages = {
-            R.mipmap.student,
             R.mipmap.msg_admin,
+            R.mipmap.batches,
             R.mipmap.admin_profile_icon,
             R.mipmap.students_admin,
+            R.mipmap.asgn_subject,
             R.mipmap.subject_admin,
+            R.mipmap.settings,
             R.mipmap.helpdesk_admin,
     };
 
@@ -76,11 +74,11 @@ public class AdminMainActivity extends AppCompatActivity {
                 switch (position)
                 {
                     case 0:
-                        startActivity(new Intent(getApplicationContext(),Profile_Admin.class));
+                        startActivity(new Intent(getApplicationContext(),Message_Admin.class));
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                             break;
                     case 1:
-                        startActivity(new Intent(getApplicationContext(),Message_Admin.class));
+                        startActivity(new Intent(getApplicationContext(),Add_Batches.class));
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         break;
                     case 2:
@@ -92,7 +90,19 @@ public class AdminMainActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         break;
                     case 4:
+                        startActivity(new Intent(getApplicationContext(),Add_Subject.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                    case 5:
                         startActivity(new Intent(getApplicationContext(),ListSubject.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                    case 6:
+                        startActivity(new Intent(getApplicationContext(),Settings_Admin.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                    case 7:
+                        startActivity(new Intent(getApplicationContext(),Help_Desk_Admin.class));
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         break;
 
@@ -111,7 +121,7 @@ public class AdminMainActivity extends AppCompatActivity {
         card_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(getApplicationContext(),Profile_Admin.class);
+                Intent i=new Intent(getApplicationContext(),Settings_Admin.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 

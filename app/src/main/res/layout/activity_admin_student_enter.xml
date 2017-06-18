@@ -19,18 +19,21 @@
                 android:text="2014"/>
         </LinearLayout>
         <com.phacsin.student.customfonts.HelveticaEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="100sp"
             android:id="@+id/typed_name_student_reg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text=""
             android:hint="Enter Register Number"
-            android:layout_centerInParent="true"
-            android:background="@android:color/transparent"
             android:gravity="center"
             android:textSize="20sp"
             android:maxLength="120"
             android:textStyle="bold"
-            android:textColor="@color/black_dark" />
+            android:textColor="@color/black_dark"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_margin="10dp"
+            android:background="@drawable/admin_profile_edit_edit_text" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -40,18 +43,21 @@
             android:background="@color/grey_divider"
             android:layout_gravity="bottom"/>
         <com.phacsin.student.customfonts.HelveticaEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="100sp"
             android:id="@+id/typed_name_student_name"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text=""
             android:hint="Enter Name of Student"
-            android:layout_centerInParent="true"
-            android:background="@android:color/transparent"
             android:gravity="center"
             android:textSize="20sp"
             android:maxLength="120"
             android:textStyle="bold"
-            android:textColor="@color/black_dark" />
+            android:textColor="@color/black_dark"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_margin="10dp"
+            android:background="@drawable/admin_profile_edit_edit_text" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -61,18 +67,20 @@
             android:background="@color/grey_divider"
             android:layout_gravity="bottom"/>
         <com.phacsin.student.customfonts.HelveticaEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="100sp"
             android:id="@+id/typed_name_student_email"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text=""
             android:hint="Email"
-            android:layout_centerInParent="true"
-            android:background="@android:color/transparent"
             android:gravity="center"
             android:textSize="20sp"
             android:maxLength="120"
             android:textStyle="bold"
-            android:textColor="@color/black_dark" />
+            android:textColor="@color/black_dark"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_margin="10dp"
+            android:background="@drawable/admin_profile_edit_edit_text" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -82,19 +90,21 @@
             android:background="@color/grey_divider"
             android:layout_gravity="bottom"/>
         <com.phacsin.student.customfonts.HelveticaEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="100sp"
-            android:inputType="number"
             android:id="@+id/typed_name_student_phone"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text=""
             android:hint="Contact no if any "
-            android:layout_centerInParent="true"
-            android:background="@android:color/transparent"
             android:gravity="center"
             android:textSize="20sp"
             android:maxLength="120"
             android:textStyle="bold"
-            android:textColor="@color/black_dark" />
+            android:textColor="@color/black_dark"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_margin="10dp"
+            android:background="@drawable/admin_profile_edit_edit_text" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
