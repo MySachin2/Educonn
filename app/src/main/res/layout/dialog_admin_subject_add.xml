@@ -40,12 +40,24 @@
             android:background="@color/grey_divider"
             android:layout_gravity="bottom"/>
         <com.phacsin.student.customfonts.HelveticaEditText
-            android:id="@+id/admin_profile_edit_name"
+            android:id="@+id/admin_subject_edit"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text=""
             android:gravity="center"
             android:hint="Subject Name"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_margin="10dp"
+            android:background="@drawable/admin_profile_edit_edit_text" />
+        <com.phacsin.student.customfonts.HelveticaEditText
+            android:id="@+id/admin_subject_code_edit"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text=""
+            android:gravity="center"
+            android:hint="Subject Code"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="45sp"
