@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_send.xml",
+        "source": "E:\\Educonn\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_send.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_add_staff.xml",
+        "source": "E:\\Educonn\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_add_staff.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_logout.xml",
+        "source": "E:\\Educonn\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_logout.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_student.xml",
+        "source": "E:\\Educonn\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_student.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\submit_arrow.xml",
+        "source": "E:\\Educonn\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\submit_arrow.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_left_arrow.xml",
+        "source": "E:\\Educonn\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_left_arrow.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\edit.xml",
+        "source": "E:\\Educonn\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\edit.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ms__menu_down.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\36c319656eab2d6b638767bb0f17dc34532f04e7\\output\\res\\drawable-anydpi-v21\\ms__menu_down.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_del.xml",
+        "source": "E:\\Educonn\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_del.xml"
+    }
+]

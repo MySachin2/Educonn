@@ -1,0 +1,7 @@
+#Mon Jun 19 16:01:37 GMT+05:30 2017
+base.0=E\:\\Educonn\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_11a8913cd00a678d272002209e9ba02b4fb9f493
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=E\:\\Educonn\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_699326d90b62f0e51f8aec85ba6cc96ba8c45fb7\\classes.dex
+base.1=E\:\\Educonn\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_699326d90b62f0e51f8aec85ba6cc96ba8c45fb7
+file.0=E\:\\Educonn\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_11a8913cd00a678d272002209e9ba02b4fb9f493\\classes.dex

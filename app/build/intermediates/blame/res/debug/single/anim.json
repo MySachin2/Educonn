@@ -1,0 +1,130 @@
+[
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\7bd971f4ba52fe28666705fd6add82f786de4b95\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\modal_out.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\994d2aa9063df9c59dd010502a60599cda7f19a3\\output\\res\\anim\\modal_out.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\fab_slide_out_to_right.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\43cda92717cf695e7438e126f590855c45b53b3d\\output\\res\\anim\\fab_slide_out_to_right.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\7bd971f4ba52fe28666705fd6add82f786de4b95\\output\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\6b1cfcafab08baa4a450856227a2eeb4af6692a1\\output\\res\\anim\\design_snackbar_in.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\fab_scale_up.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\43cda92717cf695e7438e126f590855c45b53b3d\\output\\res\\anim\\fab_scale_up.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\success_mask_layout.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\994d2aa9063df9c59dd010502a60599cda7f19a3\\output\\res\\anim\\success_mask_layout.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_from_right.xml",
+        "source": "E:\\Educonn\\app\\src\\main\\res\\anim\\slide_from_right.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\7bd971f4ba52fe28666705fd6add82f786de4b95\\output\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\fab_slide_out_to_left.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\43cda92717cf695e7438e126f590855c45b53b3d\\output\\res\\anim\\fab_slide_out_to_left.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\7bd971f4ba52fe28666705fd6add82f786de4b95\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\error_x_in.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\994d2aa9063df9c59dd010502a60599cda7f19a3\\output\\res\\anim\\error_x_in.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_from_left.xml",
+        "source": "E:\\Educonn\\app\\src\\main\\res\\anim\\slide_from_left.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\7bd971f4ba52fe28666705fd6add82f786de4b95\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\7bd971f4ba52fe28666705fd6add82f786de4b95\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\fab_slide_in_from_left.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\43cda92717cf695e7438e126f590855c45b53b3d\\output\\res\\anim\\fab_slide_in_from_left.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\6b1cfcafab08baa4a450856227a2eeb4af6692a1\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\7bd971f4ba52fe28666705fd6add82f786de4b95\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_fab_in.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\6b1cfcafab08baa4a450856227a2eeb4af6692a1\\output\\res\\anim\\design_fab_in.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_to_right.xml",
+        "source": "E:\\Educonn\\app\\src\\main\\res\\anim\\slide_to_right.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\6b1cfcafab08baa4a450856227a2eeb4af6692a1\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\7bd971f4ba52fe28666705fd6add82f786de4b95\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\success_bow_roate.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\994d2aa9063df9c59dd010502a60599cda7f19a3\\output\\res\\anim\\success_bow_roate.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\6b1cfcafab08baa4a450856227a2eeb4af6692a1\\output\\res\\anim\\design_snackbar_out.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\7bd971f4ba52fe28666705fd6add82f786de4b95\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\fab_slide_in_from_right.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\43cda92717cf695e7438e126f590855c45b53b3d\\output\\res\\anim\\fab_slide_in_from_right.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\fab_scale_down.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\43cda92717cf695e7438e126f590855c45b53b3d\\output\\res\\anim\\fab_scale_down.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\7bd971f4ba52fe28666705fd6add82f786de4b95\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\error_frame_in.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\994d2aa9063df9c59dd010502a60599cda7f19a3\\output\\res\\anim\\error_frame_in.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_to_left.xml",
+        "source": "E:\\Educonn\\app\\src\\main\\res\\anim\\slide_to_left.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_fab_out.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\6b1cfcafab08baa4a450856227a2eeb4af6692a1\\output\\res\\anim\\design_fab_out.xml"
+    },
+    {
+        "merged": "E:\\Educonn\\app\\build\\intermediates\\res\\merged\\debug\\anim\\modal_in.xml",
+        "source": "C:\\Users\\bineeshpbabu\\.android\\build-cache\\994d2aa9063df9c59dd010502a60599cda7f19a3\\output\\res\\anim\\modal_in.xml"
+    }
+]
