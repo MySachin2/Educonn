@@ -21,14 +21,14 @@
            android:layout_height="wrap_content"
            android:id="@+id/batch_selected_subject"
            android:textColor="@color/black_dark"
-           android:text="2014"/>
+           android:text="10"/>
         <com.phacsin.educonn_school.customfonts.NiceFont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/semester_selected_subject"
             android:layout_marginLeft="20dp"
             android:textColor="@color/black_dark"
-            android:text="Semester 3"/>
+            android:text="A"/>
         </LinearLayout>
 
         <com.phacsin.educonn_school.customfonts.CustomSpinnerFont

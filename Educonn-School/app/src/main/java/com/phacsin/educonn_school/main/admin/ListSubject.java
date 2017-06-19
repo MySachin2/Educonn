@@ -80,12 +80,12 @@ public class ListSubject extends AppCompatActivity {
             }
         });
         spinner_sem = (MaterialSpinner) findViewById(R.id.spinner_sem_subject);
-        spinner_sem.setItems("Semester 1", "Semester 2", "Semester 3", "Semester 4","Semester 5","Semester 6","Semester 7","Semester 8");
+        spinner_sem.setItems("Division 1", "Division 2", "Division 3", "Division 4","Division 5","Division 6","Division 7","Division 8");
         spinner_sem.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
-                Snackbar.make(view,"Selected Semester " + item, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view,"Selected Division " + item, Snackbar.LENGTH_LONG).show();
                 semester_selected =item;
 
             }
