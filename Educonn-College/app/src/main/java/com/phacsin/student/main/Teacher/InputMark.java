@@ -29,7 +29,7 @@ import java.util.List;
 
 public class InputMark  extends AppCompatActivity {
     HelveticaButton btn_input_mark;
-    HelveticaEditText edittext_mark;
+    HelveticaEditText edittext_mark,out_of_mark;
     private DatabaseReference mref;
     MaterialSpinner spinner_batch, spinner_semester, spinner_subject, spinner_sessional;
     private ValueEventListener subject_change_listener;
@@ -63,19 +63,25 @@ public class InputMark  extends AppCompatActivity {
         btn_input_mark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(valid_subject) {
-                    Intent i = new Intent(getApplicationContext(), InputMarkList.class);
-                    i.putExtra("batch", spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString());
-                    i.putExtra("semester", spinner_semester.getItems().get(spinner_semester.getSelectedIndex()).toString());
-                    i.putExtra("subject", spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString());
-                    i.putExtra("sessional", spinner_sessional.getItems().get(spinner_sessional.getSelectedIndex()).toString());
-                    i.putExtra("total", edittext_mark.getText().toString());
-                    startActivity(i);
-                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                }
-                else
-                    Toast.makeText(getApplicationContext(),"Subject is Invalid",Toast.LENGTH_LONG).show();
+                if (verify_out_of_mark()==true){
+                    if (valid_subject) {
+                        Intent i = new Intent(getApplicationContext(), InputMarkList.class);
+                        i.putExtra("batch", spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString());
+                        i.putExtra("semester", spinner_semester.getItems().get(spinner_semester.getSelectedIndex()).toString());
+                        i.putExtra("subject", spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString());
+                        i.putExtra("sessional", spinner_sessional.getItems().get(spinner_sessional.getSelectedIndex()).toString());
+                        i.putExtra("total", edittext_mark.getText().toString());
+                        startActivity(i);
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                    }
+                    else
+                        Toast.makeText(getApplicationContext(), "Subject is Invalid", Toast.LENGTH_LONG).show();
 
+                }
+                else {
+                    out_of_mark = (HelveticaEditText) findViewById(R.id.out_of_mark);
+                    out_of_mark.setError("Enter Out Of Mark");
+                }
             }
         });
         spinner_batch = (MaterialSpinner) findViewById(R.id.spinner_mark_add_year);
@@ -214,6 +220,15 @@ public class InputMark  extends AppCompatActivity {
             }
         });*/
     }
+
+    private boolean verify_out_of_mark(){
+        out_of_mark=(HelveticaEditText)findViewById(R.id.out_of_mark);
+        if(out_of_mark.getText().toString().isEmpty()){
+            return false;
+        }
+        else return  true;
+    }
+
     @Override
     public void onBackPressed() {
 

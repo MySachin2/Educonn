@@ -118,8 +118,10 @@ public class Settings_Admin extends AppCompatActivity {
         card_admin_change_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(getApplicationContext(),Admin_Change_Password.class);
+                Intent i=new Intent(getApplicationContext(),Forgot_Password.class);
                 startActivity(i);
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+
             }
         });
     }
