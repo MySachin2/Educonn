@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/tabanim_appbar"
+        android:background="@color/green"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@color/green"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_admin_profile_change_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            android:minHeight="70dp"
+            card_view:cardElevation="1dp"
+            card_view:cardCornerRadius="4dp"
+            android:layout_margin="2dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <com.phacsin.educonn_school.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:text="Change Password" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_admin_profile_last_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="@color/white"
+        android:minHeight="70dp"
+        card_view:cardElevation="1dp"
+        card_view:cardCornerRadius="4dp"
+        android:layout_margin="2dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <com.phacsin.educonn_school.customfonts.NiceFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey_700"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:layout_marginRight="5sp"
+                android:text="Last Login :" />
+            <com.phacsin.educonn_school.customfonts.NiceFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/admin_profile_last_login_id"
+                android:textColor="@color/grey_700"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:text="" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_admin_payment_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            android:minHeight="70dp"
+            card_view:cardElevation="1dp"
+            card_view:cardCornerRadius="15dp"
+            android:layout_margin="5dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <com.phacsin.educonn_school.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey_700"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginRight="5sp"
+                    android:text="Payment Status :" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.phacsin.educonn_school.customfonts.NiceFont
+                        android:layout_width="wrap_content"
+                        android:id="@+id/admin_profile_payment_status"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="20sp"
+                        android:text="" />
+                </RelativeLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_admin_profile_activation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            android:minHeight="70dp"
+            card_view:cardElevation="0dp"
+            card_view:cardCornerRadius="15dp"
+            android:layout_margin="5dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <com.phacsin.educonn_school.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey_700"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginRight="5sp"
+                    android:text="Activation Date :" />
+                <com.phacsin.educonn_school.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/admin_profile_payment_activation_date"
+                    android:textColor="@color/grey_700"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginRight="5sp"
+                    android:text="" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            android:minHeight="70dp"
+            card_view:cardElevation="0dp"
+            card_view:cardCornerRadius="15dp"
+            android:layout_margin="5dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <com.phacsin.educonn_school.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey_700"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginRight="5sp"
+                    android:text="No. of Days Left :" />
+                <com.phacsin.educonn_school.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/admin_profile_payment_days_left"
+                    android:textColor="@color/grey_700"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginRight="5sp"
+                    android:text="" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            android:minHeight="70dp"
+            card_view:cardElevation="0dp"
+            card_view:cardCornerRadius="15dp"
+            android:layout_margin="5dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <com.phacsin.educonn_school.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey_700"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginRight="5sp"
+                    android:text="Next Payment On :" />
+                <com.phacsin.educonn_school.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/admin_profile_payment_next_payment"
+                    android:textColor="@color/grey_700"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:text="" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

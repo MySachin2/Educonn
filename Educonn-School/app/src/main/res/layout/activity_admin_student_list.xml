@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/tools"
+    android:background="@color/grey"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/tabanim_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/green"
+                android:title="Admin"
+                android:titleTextColor="#ffffff"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.PopupOverlay"></android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="8dp"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
+                android:id="@+id/spinner_batch"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                app:ms_arrow_tint="@color/green"
+                app:ms_background_color="@color/spinner"
+                android:layout_weight="1"
+                app:ms_text_color="@color/black_dark" />
+
+
+            <com.phacsin.educonn_school.customfonts.HelveticaButton
+                android:id="@+id/btn_submit_month"
+                android:layout_width="70sp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/button_barder_submit"
+                android:text="Go"
+                android:textColor="@color/green" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/grey" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:scrollbarSize="0dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="none" />
+    </LinearLayout>
+    <!-- <com.github.clans.fab.FloatingActionButton
+         android:id="@+id/fab_add_student"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="bottom|right"
+         android:layout_marginBottom="8dp"
+         android:layout_marginRight="8dp"
+         android:src="@drawable/edit"
+         fab:fab_colorNormal="@color/yellow"
+         fab:fab_colorPressed="@color/green"
+         fab:fab_colorRipple="@color/dark_green"/>-->
+</LinearLayout>
