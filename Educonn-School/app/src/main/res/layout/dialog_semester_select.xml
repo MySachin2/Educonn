@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <RadioButton
+            android:id="@+id/radio_semester_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Semester 1"
+            android:textSize="20sp"
+            android:padding="5sp"
+            />
+        <RadioButton
+            android:id="@+id/radio_semester_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Semester 2"
+            android:textSize="20sp"
+            android:padding="5sp"/>
+        <RadioButton
+            android:id="@+id/radio_semester_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Semester 3"
+            android:textSize="20sp"
+            android:padding="5sp"/>
+        <RadioButton
+            android:id="@+id/radio_semester_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Semester 4"
+            android:textSize="20sp"
+            android:padding="5sp"/>
+        <RadioButton
+            android:id="@+id/radio_semester_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Semester 5"
+            android:textSize="20sp"
+            android:padding="5sp"/>
+        <RadioButton
+            android:id="@+id/radio_semester_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Semester 6"
+            android:textSize="20sp"
+            android:padding="5sp"/>
+        <RadioButton
+            android:id="@+id/radio_semester_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Semester 7"
+            android:textSize="20sp"
+            android:padding="5sp"/>
+        <RadioButton
+            android:id="@+id/radio_semester_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Semester 8"
+            android:textSize="20sp"
+            android:padding="5sp"/>
+    </RadioGroup>
+</LinearLayout>

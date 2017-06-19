@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <com.phacsin.student.customfonts.HelveticaEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="200sp"
+        android:id="@+id/typed_message"
+        android:hint="Type Your Message"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:maxLength="120"
+        android:textStyle="bold"
+        android:textColor="@color/black_dark" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:background="@color/grey_divider"
+            android:layout_gravity="bottom"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentBottom="true">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_height="40dp">
+
+                <com.phacsin.student.customfonts.HelveticaButton
+                    android:id="@+id/btn_cancel_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="40sp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/red"
+                    android:background="@drawable/button_cancel_message"
+                    android:text="Cancel"/>
+                <com.phacsin.student.customfonts.HelveticaButton
+                    android:id="@+id/btn_send_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="40sp"
+
+                    android:textColor="@color/dark_green"
+                    android:background="@drawable/button_year_semester_submit"
+                    android:text="Send"/>
+
+            </LinearLayout>
+                <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <com.phacsin.student.customfonts.NiceFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/msg_count"
+                android:hint="Maximum 120 Characters"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:textColor="@color/grey" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

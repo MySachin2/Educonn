@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view1"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="11dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="15dp"
+        card_view:paddingEnd="2dp"
+        card_view:cardBackgroundColor="@color/white">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/heading_noti"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/attendance_background">
+              <ImageView
+                  android:layout_width="20sp"
+                  android:layout_height="20sp"
+                  android:layout_gravity="center"
+                  android:src="@drawable/msg"/>
+            </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:layout_marginTop="10dp">
+               <com.phacsin.student.customfonts.NiceFont
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="20sp"
+                   android:textSize="22sp"
+                   android:layout_marginRight="15dp"
+                   android:layout_gravity="left"
+                   android:textStyle="bold"
+                   android:textColor="@color/black_dark"
+                   android:text="New time table notification"
+                   android:textAppearance="?android:attr/textAppearanceLarge"
+                   android:id="@+id/subject" />
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:layout_marginTop="2dp"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginLeft="20sp"
+                   android:background="@color/grey_divider"
+                   android:layout_gravity="bottom"/>
+
+           </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/message_noti"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50sp"
+            android:orientation="vertical"
+            android:layout_below="@+id/heading_noti">
+            <com.phacsin.student.customfonts.NiceFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textColor="@color/grey_700"
+                android:text="Also, since you were last in Slack, there have been fifty-eight messages in seven channels, one uploaded file, and four comments on files."
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/textViewVersion" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="5dp">
+                <com.phacsin.student.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="Sent at :"
+                    android:textColor="@color/textPrimaryDark"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                <com.phacsin.student.customfonts.NiceFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="22/1/2017 at 5:30"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/textPrimaryDark"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/data_time" />
+
+            </LinearLayout>
+        </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
