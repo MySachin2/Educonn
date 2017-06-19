@@ -93,13 +93,13 @@ public class Messages_Send_Admin extends AppCompatActivity {
             }
         });
         final MaterialSpinner spinner_batch = (MaterialSpinner)findViewById(R.id.spinner);
-        mRef.child("College").child(institution_name).child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("College").child(institution_name).child("Batch").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> batch_list = new ArrayList<String>();
                 for(DataSnapshot postSnapshot: dataSnapshot.getChildren())
                 {
-                    batch_list.add(postSnapshot.getKey());
+                    batch_list.add(postSnapshot.child("Name").getValue(String.class));
                 }
                 if(batch_list.size()!=0)
                     spinner_batch.setItems(batch_list);

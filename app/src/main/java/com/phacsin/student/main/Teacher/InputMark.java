@@ -85,12 +85,12 @@ public class InputMark  extends AppCompatActivity {
         spinner_sessional = (MaterialSpinner) findViewById(R.id.spinner_mark_add_sessional);
         spinner_sessional.setItems("Sessional 1","Sessional 2","Sessional 3");
 
-        mref.child("College").child(institution_name).child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
+        mref.child("College").child(institution_name).child("Batch").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> list = new ArrayList<String>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    list.add(postSnapshot.getKey());
+                    list.add(postSnapshot.child("Name").getValue(String.class));
                 }
                 spinner_batch.setItems(list);
                 //Defaullt Subject

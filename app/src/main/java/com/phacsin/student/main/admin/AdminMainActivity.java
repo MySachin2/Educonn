@@ -78,7 +78,7 @@ public class AdminMainActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                             break;
                     case 1:
-                        startActivity(new Intent(getApplicationContext(),Add_Batches.class));
+                        startActivity(new Intent(getApplicationContext(),Admin_Batches.class));
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         break;
                     case 2:

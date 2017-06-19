@@ -64,12 +64,12 @@ public class EditActivity extends AppCompatActivity {
         spinner_subject = (MaterialSpinner) findViewById(R.id.spinner_subject_take_attendance);
         spinner_batch = (MaterialSpinner) findViewById(R.id.spinner_batch_take_attendance);
 
-        mref.child("College").child(institution_name).child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mref.child("College").child(institution_name).child("Batch").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> spinner_list = new ArrayList<String>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    spinner_list.add(postSnapshot.getKey());
+                    spinner_list.add(postSnapshot.child("Name").getValue(String.class));
                 }
                 if(spinner_list.size()!=0) {
                     spinner_batch.setItems(spinner_list);

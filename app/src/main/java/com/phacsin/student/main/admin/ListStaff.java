@@ -107,7 +107,7 @@ public class ListStaff extends AppCompatActivity {
                     Teacher teacher = postSnapshot.getValue(Teacher.class);
                     data.add(teacher.Name);
                 }
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override

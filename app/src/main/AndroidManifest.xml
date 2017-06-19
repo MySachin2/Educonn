@@ -31,8 +31,6 @@
        <!-- Profile phase begin-->
         <activity android:name=".main.admin.Settings_Admin"
             android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.admin.Add_Batches"
-            android:theme="@style/MyMaterialTheme"/>
         <activity android:name=".main.admin.Add_Subject"
             android:theme="@style/MyMaterialTheme"/>
         <activity android:name=".main.admin.Help_Desk_Admin"

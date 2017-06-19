@@ -94,14 +94,14 @@ public class ListSubject extends AppCompatActivity {
             }
         });
 
-        mRef.child("College").child(institution_name).child("Subject").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("College").child(institution_name).child("Batch").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BigSnapshot = dataSnapshot;
                 List<String> batch_list = new ArrayList<String>();
                 for(DataSnapshot postSnapshot: dataSnapshot.getChildren())
                 {
-                    batch_list.add(postSnapshot.getKey());
+                    batch_list.add(postSnapshot.child("Name").getValue(String.class));
                 }
                 if(batch_list.size()!=0)
                  spinner_batch.setItems(batch_list);

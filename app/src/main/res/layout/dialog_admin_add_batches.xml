@@ -12,26 +12,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
         <com.phacsin.student.customfonts.HelveticaEditText
-            android:id="@+id/admin_insti_name"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text=""
-            android:hint="Institution name"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="45sp"
-            android:layout_margin="10dp"
-            android:background="@drawable/admin_profile_edit_edit_text" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="5sp"
-            android:layout_marginRight="5sp"
-            android:background="@color/grey_divider"
-            android:layout_gravity="bottom"/>
-        <com.phacsin.student.customfonts.HelveticaEditText
             android:id="@+id/admin_batch_name"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -64,7 +44,7 @@
                 android:layout_margin="15dp"
                 android:layout_height="40dp">
                 <com.phacsin.student.customfonts.HelveticaButton
-                    android:id="@+id/btn_cancel_subject_adding"
+                    android:id="@+id/btn_cancel_batch_adding"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="40sp"
@@ -75,7 +55,7 @@
                     android:background="@drawable/button_cancel_yellow"
                     android:text="Cancel"/>
                 <com.phacsin.student.customfonts.HelveticaButton
-                    android:id="@+id/btn_add_subject"
+                    android:id="@+id/btn_add_batch"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="40sp"
