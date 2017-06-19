@@ -25,19 +25,12 @@
         app:popupTheme="@style/AppTheme.PopupOverlay">
     </android.support.v7.widget.Toolbar>
    </android.support.design.widget.AppBarLayout>
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:id="@+id/nestedscrollview"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:orientation="vertical">
 
             <GridView
                 android:id="@+id/grid"
@@ -49,8 +42,7 @@
                 android:numColumns="2"
                 android:horizontalSpacing="10dp"
                 android:verticalSpacing="20dp"
-                android:stretchMode="columnWidth" />
+                android:stretchMode="columnWidth"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-
 </LinearLayout>

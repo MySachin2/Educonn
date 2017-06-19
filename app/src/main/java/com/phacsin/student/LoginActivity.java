@@ -3,6 +3,8 @@ package com.phacsin.student;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,8 @@ import com.phacsin.student.main.Teacher.TeacherMainActivity;
 import com.phacsin.student.customfonts.HelveticaButton;
 import com.phacsin.student.customfonts.HelveticaEditText;
 import com.phacsin.student.main.admin.AdminMainActivity;
+
+import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -98,6 +102,9 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else if(type.equals("Admin"))
                                 {
+                                    Date now = Calendar.getInstance().getTime();
+                                    String nowAsString = new SimpleDateFormat("dd-MM-yyyy").format(now);
+                                    editor.putString("Last Login",nowAsString);
                                     editor.commit();
                                     startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                                 }

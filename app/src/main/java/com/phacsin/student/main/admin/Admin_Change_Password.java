@@ -20,7 +20,7 @@ public class Admin_Change_Password extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_change_password);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Edit Profile");
+        toolbar.setTitle("Change Password");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_left_arrow);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -30,6 +30,7 @@ public class Admin_Change_Password extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
             }
         });
+
     }
     @Override
     public void onBackPressed() {
