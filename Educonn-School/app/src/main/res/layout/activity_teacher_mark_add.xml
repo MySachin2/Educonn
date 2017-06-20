@@ -48,7 +48,7 @@
             android:textColor="@color/black_dark"
             android:text="Select Class"/>
     <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-        android:id="@+id/spinner_mark_add_year"
+        android:id="@+id/spinner_mark_add_class"
         app:ms_background_color="@color/white"
         app:ms_text_color="@color/black_dark"
         app:ms_arrow_tint="@color/green"
@@ -69,7 +69,7 @@
             android:layout_marginTop="3dp"
             android:text="Select Division"/>
         <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-            android:id="@+id/spinner_mark_add_sem"
+            android:id="@+id/spinner_mark_add_division"
             app:ms_background_color="@color/white"
             app:ms_text_color="@color/black_dark"
             android:layout_marginBottom="10dp"
@@ -103,7 +103,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
             android:background="@color/grey"/>
-        <com.phacsin.educonn_school.customfonts.NiceFont
+       <!-- <com.phacsin.educonn_school.customfonts.NiceFont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
@@ -118,12 +118,8 @@
             android:textSize="18dp"
             app:ms_arrow_tint="@color/green"
             android:layout_width="match_parent"
-            android:layout_height="60dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/grey"/>
+            android:layout_height="60dp"/>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

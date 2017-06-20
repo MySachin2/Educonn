@@ -36,8 +36,8 @@ import java.util.Map;
 
 public class ListSubject extends AppCompatActivity {
     Toolbar toolbar;
-    NiceFont batch_selected_dialog,semester_selected_dialog;
-    String semester_selected,batch_selected;
+    NiceFont class_selected_dialog,division_selected_dialog;
+    String division_selected,class_selected;
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
@@ -46,7 +46,7 @@ public class ListSubject extends AppCompatActivity {
     private static ArrayList<Integer> removedItems;
     com.github.clans.fab.FloatingActionButton fab_add_sub;
     private DatabaseReference mRef;
-    MaterialSpinner spinner_batch ,spinner_sem;
+    MaterialSpinner spinner_class ,spinner_division;
     DataSnapshot BigSnapshot;
     Button submit;
     SharedPreferences sharedPreferences;
@@ -68,25 +68,25 @@ public class ListSubject extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
             }
         });
-        spinner_batch = (MaterialSpinner) findViewById(R.id.spinner_year_subject);
+        spinner_class = (MaterialSpinner) findViewById(R.id.spinner_class_subject);
         submit = (Button) findViewById(R.id.btn_submit_month);
 
         sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
         institution_name = sharedPreferences.getString("Institution Name","");
 
-        spinner_batch.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        spinner_class.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
             }
         });
-        spinner_sem = (MaterialSpinner) findViewById(R.id.spinner_sem_subject);
-        spinner_sem.setItems("Division 1", "Division 2", "Division 3", "Division 4","Division 5","Division 6","Division 7","Division 8");
-        spinner_sem.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        spinner_division = (MaterialSpinner) findViewById(R.id.spinner_division_subject);
+        spinner_division.setItems("Division 1", "Division 2", "Division 3", "Division 4","Division 5","Division 6","Division 7","Division 8");
+        spinner_division.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
                 Snackbar.make(view,"Selected Division " + item, Snackbar.LENGTH_LONG).show();
-                semester_selected =item;
+                division_selected =item;
 
             }
         });
@@ -101,7 +101,7 @@ public class ListSubject extends AppCompatActivity {
                     batch_list.add(postSnapshot.child("Name").getValue(String.class));
                 }
                 if(batch_list.size()!=0)
-                 spinner_batch.setItems(batch_list);
+                    spinner_class.setItems(batch_list);
             }
 
             @Override
@@ -112,8 +112,8 @@ public class ListSubject extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String batch = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
-                String semester = spinner_sem.getItems().get(spinner_sem.getSelectedIndex()).toString();
+                String batch = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
+                String semester = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
                 data.clear();
                 mRef.child("College").child(institution_name).child("Subject_Taken").child(batch).child(semester).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -173,13 +173,13 @@ public class ListSubject extends AppCompatActivity {
                 mMaterialDialog.show();
                 final List<String> staff_list = new ArrayList<>();
                 final List<String> subject_list = new ArrayList<>();
-                batch_selected = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
-                semester_selected = spinner_sem.getItems().get(spinner_sem.getSelectedIndex()).toString();
+                class_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
+                division_selected = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
 
-                batch_selected_dialog=(NiceFont)mMaterialDialog.findViewById(R.id.batch_selected_subject);
-                semester_selected_dialog=(NiceFont)mMaterialDialog.findViewById(R.id.semester_selected_subject);
-                batch_selected_dialog.setText(batch_selected);
-                semester_selected_dialog.setText(semester_selected);
+                class_selected_dialog=(NiceFont)mMaterialDialog.findViewById(R.id.class_selected_subject);
+                division_selected_dialog=(NiceFont)mMaterialDialog.findViewById(R.id.division_selected_subject);
+                class_selected_dialog.setText(class_selected);
+                division_selected_dialog.setText(division_selected);
 
                 final MaterialSpinner spinner_staff = (MaterialSpinner) mMaterialDialog.findViewById(R.id.spinner_staff);
                 final MaterialSpinner spinner_subject = (MaterialSpinner) mMaterialDialog.findViewById(R.id.spinner_subject);
@@ -201,7 +201,7 @@ public class ListSubject extends AppCompatActivity {
                     }
                 });
 
-                mRef.child("College").child(institution_name).child("Subject").child(batch_selected).child(semester_selected).orderByChild("Subject Code").addValueEventListener(new ValueEventListener() {
+                mRef.child("College").child(institution_name).child("Subject").child(class_selected).child(division_selected).orderByChild("Subject Code").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -228,7 +228,7 @@ public class ListSubject extends AppCompatActivity {
                         Map<String,String> map = new HashMap<String, String>();
                         map.put("Staff",staff_name);
                         map.put("Subject",subject_name);
-                        mRef.child("College").child(institution_name).child("Subject_Taken").child(batch_selected).child(semester_selected).push().setValue(map);
+                        mRef.child("College").child(institution_name).child("Subject_Taken").child(class_selected).child(division_selected).push().setValue(map);
                         DataSubject dataSubject = new DataSubject();
                         dataSubject.name = subject_name;
                         dataSubject.teacher = staff_name;

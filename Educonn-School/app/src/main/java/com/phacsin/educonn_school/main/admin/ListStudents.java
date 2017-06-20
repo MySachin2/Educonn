@@ -48,7 +48,7 @@ import java.util.Map;
 public class ListStudents extends AppCompatActivity {
     Toolbar toolbar;
     NiceFont batch_selected_dialog,semester_selected_dialog;
-    String semester_selected,batch_selected;
+    String semester_selected,class_selected;
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
@@ -56,7 +56,7 @@ public class ListStudents extends AppCompatActivity {
     public static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
     com.github.clans.fab.FloatingActionButton fab_add_student;
-    MaterialSpinner spinner_batch,spinner_sem;
+    MaterialSpinner spinner_class,spinner_sem;
     private DatabaseReference mRef;
     private Button submit;
     SharedPreferences sharedPreferences;
@@ -97,15 +97,15 @@ public class ListStudents extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
             }
         });
-        spinner_batch = (MaterialSpinner) findViewById(R.id.spinner_batch);
+        spinner_class = (MaterialSpinner) findViewById(R.id.spinner_class);
         submit = (Button) findViewById(R.id.btn_submit_month);
 
-        spinner_batch.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        spinner_class.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
-                Snackbar.make(view, "Selected Division " + item, Snackbar.LENGTH_LONG).show();
-                batch_selected=item;
+                Snackbar.make(view, "Selected Class " + item, Snackbar.LENGTH_LONG).show();
+                class_selected=item;
             }
         });
 
@@ -118,8 +118,8 @@ public class ListStudents extends AppCompatActivity {
                     batch_list.add(postSnapshot.child("Name").getValue(String.class));
                 }
                 if(batch_list.size()!=0)
-                    spinner_batch.setItems(batch_list);
-                batch_selected=batch_list.get(0);
+                    spinner_class.setItems(batch_list);
+                class_selected=batch_list.get(0);
             }
 
             @Override
@@ -138,14 +138,13 @@ public class ListStudents extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 data.clear();
-                mRef.child("College").child(institution_name).child("Students").child(batch_selected).addListenerForSingleValueEvent(new ValueEventListener() {
+                mRef.child("College").child(institution_name).child("Students").child(class_selected).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
                         {
                             DataStudent dataSubject = new DataStudent();
                             dataSubject.name = postSnapshot.child("Name").getValue(String.class);
-                            dataSubject.reg_no = postSnapshot.child("Registration Number").getValue(String.class);
                             data.add(dataSubject);
                         }
                         adapter.notifyDataSetChanged();
@@ -185,13 +184,15 @@ public class ListStudents extends AppCompatActivity {
                 mMaterialDialog.show();
 
                 final HelveticaEditText editText_name = (HelveticaEditText) mMaterialDialog.findViewById(R.id.typed_name_student_name);
+/*
                 final HelveticaEditText editText_reg_no = (HelveticaEditText) mMaterialDialog.findViewById(R.id.typed_name_student_reg);
+*/
                 final HelveticaEditText editText_contact_no = (HelveticaEditText) mMaterialDialog.findViewById(R.id.typed_name_student_phone);
                 final HelveticaEditText editText_email = (HelveticaEditText) mMaterialDialog.findViewById(R.id.typed_name_student_email);
 
 
-                batch_selected_dialog=(NiceFont)mMaterialDialog.findViewById(R.id.batch_selected_student);
-                batch_selected_dialog.setText(batch_selected);
+                batch_selected_dialog=(NiceFont)mMaterialDialog.findViewById(R.id.class_selected_student);
+                batch_selected_dialog.setText(class_selected);
 
                 HelveticaButton add_student =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_add_student);
                 HelveticaButton cancel_student =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_cancel_student_adding);
@@ -200,17 +201,18 @@ public class ListStudents extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         final String name = editText_name.getText().toString();
+/*
                         final String reg = editText_reg_no.getText().toString();
+*/
                         final String phone = editText_contact_no.getText().toString();
                         final String email = editText_email.getText().toString();
 
-                        if(name.equals("")||reg.equals("")||phone.equals(""))
+                        if(name.equals("")||phone.equals(""))
                             Toast.makeText(getApplicationContext(),"One or more fields are empty",Toast.LENGTH_LONG).show();
                         else
                         {
                             final Map<String,String> map = new HashMap<String, String>();
                             map.put("Name",name);
-                            map.put("Registration Number",reg);
                             map.put("Email",email);
                             map.put("Contact Number",phone);
                             String randomPass = RandomPasswordGenerator.generate(16);
@@ -221,7 +223,6 @@ public class ListStudents extends AppCompatActivity {
                                     {
                                         Map<String,String> user = new HashMap<String, String>();
                                         user.put("Name",name);
-                                        user.put("Registration Number",reg);
                                         user.put("Email",email);
                                         user.put("Contact Number",phone);
                                         user.put("Institution Name",institution_name);
@@ -239,10 +240,9 @@ public class ListStudents extends AppCompatActivity {
 
                                 }
                             });
-                            mRef.child("College").child(institution_name).child("Students").child(batch_selected).push().setValue(map);
+                            mRef.child("College").child(institution_name).child("Students").child(class_selected).push().setValue(map);
                             DataStudent dataStudent = new DataStudent();
                             dataStudent.name = name;
-                            dataStudent.reg_no = reg;
                             data.add(dataStudent);
                             adapter.notifyDataSetChanged();
                             mMaterialDialog.cancel();

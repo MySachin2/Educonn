@@ -47,7 +47,7 @@
                 android:orientation="horizontal">
 
                 <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-                    android:id="@+id/spinner_batch_take_attendance"
+                    android:id="@+id/spinner_class_take_attendance"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
@@ -61,7 +61,7 @@
                     app:ms_text_color="@color/black_dark" />
 
                 <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-                    android:id="@+id/spinner_seme_take_attendance"
+                    android:id="@+id/spinner_division_take_attendance"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"

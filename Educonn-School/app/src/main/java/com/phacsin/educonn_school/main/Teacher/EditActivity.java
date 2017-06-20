@@ -34,7 +34,7 @@ public class EditActivity extends AppCompatActivity {
     MaterialCalendarView calenderview;
     HelveticaButton btn_submit_attendance;
     private DatabaseReference mref;
-    MaterialSpinner spinner_semester, spinner_subject,spinner_batch;
+    MaterialSpinner spinner_division, spinner_subject,spinner_class;
     ValueEventListener subject_change_listener;
     SharedPreferences sharedPreferences;
     String institution_name;
@@ -59,9 +59,9 @@ public class EditActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
         institution_name = sharedPreferences.getString("Institution Name","");
 
-        spinner_semester = (MaterialSpinner) findViewById(R.id.spinner_seme_take_attendance);
+        spinner_division = (MaterialSpinner) findViewById(R.id.spinner_division_take_attendance);
         spinner_subject = (MaterialSpinner) findViewById(R.id.spinner_subject_take_attendance);
-        spinner_batch = (MaterialSpinner) findViewById(R.id.spinner_batch_take_attendance);
+        spinner_class = (MaterialSpinner) findViewById(R.id.spinner_class_take_attendance);
 
         mref.child("College").child(institution_name).child("Batch").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -71,8 +71,8 @@ public class EditActivity extends AppCompatActivity {
                     spinner_list.add(postSnapshot.child("Name").getValue(String.class));
                 }
                 if(spinner_list.size()!=0) {
-                    spinner_batch.setItems(spinner_list);
-                    mref.child("College").child(institution_name).child("Subject").child(spinner_list.get(0)).child(spinner_semester.getItems().get(0).toString()).addValueEventListener(new ValueEventListener() {
+                    spinner_class.setItems(spinner_list);
+                    mref.child("College").child(institution_name).child("Subject").child(spinner_list.get(0)).child(spinner_division.getItems().get(0).toString()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             List<String> list = new ArrayList<String>();
@@ -108,11 +108,11 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
-        spinner_batch.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        spinner_class.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
-                String semester_selected = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
+                String semester_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
                 mref.child("College").child(institution_name).child("Subject").child(item).child(semester_selected).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -143,11 +143,11 @@ public class EditActivity extends AppCompatActivity {
 
         btn_submit_attendance=(HelveticaButton)findViewById(R.id.btn_submit_take_attendance);
         calenderview = (MaterialCalendarView) findViewById(R.id.calendarView);
-        spinner_semester.setItems("Semester 1", "Semester 2", "Semester 3", "Semester 4","Semester 5","Semester 6","Semester 7","Semester 8");
-        spinner_semester.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        spinner_division.setItems("Semester 1", "Semester 2", "Semester 3", "Semester 4","Semester 5","Semester 6","Semester 7","Semester 8");
+        spinner_division.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                String batch_selected = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
+                String batch_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
                 mref.child("College").child(institution_name).child("Subject").child(batch_selected).child(item).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -189,8 +189,8 @@ public class EditActivity extends AppCompatActivity {
                         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                         Date date = calenderview.getSelectedDate().getDate();
                         i.putExtra("date", df.format(date));
-                        i.putExtra("batch", spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString());
-                        i.putExtra("semester", spinner_semester.getItems().get(spinner_semester.getSelectedIndex()).toString());
+                        i.putExtra("batch", spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString());
+                        i.putExtra("semester", spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString());
                         i.putExtra("subject", spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString());
                         startActivity(i);
                     }

@@ -14,11 +14,11 @@
             <com.phacsin.educonn_school.customfonts.NiceFont
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/batch_selected_student"
+                android:id="@+id/class_selected_student"
                 android:textColor="@color/black_dark"
-                android:text="2014"/>
+                android:text="10"/>
         </LinearLayout>
-        <com.phacsin.educonn_school.customfonts.HelveticaEditText
+        <!--<com.phacsin.educonn_school.customfonts.HelveticaEditText
             android:id="@+id/typed_name_student_reg"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="45sp"
             android:layout_margin="10dp"
-            android:background="@drawable/admin_profile_edit_edit_text" />
+            android:background="@drawable/admin_profile_edit_edit_text" />-->
 
         <View
             android:layout_width="match_parent"

@@ -39,8 +39,8 @@ public class InputMarkList extends AppCompatActivity {
     private static ArrayList<String> data;
     public static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
-    TextView sessional_text,semester_text,subject_text;
-    String batch,semester,subject,total,sessional;
+    TextView class_text,division_text,subject_text;
+    String class_,division,subject,total,sessional;
     private DatabaseReference mref;
     SharedPreferences sharedPreferences;
     String institution_name;
@@ -50,23 +50,25 @@ public class InputMarkList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_mark_list);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        sessional_text = (TextView) findViewById(R.id.sessional_text);
-        semester_text = (TextView) findViewById(R.id.semester_text);
+        class_text = (TextView) findViewById(R.id.class_text);
+        division_text = (TextView) findViewById(R.id.division_text);
         subject_text = (TextView) findViewById(R.id.subject_text);
         mref = FirebaseDatabase.getInstance().getReference();
 
         recyclerView.setHasFixedSize(true);
         sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
         institution_name = sharedPreferences.getString("Institution Name","");
-        batch = getIntent().getStringExtra("batch");
-        semester = getIntent().getStringExtra("semester");
+        class_ = getIntent().getStringExtra("batch");
+        division = getIntent().getStringExtra("semester");
         subject = getIntent().getStringExtra("subject");
         total = getIntent().getStringExtra("total");
+/*
         sessional = getIntent().getStringExtra("sessional");
+*/
 
-        semester_text.setText(semester.substring(9));
+        class_text.setText(class_.substring(9));
         subject_text.setText(subject);
-        sessional_text.setText(sessional.substring(10));
+        division_text.setText(division.substring(10));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_left_arrow);
@@ -100,7 +102,7 @@ public class InputMarkList extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         data = new ArrayList<String>();
-        mref.child("College").child(institution_name).child("Students").child(batch).addValueEventListener(new ValueEventListener() {
+        mref.child("College").child(institution_name).child("Students").child(class_).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
@@ -155,21 +157,21 @@ public class InputMarkList extends AppCompatActivity {
                 }
             }
         }
-        mref.child("College").child(institution_name).child("Mark").child(batch).child(semester).child(sessional).child(subject).addValueEventListener(new ValueEventListener() {
+        mref.child("College").child(institution_name).child("Mark").child(class_).child(division).child(sessional).child(subject).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(MarkClass markClass:adapter.lstChk) {
                     if(!markClass.marks.equals(""))
-                        mref.child("College").child(institution_name).child("Mark").child(batch).child(semester).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue(markClass.marks + " out of " + total);
+                        mref.child("College").child(institution_name).child("Mark").child(class_).child(division).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue(markClass.marks + " out of " + total);
                     else
-                        mref.child("College").child(institution_name).child("Mark").child(batch).child(semester).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue("Absent");
+                        mref.child("College").child(institution_name).child("Mark").child(class_).child(division).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue("Absent");
                 }
                 Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_LONG).show();
                 Log.d("Hello","Hello");
                 Map<String,String> map = new HashMap<String, String>();
                 map.put("title",sessional + " Uploaded");
-                map.put("message", sessional  + " marks uploaded of " + batch + "," + semester);
-                map.put("topic_name",institution_name.replaceAll("[^a-zA-Z0-9]","")+ "_" + batch.replaceAll("[^a-zA-Z0-9]",""));
+                map.put("message", sessional  + " marks uploaded of " + class_ + "," + division);
+                map.put("topic_name",institution_name.replaceAll("[^a-zA-Z0-9]","")+ "_" + class_.replaceAll("[^a-zA-Z0-9]",""));
                 Log.d("Hello","Hello");
                 mref.child("Notification Requests").child("Group").push().setValue(map);
                 finish();

@@ -19,16 +19,16 @@
             <com.phacsin.educonn_school.customfonts.NiceFont
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/batch_selected_subject"
+                android:id="@+id/class_selected_subject"
                 android:textColor="@color/black_dark"
-                android:text="2014"/>
+                android:text="10"/>
             <com.phacsin.educonn_school.customfonts.NiceFont
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/semester_selected_subject"
+                android:id="@+id/division_selected_subject"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black_dark"
-                android:text="Semester 3"/>
+                android:text="A"/>
         </LinearLayout>
 
         <View
@@ -46,18 +46,6 @@
             android:text=""
             android:gravity="center"
             android:hint="Subject Name"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="45sp"
-            android:layout_margin="10dp"
-            android:background="@drawable/admin_profile_edit_edit_text" />
-        <com.phacsin.educonn_school.customfonts.HelveticaEditText
-            android:id="@+id/admin_subject_code_edit"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text=""
-            android:gravity="center"
-            android:hint="Subject Code"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="45sp"

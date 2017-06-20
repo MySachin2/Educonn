@@ -30,7 +30,7 @@ public class InputMark  extends AppCompatActivity {
     HelveticaButton btn_input_mark;
     HelveticaEditText edittext_mark,out_of_mark;
     private DatabaseReference mref;
-    MaterialSpinner spinner_batch, spinner_semester, spinner_subject, spinner_sessional;
+    MaterialSpinner spinner_class, spinner_division, spinner_subject;
     private ValueEventListener subject_change_listener;
     SharedPreferences sharedPreferences;
     String institution_name;
@@ -65,10 +65,9 @@ public class InputMark  extends AppCompatActivity {
                 if (verify_out_of_mark()==true){
                     if (valid_subject) {
                         Intent i = new Intent(getApplicationContext(), InputMarkList.class);
-                        i.putExtra("batch", spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString());
-                        i.putExtra("semester", spinner_semester.getItems().get(spinner_semester.getSelectedIndex()).toString());
+                        i.putExtra("batch", spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString());
+                        i.putExtra("semester", spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString());
                         i.putExtra("subject", spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString());
-                        i.putExtra("sessional", spinner_sessional.getItems().get(spinner_sessional.getSelectedIndex()).toString());
                         i.putExtra("total", edittext_mark.getText().toString());
                         startActivity(i);
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
@@ -83,12 +82,10 @@ public class InputMark  extends AppCompatActivity {
                 }
             }
         });
-        spinner_batch = (MaterialSpinner) findViewById(R.id.spinner_mark_add_year);
-        spinner_semester = (MaterialSpinner) findViewById(R.id.spinner_mark_add_sem);
+        spinner_class = (MaterialSpinner) findViewById(R.id.spinner_mark_add_class);
+        spinner_division = (MaterialSpinner) findViewById(R.id.spinner_mark_add_division);
 
         spinner_subject = (MaterialSpinner) findViewById(R.id.spinner_mark_add_subject);
-        spinner_sessional = (MaterialSpinner) findViewById(R.id.spinner_mark_add_sessional);
-        spinner_sessional.setItems("Sessional 1","Sessional 2","Sessional 3");
 
         mref.child("College").child(institution_name).child("Batch").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -97,9 +94,9 @@ public class InputMark  extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     list.add(postSnapshot.child("Name").getValue(String.class));
                 }
-                spinner_batch.setItems(list);
+                spinner_class.setItems(list);
                 //Defaullt Subject
-                mref.child("College").child(institution_name).child("Subject").child(list.get(0)).child(spinner_semester.getItems().get(0).toString()).addValueEventListener(new ValueEventListener() {
+                mref.child("College").child(institution_name).child("Subject").child(list.get(0)).child(spinner_division.getItems().get(0).toString()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         List<String> list = new ArrayList<String>();
@@ -133,10 +130,10 @@ public class InputMark  extends AppCompatActivity {
             }
         });
 
-        spinner_batch.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        spinner_class.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                String semester_selected = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
+                String semester_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
                 mref.child("College").child(institution_name).child("Subject").child(item).child(semester_selected).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -165,11 +162,11 @@ public class InputMark  extends AppCompatActivity {
             }
         });
 
-        spinner_semester.setItems("Semester 1", "Semester 2", "Semester 3", "Semester 4","Semester 5","Semester 6","Semester 7","Semester 8");
-        spinner_semester.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        spinner_division.setItems("Division", "Division");
+        spinner_division.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                    String batch_selected = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
+                    String batch_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
                     mref.child("College").child(institution_name).child("Subject").child(batch_selected).child(item).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

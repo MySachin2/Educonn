@@ -40,14 +40,14 @@ import java.util.Map;
 public class Add_Subject extends AppCompatActivity {
     Toolbar toolbar;
     NiceFont batch_selected_dialog,semester_selected_dialog;
-    String semester_selected,batch_selected;
+    String division_selected,class_selected;
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
     private static List<String> data_subject= new ArrayList<>();
 
     private DatabaseReference mRef;
-    MaterialSpinner spinner_batch ,spinner_sem;
+    MaterialSpinner spinner_class ,spinner_division;
     Button submit;
     SharedPreferences sharedPreferences;
     String institution_name;
@@ -70,16 +70,16 @@ public class Add_Subject extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
         institution_name = sharedPreferences.getString("Institution Name","");
-        spinner_batch = (MaterialSpinner) findViewById(R.id.spinner_year_subject);
+        spinner_class = (MaterialSpinner) findViewById(R.id.spinner_class_subject);
         submit = (Button) findViewById(R.id.btn_submit_month);
-        spinner_sem = (MaterialSpinner) findViewById(R.id.spinner_sem_subject);
-        spinner_sem.setItems("Division 1", "Division 2", "Division 3", "Division 4","Division 5","Division 6");
-        spinner_sem.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        spinner_division = (MaterialSpinner) findViewById(R.id.spinner_division_subject);
+        spinner_division.setItems("Division 1", "Division 2", "Division 3", "Division 4","Division 5","Division 6");
+        spinner_division.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
                 Snackbar.make(view,"Selected Division " + item, Snackbar.LENGTH_LONG).show();
-                semester_selected =item;
+                division_selected =item;
 
             }
         });
@@ -99,13 +99,13 @@ public class Add_Subject extends AppCompatActivity {
                     data_batch.add(postSnapshot.child("Name").getValue(String.class));
                 }
                 if(data_batch.size()!=0) {
-                    spinner_batch.setError(null);
-                    spinner_batch.setItems(data_batch);
+                    spinner_class.setError(null);
+                    spinner_class.setItems(data_batch);
                 }
                 else {
                     data_batch.add("No Subjects available");
-                    spinner_batch.setItems(data_batch);
-                    spinner_batch.setError("No Subjects available");
+                    spinner_class.setItems(data_batch);
+                    spinner_class.setError("No Subjects available");
                 }
 
             }
@@ -119,9 +119,9 @@ public class Add_Subject extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                batch_selected = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
-                semester_selected = spinner_sem.getItems().get(spinner_sem.getSelectedIndex()).toString();
-                mRef.child("College").child(institution_name).child("Subject").child(batch_selected).child(semester_selected).orderByChild("Subject Code").addListenerForSingleValueEvent(new ValueEventListener() {
+                class_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
+                division_selected = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
+                mRef.child("College").child(institution_name).child("Subject").child(class_selected).child(division_selected).orderByChild("Subject Code").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         data_subject.clear();
@@ -164,28 +164,25 @@ public class Add_Subject extends AppCompatActivity {
                 mMaterialDialog.setContentView(R.layout.dialog_admin_subject_add);
                 mMaterialDialog.getWindow().setBackgroundDrawableResource(R.color.white);
                 mMaterialDialog.show();
-                TextView batch_selected_text = (TextView) mMaterialDialog.findViewById(R.id.batch_selected_subject);
-                TextView semester_selected_text = (TextView) mMaterialDialog.findViewById(R.id.semester_selected_subject);
+                TextView class_selected_text = (TextView) mMaterialDialog.findViewById(R.id.class_selected_subject);
+                TextView division_selected_text = (TextView) mMaterialDialog.findViewById(R.id.division_selected_subject);
                 final HelveticaEditText name_editText = (HelveticaEditText) mMaterialDialog.findViewById(R.id.admin_subject_edit);
-                final HelveticaEditText code_editText = (HelveticaEditText) mMaterialDialog.findViewById(R.id.admin_subject_code_edit);
-                batch_selected = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString();
-                semester_selected = spinner_sem.getItems().get(spinner_sem.getSelectedIndex()).toString();
-                batch_selected_text.setText(batch_selected);
-                semester_selected_text.setText(semester_selected);
+                class_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
+                division_selected = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
+                class_selected_text.setText(class_selected);
+                division_selected_text.setText(division_selected);
                 HelveticaButton add_batch =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_add_subject);
                 HelveticaButton cancel_batch_add =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_cancel_subject_adding);
                 add_batch.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String subject_name = name_editText.getText().toString();
-                        String subject_code = code_editText.getText().toString();
 
                         if(!subject_name.equals(""))
                         {
                             Map<String,String> map = new HashMap<String, String>();
                             map.put("Name",subject_name);
-                            map.put("Subject Code",subject_code);
-                            mRef.child("College").child(institution_name).child("Subject").child(batch_selected).child(semester_selected).push().setValue(map);
+                            mRef.child("College").child(institution_name).child("Subject").child(class_selected).child(division_selected).push().setValue(map);
                             Toast.makeText(getApplicationContext(),"Subject Added Successfully",Toast.LENGTH_LONG).show();
                             data_subject.add(subject_name);
                             adapter.notifyDataSetChanged();
