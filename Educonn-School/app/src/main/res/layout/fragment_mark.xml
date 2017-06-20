@@ -17,10 +17,10 @@
         android:orientation="vertical"
         android:paddingLeft="5sp"
         android:paddingRight="5sp">
-        <com.phacsin.educonn_school.customfonts.NiceFont
+        <com.phacsin.eduppgmconn_school.customfonts.NiceFont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Sessional"
+            android:text="Select Test"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_gravity="center"

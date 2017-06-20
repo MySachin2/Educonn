@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,11 +34,14 @@ import com.phacsin.student.RandomPasswordGenerator;
 import com.phacsin.student.customfonts.HelveticaButton;
 import com.phacsin.student.customfonts.HelveticaEditText;
 import com.phacsin.student.recyclerview.DataModel;
+import com.phacsin.student.recyclerview.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 /**
@@ -46,7 +50,7 @@ import java.util.Map;
 
 public class ListStaff extends AppCompatActivity {
     Toolbar toolbar;
-    private static RecyclerView.Adapter adapter;
+    private static AdapterAdminStaff adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
     private static List<String> data = new ArrayList<>();
@@ -57,6 +61,9 @@ public class ListStaff extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String institution_name;
     private FirebaseAuth mAuth,mAuth_temp;
+    List<String> multiselect_list = new ArrayList<>();
+    ActionMode mActionMode;
+    boolean isMultiSelect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +122,29 @@ public class ListStaff extends AppCompatActivity {
 
             }
         });
-        adapter = new AdapterAdminStaff(data);
+        adapter = new AdapterAdminStaff(data,getApplicationContext(),multiselect_list);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (isMultiSelect)
+                    multi_select(position);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                if (!isMultiSelect) {
+                    multiselect_list = new ArrayList<String>();
+                    isMultiSelect = true;
+
+                    if (mActionMode == null) {
+                        mActionMode = startSupportActionMode(mActionModeCallback);
+                    }
+                }
+
+                multi_select(position);
+
+            }
+        }));
         recyclerView.setAdapter(adapter);
         removedItems = new ArrayList<Integer>();
     }
@@ -219,4 +248,107 @@ public class ListStaff extends AppCompatActivity {
         }
 
     }
+
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // Inflate a menu resource providing context menu items
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.menu_multi_select, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // Return false if nothing is done
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_delete:
+                    new SweetAlertDialog(ListStaff.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Are you sure?")
+                            .setContentText("Delete all selections")
+                            .setConfirmText("Ok")
+                            .setCancelText("Cancel")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog stay_here) {
+                                    stay_here.dismissWithAnimation();
+
+                                }
+                            })
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog back_to) {
+                                    if(multiselect_list.size()>0)
+                                    {
+                                        for(int i=0;i<multiselect_list.size();i++) {
+                                            data.remove(multiselect_list.get(i));
+                                            mRef.child("College").child(institution_name).child("Staff").orderByChild("Name").equalTo(multiselect_list.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    for(DataSnapshot postSnapshot: dataSnapshot.getChildren())
+                                                        postSnapshot.getRef().setValue(null);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
+
+                                        adapter.notifyDataSetChanged();
+
+                                        if (mActionMode != null) {
+                                            mActionMode.finish();
+                                        }
+                                        Toast.makeText(getApplicationContext(), "Delete Click", Toast.LENGTH_LONG).show();
+                                    }
+                                    back_to.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+            isMultiSelect = false;
+            multiselect_list = new ArrayList<String>();
+            refreshAdapter();
+        }
+    };
+    public void multi_select(int position) {
+        if (mActionMode != null) {
+            if (multiselect_list.contains(data.get(position)))
+                multiselect_list.remove(data.get(position));
+            else
+                multiselect_list.add(data.get(position));
+
+            if (multiselect_list.size() > 0)
+                mActionMode.setTitle("" + multiselect_list.size());
+            else
+                mActionMode.setTitle("");
+
+            refreshAdapter();
+
+        }
+    }
+
+
+    public void refreshAdapter()
+    {
+        adapter.selectedList=multiselect_list;
+        adapter.dataSet=data;
+        adapter.notifyDataSetChanged();
+    }
+
 }

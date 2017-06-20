@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,9 +24,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.phacsin.student.R;
 import com.phacsin.student.customfonts.HelveticaButton;
 import com.phacsin.student.customfonts.HelveticaEditText;
+import com.phacsin.student.main.Teacher.TakeAttendance;
+import com.phacsin.student.recyclerview.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Bineesh P Babu on 05-05-2017.
@@ -32,13 +38,17 @@ import java.util.List;
 
 public class Admin_Batches extends AppCompatActivity {
     Toolbar toolbar;
-    private static RecyclerView.Adapter adapter;
+    private static AdapterAdminBatch adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
     private DatabaseReference mRef;
     SharedPreferences sharedPreferences;
     String institution_name;
     private static List<String> data = new ArrayList<>();
+    List<String> multiselect_list = new ArrayList<>();
+    private Menu context_menu;
+    ActionMode mActionMode;
+    boolean isMultiSelect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +94,29 @@ public class Admin_Batches extends AppCompatActivity {
 
             }
         });
-        adapter = new AdapterAdminBatch(data);
+        adapter = new AdapterAdminBatch(data,getApplicationContext(),multiselect_list);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (isMultiSelect)
+                    multi_select(position);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                if (!isMultiSelect) {
+                    multiselect_list = new ArrayList<String>();
+                    isMultiSelect = true;
+
+                    if (mActionMode == null) {
+                        mActionMode = startSupportActionMode(mActionModeCallback);
+                    }
+                }
+
+                multi_select(position);
+
+            }
+        }));
         recyclerView.setAdapter(adapter);
     }
     @Override
@@ -135,4 +167,108 @@ public class Admin_Batches extends AppCompatActivity {
         }
 
     }
+
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // Inflate a menu resource providing context menu items
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.menu_multi_select, menu);
+            context_menu = menu;
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // Return false if nothing is done
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_delete:
+                    new SweetAlertDialog(Admin_Batches.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Are you sure?")
+                            .setContentText("Delete all selections")
+                            .setConfirmText("Ok")
+                            .setCancelText("Cancel")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog stay_here) {
+                                    stay_here.dismissWithAnimation();
+
+                                }
+                            })
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog back_to) {
+                                    if(multiselect_list.size()>0)
+                                    {
+                                        for(int i=0;i<multiselect_list.size();i++) {
+                                            data.remove(multiselect_list.get(i));
+                                            mRef.child("College").child(institution_name).child("Batch").orderByChild("Name").equalTo(multiselect_list.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    for(DataSnapshot postSnapshot: dataSnapshot.getChildren())
+                                                        postSnapshot.getRef().child("Name").setValue(null);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
+
+                                        adapter.notifyDataSetChanged();
+
+                                        if (mActionMode != null) {
+                                            mActionMode.finish();
+                                        }
+                                        Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_LONG).show();
+                                    }
+                                    back_to.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+            isMultiSelect = false;
+            multiselect_list = new ArrayList<String>();
+            refreshAdapter();
+        }
+    };
+    public void multi_select(int position) {
+        if (mActionMode != null) {
+            if (multiselect_list.contains(data.get(position)))
+                multiselect_list.remove(data.get(position));
+            else
+                multiselect_list.add(data.get(position));
+
+            if (multiselect_list.size() > 0)
+                mActionMode.setTitle("" + multiselect_list.size());
+            else
+                mActionMode.setTitle("");
+
+            refreshAdapter();
+
+        }
+    }
+
+
+    public void refreshAdapter()
+    {
+        adapter.selectedList=multiselect_list;
+        adapter.dataSet=data;
+        adapter.notifyDataSetChanged();
+    }
+
 }

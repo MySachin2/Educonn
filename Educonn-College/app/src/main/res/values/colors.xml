@@ -23,6 +23,7 @@
     <color name="spinner">#FAFAFA</color>
     <color name="red">#F44336</color>
     <color name="yellow">#FFAB00</color>
-
+    <color name="list_item_selected_state">#F4F6F6</color>
+    <color name="list_item_normal_state">#FFFFFF</color>
 
 </resources>
