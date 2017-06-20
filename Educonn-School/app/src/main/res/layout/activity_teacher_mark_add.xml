@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:textColor="@color/black_dark"
-            android:text="Select Year"/>
+            android:text="Select Class"/>
     <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
         android:id="@+id/spinner_mark_add_year"
         app:ms_background_color="@color/white"
@@ -67,7 +67,7 @@
             android:textSize="20dp"
             android:textColor="@color/black_dark"
             android:layout_marginTop="3dp"
-            android:text="Select Semester"/>
+            android:text="Select Division"/>
         <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
             android:id="@+id/spinner_mark_add_sem"
             app:ms_background_color="@color/white"
@@ -109,7 +109,7 @@
             android:textSize="20dp"
             android:textColor="@color/black_dark"
             android:layout_marginTop="3dp"
-            android:text="Select Sessional"/>
+            android:text="Select Test"/>
         <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
             android:id="@+id/spinner_mark_add_sessional"
             app:ms_background_color="@color/white"

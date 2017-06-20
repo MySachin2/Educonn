@@ -39,7 +39,7 @@
             android:orientation="horizontal">
 
             <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-                android:id="@+id/spinner_year_subject"
+                android:id="@+id/spinner_class_subject"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -50,7 +50,7 @@
                 app:ms_text_color="@color/black_dark" />
 
             <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-                android:id="@+id/spinner_sem_subject"
+                android:id="@+id/spinner_division_subject"
                 app:ms_background_color="@color/spinner"
                 app:ms_text_color="@color/black_dark"
                 app:ms_arrow_tint="@color/green"
@@ -60,7 +60,7 @@
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"/>
             <com.phacsin.educonn_school.customfonts.HelveticaButton
-                android:id="@+id/btn_submit_month"
+                android:id="@+id/btn_submit_subject"
                 android:layout_width="70sp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
@@ -75,6 +75,7 @@
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
             android:background="@color/grey"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recycler_view"
             android:layout_width="match_parent"

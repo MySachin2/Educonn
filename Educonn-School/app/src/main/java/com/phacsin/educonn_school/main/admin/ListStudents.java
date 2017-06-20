@@ -104,7 +104,7 @@ public class ListStudents extends AppCompatActivity {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
-                Snackbar.make(view, "Selected batch " + item, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, "Selected Division " + item, Snackbar.LENGTH_LONG).show();
                 batch_selected=item;
             }
         });
