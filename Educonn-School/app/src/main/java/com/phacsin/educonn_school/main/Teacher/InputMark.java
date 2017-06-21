@@ -30,11 +30,12 @@ public class InputMark  extends AppCompatActivity {
     HelveticaButton btn_input_mark;
     HelveticaEditText edittext_mark,out_of_mark;
     private DatabaseReference mref;
-    MaterialSpinner spinner_class, spinner_division, spinner_subject;
+    MaterialSpinner spinner_standard, spinner_division, spinner_subject;
     private ValueEventListener subject_change_listener;
     SharedPreferences sharedPreferences;
-    String institution_name;
+    String institution_name,year;
     boolean valid_subject;
+    String standard_selected,division_selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class InputMark  extends AppCompatActivity {
         edittext_mark.setFocusableInTouchMode(true);
         sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
         institution_name = sharedPreferences.getString("Institution Name","");
+        year = sharedPreferences.getString("Academic Year","");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,13 +66,28 @@ public class InputMark  extends AppCompatActivity {
             public void onClick(View view) {
                 if (verify_out_of_mark()){
                     if (valid_subject) {
-                        Intent i = new Intent(getApplicationContext(), InputMarkList.class);
-                        i.putExtra("class", spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString());
-                        i.putExtra("division", spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString());
-                        i.putExtra("subject", spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString());
-                        i.putExtra("total", edittext_mark.getText().toString());
-                        startActivity(i);
-                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        final String standard = spinner_standard.getItems().get(spinner_standard.getSelectedIndex()).toString();
+                        final String division = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
+                        mref.child("School").child(institution_name).child("Mark").child(year).child(standard).child(division).orderByKey().addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Intent i = new Intent(getApplicationContext(), InputMarkList.class);
+                                i.putExtra("standard",standard );
+                                i.putExtra("division", division);
+                                i.putExtra("test_name", "Test " + (dataSnapshot.getChildrenCount()+1));
+                                i.putExtra("subject", spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString());
+                                i.putExtra("total", edittext_mark.getText().toString());
+                                startActivity(i);
+                                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
                     }
                     else
                         Toast.makeText(getApplicationContext(), "Subject is Invalid", Toast.LENGTH_LONG).show();
@@ -82,108 +99,68 @@ public class InputMark  extends AppCompatActivity {
                 }
             }
         });
-        spinner_class = (MaterialSpinner) findViewById(R.id.spinner_mark_add_class);
+        spinner_standard = (MaterialSpinner) findViewById(R.id.spinner_mark_add_class);
         spinner_division = (MaterialSpinner) findViewById(R.id.spinner_mark_add_division);
 
         spinner_subject = (MaterialSpinner) findViewById(R.id.spinner_mark_add_subject);
 
-        mref.child("School").child(institution_name).child("Batch").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+        mref.child("School").child(institution_name).child("Standard").child(year).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> list = new ArrayList<String>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    list.add(postSnapshot.child("Name").getValue(String.class));
+                List<String> data_std = new ArrayList<>();
+                for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                {
+                    data_std.add(postSnapshot.child("Name").getValue(String.class));
                 }
-                spinner_class.setItems(list);
-                //Defaullt Subject
-                mref.child("College").child(institution_name).child("Subject").child(list.get(0)).child(spinner_division.getItems().get(0).toString()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<String> list = new ArrayList<String>();
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            list.add(postSnapshot.child("Name").getValue(String.class));
-                        }
-                        if(list.size()!=0) {
-                            spinner_subject.setError(null);
-                            spinner_subject.setItems(list);
-                            valid_subject = true;
-                        }
-                        else {
-                            list.add("No Subjects available");
-                            spinner_subject.setItems(list);
-                            spinner_subject.setError("No Subjects available");
-                            valid_subject = false;
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d("FirebaseError",databaseError.toString());
-
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("error",databaseError.toString());
-            }
-        });
-
-        spinner_class.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                String semester_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
-                mref.child("College").child(institution_name).child("Subject").child(item).child(semester_selected).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<String> list = new ArrayList<String>();
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            list.add(postSnapshot.child("Name").getValue(String.class));
-                        }
-                        if(list.size()!=0) {
-                            spinner_subject.setError(null);
-                            spinner_subject.setItems(list);
-                            valid_subject = true;
-                        }
-                        else {
-                            list.add("No Subjects available");
-                            spinner_subject.setItems(list);
-                            spinner_subject.setError("No Subjects available");
-                            valid_subject = false;
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d("FirebaseError",databaseError.toString());
-                    }
-                });
-            }
-        });
-
-        spinner_division.setItems("Division", "Division");
-        spinner_division.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                    String batch_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
-                    mref.child("College").child(institution_name).child("Subject").child(batch_selected).child(item).addValueEventListener(new ValueEventListener() {
+                if(data_std.size()!=0) {
+                    standard_selected = data_std.get(0);
+                    spinner_standard.setError(null);
+                    spinner_standard.setItems(data_std);
+                    mref.child("School").child(institution_name).child("Division").child(year).child(standard_selected).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            List<String> list = new ArrayList<String>();
-                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                list.add(postSnapshot.child("Name").getValue(String.class));
+                            List<String> data_div = new ArrayList<>();
+                            for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                            {
+                                data_div.add(postSnapshot.child("Name").getValue(String.class));
                             }
-                            if(list.size()!=0) {
-                                spinner_subject.setError(null);
-                                spinner_subject.setItems(list);
-                                valid_subject = true;
+                            if(data_div.size()!=0) {
+                                spinner_division.setError(null);
+                                spinner_division.setItems(data_div);
+                                division_selected = data_div.get(0);
+                                mref.child("School").child(institution_name).child("Subject").child(year).child(standard_selected).child(division_selected).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        List<String> data_div = new ArrayList<>();
+                                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                                        {
+                                            data_div.add(postSnapshot.child("Name").getValue(String.class));
+                                        }
+                                        if(data_div.size()!=0) {
+                                            spinner_subject.setError(null);
+                                            spinner_subject.setItems(data_div);
+                                            valid_subject =true;
+                                        }
+                                        else
+                                        {
+                                            valid_subject =false;
+                                            data_div.add("No Subjects available");
+                                            spinner_subject.setItems(data_div);
+                                            spinner_subject.setError("No Subjects available");
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
-                            else {
-                                list.add("No Subjects available");
-                                spinner_subject.setItems(list);
-                                spinner_subject.setError("No Subjects available");
-                                valid_subject = false;
+                            else
+                            {
+                                data_div.add("No Divisions available");
+                                spinner_division.setItems(data_div);
+                                spinner_division.setError("No Divisions available");
                             }
                         }
 
@@ -192,29 +169,115 @@ public class InputMark  extends AppCompatActivity {
 
                         }
                     });
-
-            }
-        });
-
-        /*
-        mref.child("Subject").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("value",dataSnapshot.toString());
-                List<String> list = new ArrayList<String>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    list.add(postSnapshot.getKey());
                 }
-                spinner_semester.setItems(list);
-                spinner_semester.setSelectedIndex(0);
-                mref.child("Subject").child(list.get(0)).orderByKey().addListenerForSingleValueEvent(subject_change_listener);
+                else {
+                    data_std.add("No Standards available");
+                    spinner_standard.setItems(data_std);
+                    spinner_standard.setError("No Standards available");
+                }
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("error",databaseError.toString());
+
             }
-        });*/
+        });
+
+        spinner_standard.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                standard_selected = item;
+                mref.child("School").child(institution_name).child("Division").child(year).child(standard_selected).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<String> data_div = new ArrayList<>();
+                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                        {
+                            data_div.add(postSnapshot.child("Name").getValue(String.class));
+                        }
+                        if(data_div.size()!=0) {
+                            spinner_division.setError(null);
+                            spinner_division.setItems(data_div);
+                            division_selected = data_div.get(0);
+                            mref.child("School").child(institution_name).child("Subject").child(year).child(standard_selected).child(division_selected).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    List<String> data_div = new ArrayList<>();
+                                    for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                                    {
+                                        data_div.add(postSnapshot.child("Name").getValue(String.class));
+                                    }
+                                    if(data_div.size()!=0) {
+                                        valid_subject =true;
+                                        spinner_subject.setError(null);
+                                        spinner_subject.setItems(data_div);
+                                    }
+                                    else
+                                    {
+                                        valid_subject =false;
+                                        data_div.add("No Subjects available");
+                                        spinner_subject.setItems(data_div);
+                                        spinner_subject.setError("No Subjects available");
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                        else
+                        {
+                            data_div.add("No Divisions available");
+                            spinner_division.setItems(data_div);
+                            spinner_division.setError("No Divisions available");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
+        spinner_division.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                division_selected = item;
+                mref.child("School").child(institution_name).child("Subject").child(year).child(standard_selected).child(division_selected).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<String> data_div = new ArrayList<>();
+                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                        {
+                            data_div.add(postSnapshot.child("Name").getValue(String.class));
+                        }
+                        if(data_div.size()!=0) {
+                            valid_subject =true;
+                            spinner_subject.setError(null);
+                            spinner_subject.setItems(data_div);
+                        }
+                        else
+                        {
+                            valid_subject =false;
+                            data_div.add("No Subjects available");
+                            spinner_subject.setItems(data_div);
+                            spinner_subject.setError("No Subjects available");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
     }
 
     private boolean verify_out_of_mark(){

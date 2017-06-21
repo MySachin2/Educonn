@@ -45,7 +45,7 @@ public class AdapterMarkAdding extends RecyclerView.Adapter<AdapterMarkAdding.My
         for(int i=0;i<dataSet.size();i++)
         {
             MarkClass markClass = new MarkClass();
-            markClass.reg_no = dataSet.get(i);
+            markClass.name = dataSet.get(i);
             markClass.marks="";
             lstChk[i]=markClass;
         }
@@ -68,7 +68,7 @@ public class AdapterMarkAdding extends RecyclerView.Adapter<AdapterMarkAdding.My
         textViewName.setText(dataSet.get(listPosition));
         MarkClass markClass = new MarkClass();
         markClass.marks = holder.marks.getText().toString();
-        markClass.reg_no = holder.textViewName.getText().toString();
+        markClass.name = holder.textViewName.getText().toString();
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
     }
 
@@ -92,7 +92,7 @@ public class AdapterMarkAdding extends RecyclerView.Adapter<AdapterMarkAdding.My
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             MarkClass markClass = new MarkClass();
-            markClass.reg_no = dataSet.get(position);
+            markClass.name = dataSet.get(position);
             markClass.marks = charSequence.toString();
             lstChk[position] = markClass;
         }

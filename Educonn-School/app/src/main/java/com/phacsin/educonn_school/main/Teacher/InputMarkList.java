@@ -39,18 +39,18 @@ public class InputMarkList extends AppCompatActivity {
     private static ArrayList<String> data;
     public static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
-    TextView class_text,division_text,subject_text;
-    String class_,division,subject,total,sessional;
+    TextView standard_text,division_text,subject_text;
+    String standard,division,subject,total,test;
     private DatabaseReference mref;
     SharedPreferences sharedPreferences;
-    String institution_name;
+    String institution_name,year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_mark_list);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        class_text = (TextView) findViewById(R.id.class_text);
+        standard_text = (TextView) findViewById(R.id.standard_text);
         division_text = (TextView) findViewById(R.id.division_text);
         subject_text = (TextView) findViewById(R.id.subject_text);
         mref = FirebaseDatabase.getInstance().getReference();
@@ -58,17 +58,21 @@ public class InputMarkList extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
         institution_name = sharedPreferences.getString("Institution Name","");
-        class_ = getIntent().getStringExtra("batch");
-        division = getIntent().getStringExtra("semester");
+        year = sharedPreferences.getString("Academic Year","");
+
+        standard = getIntent().getStringExtra("standard");
+        division = getIntent().getStringExtra("division");
         subject = getIntent().getStringExtra("subject");
         total = getIntent().getStringExtra("total");
+        test = getIntent().getStringExtra("test_name");
+
 /*
         sessional = getIntent().getStringExtra("sessional");
 */
 
-        class_text.setText(class_.substring(9));
+        standard_text.setText(standard);
         subject_text.setText(subject);
-        division_text.setText(division.substring(10));
+        division_text.setText(division);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_left_arrow);
@@ -102,12 +106,12 @@ public class InputMarkList extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         data = new ArrayList<String>();
-        mref.child("College").child(institution_name).child("Students").child(class_).addValueEventListener(new ValueEventListener() {
+        mref.child("School").child(institution_name).child("Students").child(year).child(standard).child(division).orderByChild("Name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
                 {
-                    data.add(postSnapshot.child("Registration Number").getValue(String.class));
+                    data.add(postSnapshot.child("Name").getValue(String.class));
                 }
                 adapter = new AdapterMarkAdding(data);
                 recyclerView.setAdapter(adapter);
@@ -157,31 +161,19 @@ public class InputMarkList extends AppCompatActivity {
                 }
             }
         }
-        mref.child("College").child(institution_name).child("Mark").child(class_).child(division).child(sessional).child(subject).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(MarkClass markClass:adapter.lstChk) {
-                    if(!markClass.marks.equals(""))
-                        mref.child("College").child(institution_name).child("Mark").child(class_).child(division).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue(markClass.marks + " out of " + total);
-                    else
-                        mref.child("College").child(institution_name).child("Mark").child(class_).child(division).child(sessional).child(subject).child(markClass.reg_no).child("Marks").setValue("Absent");
-                }
-                Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_LONG).show();
-                Log.d("Hello","Hello");
-                Map<String,String> map = new HashMap<String, String>();
-                map.put("title",sessional + " Uploaded");
-                map.put("message", sessional  + " marks uploaded of " + class_ + "," + division);
-                map.put("topic_name",institution_name.replaceAll("[^a-zA-Z0-9]","")+ "_" + class_.replaceAll("[^a-zA-Z0-9]",""));
-                Log.d("Hello","Hello");
-                mref.child("Notification Requests").child("Group").push().setValue(map);
-                finish();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        for(MarkClass markClass:adapter.lstChk) {
+            if (!markClass.marks.equals(""))
+                mref.child("School").child(institution_name).child("Mark").child(standard).child(division).child(subject).child(markClass.name).child("Marks").setValue(markClass.marks + " out of " + total);
+            else
+                mref.child("School").child(institution_name).child("Mark").child(standard).child(division).child(subject).child(markClass.name).child("Marks").setValue("Absent");
+          }
+            Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_LONG).show();
+            Map<String,String> map = new HashMap<String, String>();
+            map.put("title", " Uploaded");
+            map.put("message", test  + " : Marks uploaded of " + standard + "," + division);
+            map.put("topic_name",institution_name.replaceAll("[^a-zA-Z0-9]","")+ "_" + standard.replaceAll("[^a-zA-Z0-9]","") + division.replaceAll("[^a-zA-Z0-9]",""));
+            mref.child("Notification Requests").child("Group").push().setValue(map);
+            finish();
     }
     @Override
     public void onBackPressed() {

@@ -34,11 +34,13 @@ public class EditActivity extends AppCompatActivity {
     MaterialCalendarView calenderview;
     HelveticaButton btn_submit_attendance;
     private DatabaseReference mref;
-    MaterialSpinner spinner_division, spinner_subject,spinner_class;
+    MaterialSpinner spinner_division,spinner_standard;
     ValueEventListener subject_change_listener;
     SharedPreferences sharedPreferences;
     String institution_name;
-    private boolean valid_subject;
+    String standard_selected,division_selected,subject_selected;
+    private boolean valid_division = false;
+    private String year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,124 +60,104 @@ public class EditActivity extends AppCompatActivity {
         mref = FirebaseDatabase.getInstance().getReference();
         sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
         institution_name = sharedPreferences.getString("Institution Name","");
+        year = sharedPreferences.getString("Academic Year","");
 
         spinner_division = (MaterialSpinner) findViewById(R.id.spinner_division_take_attendance);
-        spinner_subject = (MaterialSpinner) findViewById(R.id.spinner_subject_take_attendance);
-        spinner_class = (MaterialSpinner) findViewById(R.id.spinner_class_take_attendance);
+        spinner_standard = (MaterialSpinner) findViewById(R.id.spinner_standard_take_attendance);
 
-        mref.child("College").child(institution_name).child("Batch").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+        mref.child("School").child(institution_name).child("Standard").child(year).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> spinner_list = new ArrayList<String>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    spinner_list.add(postSnapshot.child("Name").getValue(String.class));
+                List<String> data_std = new ArrayList<>();
+                for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                {
+                    data_std.add(postSnapshot.child("Name").getValue(String.class));
                 }
-                if(spinner_list.size()!=0) {
-                    spinner_class.setItems(spinner_list);
-                    mref.child("College").child(institution_name).child("Subject").child(spinner_list.get(0)).child(spinner_division.getItems().get(0).toString()).addValueEventListener(new ValueEventListener() {
+                if(data_std.size()!=0) {
+                    standard_selected = data_std.get(0);
+                    spinner_standard.setError(null);
+                    spinner_standard.setItems(data_std);
+                    mref.child("School").child(institution_name).child("Division").child(year).child(standard_selected).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            List<String> list = new ArrayList<String>();
-                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                list.add(postSnapshot.child("Name").getValue(String.class));
+                            List<String> data_div = new ArrayList<>();
+                            for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                            {
+                                data_div.add(postSnapshot.child("Name").getValue(String.class));
                             }
-                            if(list.size()!=0) {
-                                spinner_subject.setError(null);
-                                spinner_subject.setItems(list);
-                                valid_subject = true;
+                            if(data_div.size()!=0) {
+                                spinner_division.setError(null);
+                                spinner_division.setItems(data_div);
+                                division_selected = data_div.get(0);
+                                valid_division = true;
                             }
-                            else {
-                                list.add("No Subjects available");
-                                spinner_subject.setItems(list);
-                                spinner_subject.setError("No Subjects available");
-                                valid_subject = false;
+                            else
+                            {
+                                data_div.add("No Divisions available");
+                                spinner_division.setItems(data_div);
+                                spinner_division.setError("No Divisions available");
+                                valid_division = false;
                             }
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Log.d("FirebaseError",databaseError.toString());
 
                         }
                     });
                 }
+                else {
+                    data_std.add("No Standards available");
+                    spinner_standard.setItems(data_std);
+                    spinner_standard.setError("No Standards available");
+                }
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("FirebaseError",databaseError.toString());
 
             }
         });
 
-        spinner_class.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-
-                String semester_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
-                mref.child("College").child(institution_name).child("Subject").child(item).child(semester_selected).addValueEventListener(new ValueEventListener() {
+        spinner_standard.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                standard_selected = item;
+                mref.child("School").child(institution_name).child("Division").child(year).child(standard_selected).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<String> list = new ArrayList<String>();
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            list.add(postSnapshot.child("Name").getValue(String.class));
+                        List<String> data_div = new ArrayList<>();
+                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                        {
+                            data_div.add(postSnapshot.child("Name").getValue(String.class));
                         }
-                        if(list.size()!=0) {
-                            spinner_subject.setError(null);
-                            spinner_subject.setItems(list);
-                            valid_subject = true;
+                        if(data_div.size()!=0) {
+                            spinner_division.setError(null);
+                            spinner_division.setItems(data_div);
+                            division_selected = data_div.get(0);
+                            valid_division = true;
                         }
-                        else {
-                            list.add("No Subjects available");
-                            spinner_subject.setItems(list);
-                            spinner_subject.setError("No Subjects available");
-                            valid_subject = false;
+                        else
+                        {
+                            data_div.add("No Divisions available");
+                            spinner_division.setItems(data_div);
+                            spinner_division.setError("No Divisions available");
+                            valid_division = false;
                         }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Log.d("FirebaseError",databaseError.toString());
+
                     }
                 });
             }
         });
+
 
         btn_submit_attendance=(HelveticaButton)findViewById(R.id.btn_submit_take_attendance);
         calenderview = (MaterialCalendarView) findViewById(R.id.calendarView);
-        spinner_division.setItems("Semester 1", "Semester 2", "Semester 3", "Semester 4","Semester 5","Semester 6","Semester 7","Semester 8");
-        spinner_division.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                String batch_selected = spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString();
-                mref.child("College").child(institution_name).child("Subject").child(batch_selected).child(item).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<String> list = new ArrayList<String>();
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            list.add(postSnapshot.child("Name").getValue(String.class));
-                        }
-                        if(list.size()!=0) {
-                            spinner_subject.setError(null);
-                            spinner_subject.setItems(list);
-                            valid_subject = true;
-                        }
-                        else {
-                            list.add("No Subjects available");
-                            spinner_subject.setItems(list);
-                            spinner_subject.setError("No Subjects available");
-                            valid_subject = false;
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d("FirebaseError",databaseError.toString());
-                    }
-                });
-
-            }
-        });
 
 
         btn_submit_attendance.setOnClickListener(new View.OnClickListener() {
@@ -184,18 +166,17 @@ public class EditActivity extends AppCompatActivity {
                 if(calenderview.getSelectedDate()==null)
                     Toast.makeText(getApplicationContext(),"No Date Selected",Toast.LENGTH_LONG).show();
                 else {
-                    if(valid_subject) {
+                    if(valid_division) {
                         Intent i = new Intent(getApplicationContext(), TakeAttendance.class);
                         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                         Date date = calenderview.getSelectedDate().getDate();
                         i.putExtra("date", df.format(date));
-                        i.putExtra("batch", spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString());
-                        i.putExtra("semester", spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString());
-                        i.putExtra("subject", spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString());
+                        i.putExtra("standard", spinner_standard.getItems().get(spinner_standard.getSelectedIndex()).toString());
+                        i.putExtra("division", spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString());
                         startActivity(i);
                     }
                     else
-                        Toast.makeText(getApplicationContext(),"Subject Invalid",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Division Invalid",Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -47,7 +47,7 @@
                 android:orientation="horizontal">
 
                 <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-                    android:id="@+id/spinner_class_take_attendance"
+                    android:id="@+id/spinner_standard_take_attendance"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
@@ -74,18 +74,6 @@
                     app:ms_background_color="@color/white"
                     app:ms_text_color="@color/black_dark" />
             </LinearLayout>
-
-            <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-                android:id="@+id/spinner_subject_take_attendance"
-                android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:elevation="3dp"
-                android:singleLine="true"
-                app:ms_arrow_tint="@color/green"
-                app:ms_background_color="@color/white"
-                app:ms_text_color="@color/black_dark" />
 
             <com.phacsin.educonn_school.customfonts.HelveticaButton
                 android:id="@+id/btn_submit_take_attendance"

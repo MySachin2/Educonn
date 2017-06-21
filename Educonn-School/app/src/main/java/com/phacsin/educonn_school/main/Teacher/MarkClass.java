@@ -5,6 +5,6 @@ package com.phacsin.educonn_school.main.Teacher;
  */
 
 public class MarkClass {
-    String reg_no;
+    String name;
     String marks;
 }
