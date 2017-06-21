@@ -1,6 +1,7 @@
 package com.phacsin.educonn_school.main.admin;
 
-import android.support.design.widget.Snackbar;
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,26 +19,31 @@ import java.util.List;
 
 public class AdapterAdminSubject extends RecyclerView.Adapter<AdapterAdminSubject.MyViewHolder> {
 
-    private List<DataSubject> dataSet;
-    public CardView cardview2;
-
+    public List<DataSubject> dataSet;
+    public List<DataSubject> selectedList;
+    private Context mContext;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewSubject;
         TextView textViewStaff;
+        public CardView cardview2;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.textViewSubject = (TextView) itemView.findViewById(R.id.subject);
             this.textViewStaff = (TextView) itemView.findViewById(R.id.staff);
+            cardview2 = (CardView) itemView.findViewById(R.id.card_view_admin);
+
         }
 
     }
 
-    public AdapterAdminSubject(List<DataSubject> data) {
+    public AdapterAdminSubject(List<DataSubject> data, Context context, List<DataSubject> selectedList) {
         this.dataSet = data;
+        this.mContext=context;
+        this.selectedList=selectedList;
     }
 
     @Override
@@ -46,7 +52,6 @@ public class AdapterAdminSubject extends RecyclerView.Adapter<AdapterAdminSubjec
 
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_admin_subject_card, parent, false);
-        cardview2 = (CardView) view.findViewById(R.id.card_view_admin);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
@@ -57,14 +62,10 @@ public class AdapterAdminSubject extends RecyclerView.Adapter<AdapterAdminSubjec
 
         TextView textViewSubject = holder.textViewSubject;
         TextView textViewStaff = holder.textViewStaff;
-        cardview2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*Intent i= new Intent(view.getContext(),AttendanceCalender.class);
-                view.getContext().startActivity(i);*/
-                Snackbar.make(view, "Details updated soon ", Snackbar.LENGTH_LONG).show();
-            }
-        });
+        if(selectedList.contains(dataSet.get(listPosition)))
+            holder.cardview2.setBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
+        else
+            holder.cardview2.setBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_normal_state));
 
         textViewSubject.setText(dataSet.get(listPosition).name);
         textViewStaff.setText(dataSet.get(listPosition).teacher);

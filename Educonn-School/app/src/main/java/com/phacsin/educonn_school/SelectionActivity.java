@@ -13,12 +13,12 @@ import com.phacsin.educonn_school.customfonts.HelveticaButton;
  * Created by Bineesh P Babu on 06-01-2017.
  */
 
-public class SemesterActivity extends AppCompatActivity {
+public class SelectionActivity extends AppCompatActivity {
     HelveticaButton sbmt_sem_yr;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_semester_selection);
+        setContentView(R.layout.activity_selection);
         MaterialSpinner spinner_year = (MaterialSpinner) findViewById(R.id.spinner_year);
         spinner_year.setItems("2013", "2014", "2015", "2016", "2017","2018");
         spinner_year.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -27,7 +27,7 @@ public class SemesterActivity extends AppCompatActivity {
                 Snackbar.make(view, "Year " + item, Snackbar.LENGTH_LONG).show();
             }
         });
-        MaterialSpinner spinner_sem = (MaterialSpinner) findViewById(R.id.spinner_semester);
+        MaterialSpinner spinner_sem = (MaterialSpinner) findViewById(R.id.spinner_year);
         spinner_sem.setItems("Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5","Semester 6","Semester 7","Semester 8");
         spinner_sem.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 

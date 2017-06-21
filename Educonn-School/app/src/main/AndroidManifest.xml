@@ -36,7 +36,7 @@
             android:theme="@style/MyMaterialTheme"/>
         <activity android:name=".main.admin.Admin_Change_Password"
             android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.admin.Admin_Batches"
+        <activity android:name=".main.admin.Admin_Add_Multiple_Items"
             android:theme="@style/MyMaterialTheme"/>
         <!-- Profile phase end-->
         <!-- Message Phase -->

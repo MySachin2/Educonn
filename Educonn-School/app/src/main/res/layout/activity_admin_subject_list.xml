@@ -39,7 +39,7 @@
             android:orientation="horizontal">
 
             <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-                android:id="@+id/spinner_class_subject"
+                android:id="@+id/spinner_standard"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -50,7 +50,7 @@
                 app:ms_text_color="@color/black_dark" />
 
             <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-                android:id="@+id/spinner_division_subject"
+                android:id="@+id/spinner_division"
                 app:ms_background_color="@color/spinner"
                 app:ms_text_color="@color/black_dark"
                 app:ms_arrow_tint="@color/green"

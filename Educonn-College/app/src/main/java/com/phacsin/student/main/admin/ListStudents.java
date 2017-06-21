@@ -329,7 +329,7 @@ public class ListStudents extends AppCompatActivity {
                                     {
                                         for(int i=0;i<multiselect_list.size();i++) {
                                             data.remove(multiselect_list.get(i));
-                                            mRef.child("College").child(institution_name).child("Staff").orderByChild("Registration Number").equalTo(multiselect_list.get(i).reg_no).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            mRef.child("College").child(institution_name).child("Students").orderByChild("Registration Number").equalTo(multiselect_list.get(i).reg_no).addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                                     for(DataSnapshot postSnapshot: dataSnapshot.getChildren())

@@ -39,7 +39,7 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="70dp"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     android:background="@color/white"
@@ -51,19 +51,19 @@
                         android:layout_weight=".25"
                         android:textSize="18sp"
                         android:textColor="@color/green"
-                        android:text="To" />
-                <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-                    android:id="@+id/spinner"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center_vertical"
-                    app:ms_background_color="@color/spinner"
-                    app:ms_text_color="@color/black_dark"
-                    app:ms_arrow_tint="@color/green"
-                    android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_height="wrap_content"/>
+                        android:text="Standard" />
+                    <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
+                        android:id="@+id/spinner_standard"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center_vertical"
+                        app:ms_background_color="@color/spinner"
+                        app:ms_text_color="@color/black_dark"
+                        app:ms_arrow_tint="@color/green"
+                        android:layout_width="0dp"
+                        android:layout_weight=".75"
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
                 <View
@@ -74,6 +74,44 @@
                     android:layout_marginRight="5sp"
                     android:background="@color/grey_divider"
                     android:layout_gravity="bottom"/>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="70dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:background="@color/white"
+                    android:weightSum="1" >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".25"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:text="Division" />
+                    <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
+                        android:id="@+id/spinner_division"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center_vertical"
+                        app:ms_background_color="@color/spinner"
+                        app:ms_text_color="@color/black_dark"
+                        app:ms_arrow_tint="@color/green"
+                        android:layout_width="0dp"
+                        android:layout_weight=".75"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:background="@color/grey_divider"
+                    android:layout_gravity="bottom"/>
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="100dp"

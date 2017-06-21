@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                         mDatabase.child("Users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                String batch = dataSnapshot.child("Batch").getValue(String.class);
+                                String year = dataSnapshot.child("Academic Year").getValue(String.class);
                                 String institution_name = dataSnapshot.child("Institution Name").getValue(String.class);
                                 String type = dataSnapshot.child("Type").getValue(String.class);
                                 String reg_no = dataSnapshot.child("Register Number").getValue(String.class);
@@ -87,13 +87,13 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("Email",user.getEmail());
 
                                 if (type.equals("Student")) {
-                                    editor.putString("Batch", batch);
+                                    editor.putString("Academic Year", year);
                                     editor.putString("Register Number", reg_no);
                                     editor.commit();
-                                    Log.d("Batch", batch+ "%");
                                     String reg_token = sharedPreferences.getString("Registration Token","");
                                     mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("Registration Token").setValue(reg_token);
-                                    FirebaseMessaging.getInstance().subscribeToTopic(institution_name.replaceAll("[^a-zA-Z0-9]","") + "_" + batch.replaceAll("[^a-zA-Z0-9]",""));
+                                    //FirebaseMessaging.getInstance().subscribeToTopic(institution_name.replaceAll("[^a-zA-Z0-9]","") + "_" + year.replaceAll("[^a-zA-Z0-9]",""));
+
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 }
                                 else if (type.equals("Teacher")) {
@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Date now = Calendar.getInstance().getTime();
                                     String nowAsString = new SimpleDateFormat("dd-MM-yyyy").format(now);
                                     editor.putString("Last Login",nowAsString);
+                                    editor.putString("Academic Year",year);
                                     editor.commit();
                                     startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                                 }
@@ -187,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        /*Intent i=new Intent(this,SemesterActivity.class);
+        /*Intent i=new Intent(this,SelectionActivity.class);
         startActivity(i);*/
    }
 

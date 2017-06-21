@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_logout"
         android:title="Logout"
         app:showAsAction="ifRoom"/>
-    <item android:id="@+id/semester"
-        android:title="Choose Semester"
+    <item android:id="@+id/details"
+        android:title="Choose Details"
         app:showAsAction="never"/>
 </menu>

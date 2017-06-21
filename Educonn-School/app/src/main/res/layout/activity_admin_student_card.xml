@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardBackgroundColor="@color/white"
-        android:minHeight="90sp">
+        android:minHeight="60sp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,21 +26,11 @@
                 <com.phacsin.educonn_school.customfonts.NiceFont
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20sp"
-                    android:textSize="15sp"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black_dark"
-                    android:text="Register Number"
-                    android:layout_weight="1"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:id="@+id/registration" />
-                <com.phacsin.educonn_school.customfonts.NiceFont
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
                     android:layout_gravity="center"
                     android:textColor="@color/black_dark"
                     android:text="Name"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="2"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:id="@+id/name" />

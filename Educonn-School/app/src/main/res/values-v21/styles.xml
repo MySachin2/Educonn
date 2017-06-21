@@ -27,5 +27,9 @@
         <item name="windowActionBar">false</item>
         <item name="colorPrimaryDark">@color/dark_green</item>
         <item name="colorAccent">@color/green</item>
+
+        <item name="android:actionModeBackground">@color/green</item>
+        <item name="actionModeBackground">@color/green</item>
+        <item name="windowActionModeOverlay">true</item>
     </style>
 </resources>

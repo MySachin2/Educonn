@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Educonn.iml" filepath="$PROJECT_DIR$/Educonn.iml" />
       <module fileurl="file://$PROJECT_DIR$/Educonn-College.iml" filepath="$PROJECT_DIR$/Educonn-College.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Educonn-College.iml" filepath="$PROJECT_DIR$/Educonn-College.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/student.iml" filepath="$PROJECT_DIR$/student.iml" />
     </modules>

@@ -14,9 +14,16 @@
             <com.phacsin.educonn_school.customfonts.NiceFont
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/class_selected_student"
+                android:id="@+id/standard_selected_student"
                 android:textColor="@color/black_dark"
                 android:text="10"/>
+            <com.phacsin.educonn_school.customfonts.NiceFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/division_selected_student"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black_dark"
+                android:text="A"/>
         </LinearLayout>
         <!--<com.phacsin.educonn_school.customfonts.HelveticaEditText
             android:id="@+id/typed_name_student_reg"
@@ -80,6 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="45sp"
             android:layout_margin="10dp"
+            android:inputType="textEmailAddress"
             android:background="@drawable/admin_profile_edit_edit_text" />
         <View
             android:layout_width="match_parent"
@@ -103,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="45sp"
             android:layout_margin="10dp"
+            android:inputType="phone"
             android:background="@drawable/admin_profile_edit_edit_text" />
 
         <View

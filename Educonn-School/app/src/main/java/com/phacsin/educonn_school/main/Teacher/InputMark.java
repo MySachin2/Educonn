@@ -62,11 +62,11 @@ public class InputMark  extends AppCompatActivity {
         btn_input_mark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (verify_out_of_mark()==true){
+                if (verify_out_of_mark()){
                     if (valid_subject) {
                         Intent i = new Intent(getApplicationContext(), InputMarkList.class);
-                        i.putExtra("batch", spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString());
-                        i.putExtra("semester", spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString());
+                        i.putExtra("class", spinner_class.getItems().get(spinner_class.getSelectedIndex()).toString());
+                        i.putExtra("division", spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString());
                         i.putExtra("subject", spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString());
                         i.putExtra("total", edittext_mark.getText().toString());
                         startActivity(i);
@@ -87,7 +87,7 @@ public class InputMark  extends AppCompatActivity {
 
         spinner_subject = (MaterialSpinner) findViewById(R.id.spinner_mark_add_subject);
 
-        mref.child("College").child(institution_name).child("Batch").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+        mref.child("School").child(institution_name).child("Batch").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> list = new ArrayList<String>();

@@ -41,15 +41,26 @@
             android:orientation="horizontal">
 
             <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-                android:id="@+id/spinner_class"
-                android:layout_width="150dp"
+                android:id="@+id/spinner_standard"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 app:ms_arrow_tint="@color/green"
-                app:ms_background_color="@color/spinner"
                 android:layout_weight="1"
+                app:ms_background_color="@color/spinner"
                 app:ms_text_color="@color/black_dark" />
+
+            <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
+                android:id="@+id/spinner_division"
+                app:ms_background_color="@color/spinner"
+                app:ms_text_color="@color/black_dark"
+                app:ms_arrow_tint="@color/green"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"/>
 
 
             <com.phacsin.educonn_school.customfonts.HelveticaButton

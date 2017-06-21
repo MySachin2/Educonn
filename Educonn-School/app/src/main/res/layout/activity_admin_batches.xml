@@ -24,15 +24,174 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:scrollbars="none"
-        android:scrollbarSize="0dp"
-        android:scrollbarAlwaysDrawVerticalTrack="false"
-        android:scrollbarStyle="insideOverlay"
+    <com.phacsin.educonn_school.customfonts.NiceFont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/class_selected_year"
+        android:textColor="@color/black_dark"
+        android:text="Academic Years"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp">
+
+        <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
+            android:id="@+id/spinner_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            app:ms_arrow_tint="@color/green"
+            app:ms_background_color="@color/spinner"
+            app:ms_text_color="@color/black_dark" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btn_add_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/float_transparent"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            app:fab_size="mini"
+            android:src="@drawable/fab_add"
+            app:fab_colorNormal="@color/green"
+            app:fab_colorPressed="@color/dark_green"
+            />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btn_delete_year"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_delete"
+            android:background="@color/float_transparent"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            app:fab_size="mini"
+            app:fab_colorNormal="@color/green"
+            android:layout_marginLeft="5dp"
+            app:fab_colorPressed="@color/dark_green"
+
+            />
+    </LinearLayout>
+    <com.phacsin.educonn_school.customfonts.NiceFont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/class_selected_standard"
+        android:textColor="@color/black_dark"
+        android:text="Standards"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp">
+
+        <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
+            android:id="@+id/spinner_standard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            app:ms_arrow_tint="@color/green"
+            app:ms_background_color="@color/spinner"
+            app:ms_text_color="@color/black_dark"
+            />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btn_add_standard"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="@color/float_transparent"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            app:fab_size="mini"
+            android:src="@drawable/fab_add"
+            app:fab_colorNormal="@color/green"
+            app:fab_colorPressed="@color/dark_green"
+
+            />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btn_delete_standard"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="@color/float_transparent"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:src="@android:drawable/ic_menu_delete"
+            app:fab_size="mini"
+            app:fab_colorNormal="@color/green"
+            app:fab_colorPressed="@color/dark_green"
+            android:layout_marginLeft="5dp"
+            />
+    </LinearLayout>
+    <com.phacsin.educonn_school.customfonts.NiceFont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/class_selected_subject"
+        android:textColor="@color/black_dark"
+        android:text="Divisions"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp">
+
+        <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
+            android:id="@+id/spinner_division"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.8"
+            app:ms_arrow_tint="@color/green"
+            app:ms_background_color="@color/spinner"
+            app:ms_text_color="@color/black_dark" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btn_add_division"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="@color/float_transparent"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            app:fab_size="mini"
+            android:src="@drawable/fab_add"
+            app:fab_colorNormal="@color/green"
+            app:fab_colorPressed="@color/dark_green"
+
+            />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btn_delete_division"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="@color/float_transparent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:src="@android:drawable/ic_menu_delete"
+            app:fab_size="mini"
+            app:fab_colorNormal="@color/green"
+            app:fab_colorPressed="@color/dark_green"
+
+            />
+    </LinearLayout>
 </LinearLayout>
