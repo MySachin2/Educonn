@@ -73,6 +73,7 @@ public class EditActivity extends AppCompatActivity {
                 {
                     data_std.add(postSnapshot.child("Name").getValue(String.class));
                 }
+                Log.d("DS",dataSnapshot.toString());
                 if(data_std.size()!=0) {
                     standard_selected = data_std.get(0);
                     spinner_standard.setError(null);

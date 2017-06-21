@@ -59,6 +59,7 @@ public class Add_Subject extends AppCompatActivity {
     List<String> multiselect_list = new ArrayList<>();
     ActionMode mActionMode;
     boolean isMultiSelect = false;
+    boolean valid_division;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,12 +115,14 @@ public class Add_Subject extends AppCompatActivity {
                             if(data_div.size()!=0) {
                                 spinner_division.setError(null);
                                 spinner_division.setItems(data_div);
+                                valid_division = true;
                             }
                             else
                             {
                                 data_div.add("No Divisions available");
                                 spinner_standard.setItems(data_div);
                                 spinner_standard.setError("No Divisions available");
+                                valid_division = false;
                             }
                         }
 
@@ -156,12 +159,16 @@ public class Add_Subject extends AppCompatActivity {
                         if(data_div.size()!=0) {
                             spinner_division.setError(null);
                             spinner_division.setItems(data_div);
+                            valid_division = true;
+
                         }
                         else
                         {
                             data_div.add("No Divisions available");
                             spinner_standard.setItems(data_div);
                             spinner_standard.setError("No Divisions available");
+                            valid_division = false;
+
                         }
                     }
 
@@ -175,24 +182,27 @@ public class Add_Subject extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                standard_selected = spinner_standard.getItems().get(spinner_standard.getSelectedIndex()).toString();
-                division_selected = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
-                mRef.child("School").child(institution_name).child("Subject").child(year).child(standard_selected).child(division_selected).orderByChild("Subject Code").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        data_subject.clear();
-                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
-                        {
-                            data_subject.add(postSnapshot.child("Name").getValue(String.class));
+                if(valid_division) {
+                    standard_selected = spinner_standard.getItems().get(spinner_standard.getSelectedIndex()).toString();
+                    division_selected = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
+                    mRef.child("School").child(institution_name).child("Subject").child(year).child(standard_selected).child(division_selected).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            data_subject.clear();
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                data_subject.add(postSnapshot.child("Name").getValue(String.class));
+                            }
+                            adapter.notifyDataSetChanged();
                         }
-                        adapter.notifyDataSetChanged();
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"Invalid Division",Toast.LENGTH_LONG).show();
             }
         });
 

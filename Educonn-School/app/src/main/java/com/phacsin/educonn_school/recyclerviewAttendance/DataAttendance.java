@@ -6,6 +6,6 @@ package com.phacsin.educonn_school.recyclerviewAttendance;
 
 public class DataAttendance {
 
-    public String subject_name;
-    public String percentage;
+    public String day;
+    public String status;
 }

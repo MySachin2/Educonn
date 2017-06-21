@@ -161,11 +161,12 @@ public class InputMarkList extends AppCompatActivity {
                 }
             }
         }
+        mref.child("School").child(institution_name).child("Mark").child(year).child(standard).child(division).child(subject).child(test).child("Total").setValue(total);
         for(MarkClass markClass:adapter.lstChk) {
             if (!markClass.marks.equals(""))
-                mref.child("School").child(institution_name).child("Mark").child(standard).child(division).child(subject).child(markClass.name).child("Marks").setValue(markClass.marks + " out of " + total);
+                mref.child("School").child(institution_name).child("Mark").child(year).child(standard).child(division).child(subject).child(test).child(markClass.name).child("Marks").setValue(markClass.marks);
             else
-                mref.child("School").child(institution_name).child("Mark").child(standard).child(division).child(subject).child(markClass.name).child("Marks").setValue("Absent");
+                mref.child("School").child(institution_name).child("Mark").child(year).child(standard).child(division).child(subject).child(test).child(markClass.name).child("Marks").setValue("Absent");
           }
             Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_LONG).show();
             Map<String,String> map = new HashMap<String, String>();

@@ -239,17 +239,19 @@ public class Admin_Add_Multiple_Items extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         final String name = name_editText.getText().toString();
-                        mRef.child("School").child(institution_name).child("Academic Year").push().child("Name").setValue(name);
-                        if(!valid_year)
-                        {
-                            data_year.clear();
-                            valid_year = true;
-                            spinner_year.setError(null);
+                        if(!name.equals("")) {
+                            mRef.child("School").child(institution_name).child("Academic Year").push().child("Name").setValue(name);
+                            if (!valid_year) {
+                                data_year.clear();
+                                valid_year = true;
+                                spinner_year.setError(null);
+                            }
+                            data_year.add(name);
+                            Log.d("FirebaseError", data_year.toString());
+                            spinner_year.setItems(data_year);
+                            mMaterialDialog.dismiss();
                         }
-                        data_year.add(name);
-                        Log.d("FirebaseError",data_year.toString());
-                        spinner_year.setItems(data_year);
-                        mMaterialDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"Invalid",Toast.LENGTH_LONG).show();
                     }
                 });
                 cancel_staff_add.setOnClickListener(new View.OnClickListener() {
@@ -275,15 +277,19 @@ public class Admin_Add_Multiple_Items extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             final String name = name_editText.getText().toString();
-                            mRef.child("School").child(institution_name).child("Standard").child(year_selected).push().child("Name").setValue(name);
-                            if (!valid_standard) {
-                                data_standard.clear();
-                                valid_standard = true;
-                                spinner_standard.setError(null);
+                            if(!name.equals("")) {
+                                mRef.child("School").child(institution_name).child("Standard").child(year_selected).push().child("Name").setValue(name);
+                                if (!valid_standard) {
+                                    data_standard.clear();
+                                    valid_standard = true;
+                                    spinner_standard.setError(null);
+                                }
+                                data_standard.add(name);
+                                spinner_standard.setItems(data_standard);
+                                mMaterialDialog.dismiss();
                             }
-                            data_standard.add(name);
-                            spinner_standard.setItems(data_standard);
-                            mMaterialDialog.dismiss();
+                            else
+                                Toast.makeText(getApplicationContext(),"Invalid",Toast.LENGTH_LONG).show();
                         }
                     });
                     cancel_staff_add.setOnClickListener(new View.OnClickListener() {
@@ -314,15 +320,19 @@ public class Admin_Add_Multiple_Items extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 final String name = name_editText.getText().toString();
-                                mRef.child("School").child(institution_name).child("Division").child(year_selected).child(standard_selected).push().child("Name").setValue(name);
-                                if (!valid_division) {
-                                    data_division.clear();
-                                    valid_division = true;
-                                    spinner_division.setError(null);
+                                if(!name.equals("")) {
+                                    mRef.child("School").child(institution_name).child("Division").child(year_selected).child(standard_selected).push().child("Name").setValue(name);
+                                    if (!valid_division) {
+                                        data_division.clear();
+                                        valid_division = true;
+                                        spinner_division.setError(null);
+                                    }
+                                    data_division.add(name);
+                                    spinner_division.setItems(data_division);
+                                    mMaterialDialog.dismiss();
                                 }
-                                data_division.add(name);
-                                spinner_division.setItems(data_division);
-                                mMaterialDialog.dismiss();
+                                else
+                                    Toast.makeText(getApplicationContext(),"Invalid",Toast.LENGTH_LONG).show();
                             }
                         });
                         cancel_staff_add.setOnClickListener(new View.OnClickListener() {

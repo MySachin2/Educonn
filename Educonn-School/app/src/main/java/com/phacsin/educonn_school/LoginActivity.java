@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    private PaymentReceiver alarm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,24 +78,24 @@ public class LoginActivity extends AppCompatActivity {
                         mDatabase.child("Users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                String name = dataSnapshot.child("Name").getValue(String.class);
                                 String year = dataSnapshot.child("Academic Year").getValue(String.class);
                                 String institution_name = dataSnapshot.child("Institution Name").getValue(String.class);
                                 String type = dataSnapshot.child("Type").getValue(String.class);
-                                String reg_no = dataSnapshot.child("Register Number").getValue(String.class);
                                 Log.d("INST",institution_name);
                                 editor.putString("Institution Name",institution_name);
                                 editor.putString("Type",type);
                                 editor.putString("Email",user.getEmail());
 
                                 if (type.equals("Student")) {
-                                    editor.putString("Academic Year", year);
-                                    editor.putString("Register Number", reg_no);
+                                    editor.putString("Name", name);
                                     editor.commit();
                                     String reg_token = sharedPreferences.getString("Registration Token","");
                                     mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("Registration Token").setValue(reg_token);
                                     //FirebaseMessaging.getInstance().subscribeToTopic(institution_name.replaceAll("[^a-zA-Z0-9]","") + "_" + year.replaceAll("[^a-zA-Z0-9]",""));
 
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, SelectionActivity.class));
+
                                 }
                                 else if (type.equals("Teacher")) {
                                     editor.commit();
@@ -102,6 +103,8 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else if(type.equals("Admin"))
                                 {
+                                    alarm = new PaymentReceiver();
+                                    alarm.setAlarm(getApplicationContext());
                                     Date now = Calendar.getInstance().getTime();
                                     String nowAsString = new SimpleDateFormat("dd-MM-yyyy").format(now);
                                     editor.putString("Last Login",nowAsString);
@@ -119,9 +122,15 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        String value = sharedPreferences.getString("Type","Student");
+                        String value = sharedPreferences.getString("Type","");
                         if (value.equals("Student"))
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        {
+                            if(sharedPreferences.contains("Academic Year"))
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            else
+                                startActivity(new Intent(LoginActivity.this, SelectionActivity.class));
+
+                        }
                         else if (value.equals("Teacher"))
                             startActivity(new Intent(LoginActivity.this, TeacherMainActivity.class));
                         else if(value.equals("Admin"))
@@ -188,8 +197,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        /*Intent i=new Intent(this,SelectionActivity.class);
-        startActivity(i);*/
    }
 
     public void onLoginFailed() {

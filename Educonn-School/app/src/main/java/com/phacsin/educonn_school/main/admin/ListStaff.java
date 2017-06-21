@@ -200,7 +200,7 @@ public class ListStaff extends AppCompatActivity {
                                     user.put("UID",task.getResult().getUser().getUid());
                                     mRef.child("Users").child(task.getResult().getUser().getUid()).setValue(user);
                                     mAuth_temp.signOut();
-                                    Toast.makeText(getApplicationContext(),"Successfully Created",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"Successfully Created",Toast.LENGTH_SHORT).show();
 
                                 }
                                 else
@@ -209,7 +209,7 @@ public class ListStaff extends AppCompatActivity {
                                     if(e!=null) {
                                         Log.e("FireBase", e.toString());
                                     }
-                                    Toast.makeText(getApplicationContext(),"Unsuccessful",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"Email already exists",Toast.LENGTH_LONG).show();
                                 }
 
 

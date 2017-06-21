@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +26,7 @@ import com.phacsin.educonn_school.recyclerviewmarks.AdapterMarkDetails;
 import com.phacsin.educonn_school.recyclerviewmarks.DataMarks;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -38,12 +41,13 @@ public class MarkFragment extends Fragment {
     private static ArrayList<Integer> removedItems;
     HelveticaButton btn_sbmt;
     private static AdapterMarkDetails adapter;
-    String batch,reg_no;
     private DatabaseReference mref;
-    private String semester;
+    private String year,standard,division,name;
     private Button submit;
     SharedPreferences sharedPreferences;
     String institution_name;
+    MaterialSpinner spinner_subject;
+    private boolean valid_subject;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,17 +58,16 @@ public class MarkFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
         institution_name = sharedPreferences.getString("Institution Name","");
         btn_sbmt = (HelveticaButton) rootView.findViewById(R.id.btn_submit_month);
-        final MaterialSpinner spinner = (MaterialSpinner) rootView.findViewById(R.id.spinner);
-        spinner.setItems("Sessional 1", "Sessional 2", "Sessional 3");
-        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        spinner_subject = (MaterialSpinner) rootView.findViewById(R.id.spinner_subject);
 
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Selected " + item, Snackbar.LENGTH_LONG).show();
-            }
-        });
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
         sharedPreferences = getActivity().getSharedPreferences("prefs",MODE_PRIVATE);
+
+        year = sharedPreferences.getString("Academic Year","");
+        name = sharedPreferences.getString("Name","");
+        standard = sharedPreferences.getString("Standard","");
+        division = sharedPreferences.getString("Division","");
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -74,39 +77,70 @@ public class MarkFragment extends Fragment {
 
         data.clear();
         adapter.notifyDataSetChanged();
+        mref.child("School").child(institution_name).child("Subject").child(year).child(standard).child(division).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> data_div = new ArrayList<>();
+                for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                {
+                    data_div.add(postSnapshot.child("Name").getValue(String.class));
+                }
+                if(data_div.size()!=0) {
+                    valid_subject =true;
+                    spinner_subject.setError(null);
+                    spinner_subject.setItems(data_div);
+                }
+                else
+                {
+                    valid_subject =false;
+                    data_div.add("No Subjects available");
+                    spinner_subject.setItems(data_div);
+                    spinner_subject.setError("No Subjects available");
+                }
+            }
 
-        batch = sharedPreferences.getString("Batch","");
-        reg_no = sharedPreferences.getString("Register Number","");
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        
         btn_sbmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                semester = sharedPreferences.getString("Semester","");
-                String sessional = spinner.getItems().get(spinner.getSelectedIndex()).toString();
-                mref.keepSynced(true);
-                mref.child("College").child(institution_name).child("Mark").child(batch).child(semester).child(sessional).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        data.clear();
-                        adapter.notifyDataSetChanged();
-                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
-                        {
-                            DataMarks dataMarks = new DataMarks();
-                            dataMarks.subject_name = postSnapshot.getKey();
-                            String mark_str = postSnapshot.child(reg_no).child("Marks").getValue(String.class);
-                            if(!mark_str.equals("Absent"))
-                                dataMarks.marks = mark_str.substring(0,2) + "/"  + mark_str.substring(10,12);
-                            else
-                                dataMarks.marks = "Ab";
-                            data.add(dataMarks);
+                if(valid_subject) {
+                    String subject = spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString();
+                    mref.child("School").child(institution_name).child("Mark").child(year).child(standard).child(division).child(subject).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            data.clear();
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                DataMarks dataMarks = new DataMarks();
+                                dataMarks.test_name = postSnapshot.getKey();
+                                String marks = postSnapshot.child(name).child("Marks").getValue(String.class);
+                                String total = postSnapshot.child("Total").getValue(String.class);
+                                Log.d("dSA",name);
+                                Log.d("total",total);
+                                if(marks!=null) {
+                                    if (!marks.equals("Absent"))
+                                        dataMarks.marks = marks + "/" + total;
+                                    else
+                                        dataMarks.marks = "Ab";
+                                    data.add(dataMarks);
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
                         }
-                        adapter.notifyDataSetChanged();
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+                }
+                else
+                    Toast.makeText(getActivity(), "Subject is Invalid", Toast.LENGTH_LONG).show();
+
             }
         });
 

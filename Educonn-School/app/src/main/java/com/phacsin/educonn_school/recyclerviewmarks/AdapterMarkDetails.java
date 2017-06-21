@@ -50,7 +50,7 @@ public class AdapterMarkDetails extends RecyclerView.Adapter<AdapterMarkDetails.
         TextView textViewName = holder.textViewName;
         TextView textViewVersion = holder.textViewMarks;
 
-        textViewName.setText(dataSet.get(listPosition).subject_name);
+        textViewName.setText(dataSet.get(listPosition).test_name);
         textViewVersion.setText(dataSet.get(listPosition).marks);
     }
 

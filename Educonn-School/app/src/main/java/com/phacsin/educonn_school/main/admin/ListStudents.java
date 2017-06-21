@@ -70,6 +70,7 @@ public class ListStudents extends AppCompatActivity {
     ActionMode mActionMode;
     boolean isMultiSelect = false;
     private String year;
+    boolean valid_division;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +134,7 @@ public class ListStudents extends AppCompatActivity {
                                 data_div.add(postSnapshot.child("Name").getValue(String.class));
                             }
                             if(data_div.size()!=0) {
+                                valid_division = true;
                                 spinner_division.setError(null);
                                 spinner_division.setItems(data_div);
                             }
@@ -141,6 +143,8 @@ public class ListStudents extends AppCompatActivity {
                                 data_div.add("No Divisions available");
                                 spinner_standard.setItems(data_div);
                                 spinner_standard.setError("No Divisions available");
+                                valid_division = false;
+
                             }
                         }
 
@@ -176,11 +180,13 @@ public class ListStudents extends AppCompatActivity {
                             data_div.add(postSnapshot.child("Name").getValue(String.class));
                         }
                         if(data_div.size()!=0) {
+                            valid_division = true;
                             spinner_division.setError(null);
                             spinner_division.setItems(data_div);
                         }
                         else
                         {
+                            valid_division = false;
                             data_div.add("No Divisions available");
                             spinner_standard.setItems(data_div);
                             spinner_standard.setError("No Divisions available");
@@ -205,25 +211,28 @@ public class ListStudents extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                data.clear();
-                standard_selected = spinner_standard.getItems().get(spinner_standard.getSelectedIndex()).toString();
-                division_selected = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
+                if(valid_division) {
+                    data.clear();
+                    standard_selected = spinner_standard.getItems().get(spinner_standard.getSelectedIndex()).toString();
+                    division_selected = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
 
-                mRef.child("School").child(institution_name).child("Students").child(year).child(standard_selected).child(division_selected).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
-                        {
-                            data.add(postSnapshot.child("Name").getValue(String.class));
+                    mRef.child("School").child(institution_name).child("Students").child(year).child(standard_selected).child(division_selected).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                data.add(postSnapshot.child("Name").getValue(String.class));
+                            }
+                            adapter.notifyDataSetChanged();
                         }
-                        adapter.notifyDataSetChanged();
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"Invalid Division",Toast.LENGTH_LONG).show();
 
             }
         });
@@ -328,7 +337,7 @@ public class ListStudents extends AppCompatActivity {
                                     }
                                     else
                                     {
-                                        Toast.makeText(getApplicationContext(),"Unsuccessful",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(),"Email already exists",Toast.LENGTH_LONG).show();
                                     }
 
                                 }

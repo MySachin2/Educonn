@@ -73,8 +73,8 @@ public class AdapterAttendanceDetails extends RecyclerView.Adapter<AdapterAttend
                 Snackbar.make(view, "Details updated soon ", Snackbar.LENGTH_LONG).show();
             }
         });
-        textViewName.setText(dataSet.get(listPosition).subject_name);
-        textViewVersion.setText(dataSet.get(listPosition).percentage);
+        textViewName.setText(dataSet.get(listPosition).day);
+        textViewVersion.setText(dataSet.get(listPosition).status);
     }
 
     @Override

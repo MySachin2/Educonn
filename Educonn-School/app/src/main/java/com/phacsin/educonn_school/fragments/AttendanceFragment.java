@@ -25,6 +25,7 @@ import com.phacsin.educonn_school.recyclerviewAttendance.AdapterAttendanceDetail
 import com.phacsin.educonn_school.recyclerviewAttendance.DataAttendance;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -45,7 +46,7 @@ public class AttendanceFragment extends Fragment  {
     HelveticaButton btn_sbmt;
     private DatabaseReference mref;
     SharedPreferences.Editor editor;
-    String batch,semester,reg_no;
+    String year,standard,division,name;
     List<String> month_list = new ArrayList<String>();
     int attended,total;
     SharedPreferences sharedPreferences;
@@ -68,9 +69,10 @@ public class AttendanceFragment extends Fragment  {
         sharedPreferences = getActivity().getSharedPreferences("prefs",MODE_PRIVATE);
         institution_name = sharedPreferences.getString("Institution Name","");
         //editor = sharedPreferences.edit();
-        batch = sharedPreferences.getString("Batch","");
-        reg_no = sharedPreferences.getString("Register Number","");
-        semester = sharedPreferences.getString("Semester","");
+        year = sharedPreferences.getString("Academic Year","");
+        name = sharedPreferences.getString("Name","");
+        standard = sharedPreferences.getString("Standard","");
+        division = sharedPreferences.getString("Division","");
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -83,7 +85,7 @@ public class AttendanceFragment extends Fragment  {
         recyclerView.setAdapter(adapter);
 
 
-        mref.child("College").child(institution_name).child("Working Days").child(batch).child(semester).addValueEventListener(new ValueEventListener() {
+        mref.child("School").child(institution_name).child("Working Days").child(year).orderByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> added_months = new ArrayList<String>();
@@ -92,9 +94,9 @@ public class AttendanceFragment extends Fragment  {
                 adapter.notifyDataSetChanged();
                 for(DataSnapshot postSnapshot:dataSnapshot.getChildren())
                 {
-                    String month_str = postSnapshot.getKey().substring(3,5);
                     Log.d("month",postSnapshot.getKey());
-                    if(!added_months.contains(month_str))
+                    String month_str = postSnapshot.getKey().substring(3,5);
+                    if(!added_months.contains(MonthIndex.myMap.get(month_str)))
                     {
                         added_months.add(MonthIndex.myMap.get(month_str));
                         month_list.add(MonthIndex.myMap.get(month_str));
@@ -110,39 +112,33 @@ public class AttendanceFragment extends Fragment  {
 
             }
         });
-        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "selected " + item, Snackbar.LENGTH_LONG).show();
-            }
-        });
 
         btn_sbmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String month_selected = spinner.getItems().get(spinner.getSelectedIndex()).toString();
-                mref.child("College").child(institution_name).child("Attendance").child(batch).child(semester).addListenerForSingleValueEvent(new ValueEventListener() {
+                mref.child("School").child(institution_name).child("Attendance").child(year).child(standard).child(division).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         data.clear();
                         adapter.notifyDataSetChanged();
-                        total = attended =0;
-                        for(DataSnapshot subject : dataSnapshot.getChildren())
+                        for(DataSnapshot date : dataSnapshot.getChildren())
                         {
-                            DataAttendance dataAttendance = new DataAttendance();
-                            dataAttendance.subject_name = subject.getKey();
-                            for(DataSnapshot date : subject.getChildren())
+                            if(MonthIndex.myMap.get(date.getKey().substring(3,5)).equals(month_selected))
                             {
-                                if(MonthIndex.myMap.get(date.getKey().substring(3,5)).equals(month_selected))
+                                DataAttendance dataAttendance = new DataAttendance();
+                                dataAttendance.day = date.getKey();
+                                if(date.hasChild(name))
                                 {
-                                    if(date.hasChild(reg_no))
-                                        attended++;
-                                    total++;
+                                    dataAttendance.status = "Pr";
                                 }
+                                else
+                                    dataAttendance.status = "Ab";
+                                data.add(dataAttendance);
                             }
-                            dataAttendance.percentage = String.valueOf(Math.round((attended*100)/total)) + "%";
-                            data.add(dataAttendance);
                         }
+                        Collections.reverse(data);
                         adapter.notifyDataSetChanged();
                     }
 

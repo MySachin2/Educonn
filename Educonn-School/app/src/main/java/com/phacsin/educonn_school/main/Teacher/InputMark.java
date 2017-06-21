@@ -19,7 +19,9 @@ import com.phacsin.educonn_school.R;
 import com.phacsin.educonn_school.customfonts.HelveticaButton;
 import com.phacsin.educonn_school.customfonts.HelveticaEditText;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -68,24 +70,17 @@ public class InputMark  extends AppCompatActivity {
                     if (valid_subject) {
                         final String standard = spinner_standard.getItems().get(spinner_standard.getSelectedIndex()).toString();
                         final String division = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
-                        mref.child("School").child(institution_name).child("Mark").child(year).child(standard).child(division).orderByKey().addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Intent i = new Intent(getApplicationContext(), InputMarkList.class);
-                                i.putExtra("standard",standard );
-                                i.putExtra("division", division);
-                                i.putExtra("test_name", "Test " + (dataSnapshot.getChildrenCount()+1));
-                                i.putExtra("subject", spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString());
-                                i.putExtra("total", edittext_mark.getText().toString());
-                                startActivity(i);
-                                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
+                        Calendar c = Calendar.getInstance();
+                        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                        String formattedDate = df.format(c.getTime());
+                        Intent i = new Intent(getApplicationContext(), InputMarkList.class);
+                        i.putExtra("standard",standard );
+                        i.putExtra("division", division);
+                        i.putExtra("test_name", "Test : " + formattedDate);
+                        i.putExtra("subject", spinner_subject.getItems().get(spinner_subject.getSelectedIndex()).toString());
+                        i.putExtra("total", edittext_mark.getText().toString());
+                        startActivity(i);
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
 
                     }

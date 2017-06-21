@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.phacsin.educonn_school.LoginActivity;
+import com.phacsin.educonn_school.PaymentReceiver;
 import com.phacsin.educonn_school.R;
 import com.phacsin.educonn_school.RandomPasswordGenerator;
 import com.phacsin.educonn_school.customfonts.HelveticaButton;
@@ -95,56 +96,55 @@ public class AdminMainActivity extends AppCompatActivity {
 
         gridView = (GridView) findViewById(R.id.grid);
         gridView.setAdapter(new CustomAndroidGridViewAdapter(this, gridViewStrings, gridViewImages));
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String status = sharedPreferences.getString("Payment Status","Active");
+        if(status.equals("Expired"))
+            Toast.makeText(getApplicationContext(),"Expired. Please pay for additional services",Toast.LENGTH_LONG).show();
+        else {
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     switch (position) {
                         case 0:
-                            if(sharedPreferences.contains("Academic Year")) {
+                            if (sharedPreferences.contains("Academic Year")) {
                                 startActivity(new Intent(getApplicationContext(), Message_Admin.class));
                                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                            }
-                            else
-                                Toast.makeText(getApplicationContext(),"Select an Academic Year from the Menu",Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(getApplicationContext(), "Select an Academic Year from the Menu", Toast.LENGTH_LONG).show();
                             break;
                         case 1:
                             startActivity(new Intent(getApplicationContext(), Admin_Add_Multiple_Items.class));
                             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                             break;
                         case 2:
-                            if(sharedPreferences.contains("Academic Year")) {
+                            if (sharedPreferences.contains("Academic Year")) {
 
                                 startActivity(new Intent(getApplicationContext(), ListStaff.class));
                                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                            }
-                            else
-                                Toast.makeText(getApplicationContext(),"Select an Academic Year from the Menu",Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(getApplicationContext(), "Select an Academic Year from the Menu", Toast.LENGTH_LONG).show();
 
                             break;
                         case 3:
-                            if(sharedPreferences.contains("Academic Year")) {
+                            if (sharedPreferences.contains("Academic Year")) {
                                 startActivity(new Intent(getApplicationContext(), ListStudents.class));
                                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                            }
-                            else
-                                Toast.makeText(getApplicationContext(),"Select an Academic Year from the Menu",Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(getApplicationContext(), "Select an Academic Year from the Menu", Toast.LENGTH_LONG).show();
                             break;
                         case 4:
-                            if(sharedPreferences.contains("Academic Year")) {
+                            if (sharedPreferences.contains("Academic Year")) {
 
                                 startActivity(new Intent(getApplicationContext(), Add_Subject.class));
                                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                            }
-                             else
-                            Toast.makeText(getApplicationContext(),"Select an Academic Year from the Menu",Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(getApplicationContext(), "Select an Academic Year from the Menu", Toast.LENGTH_LONG).show();
                             break;
                         case 5:
-                            if(sharedPreferences.contains("Academic Year")) {
+                            if (sharedPreferences.contains("Academic Year")) {
                                 startActivity(new Intent(getApplicationContext(), ListSubject.class));
                                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                            }
-                             else
-                            Toast.makeText(getApplicationContext(),"Select an Academic Year from the Menu",Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(getApplicationContext(), "Select an Academic Year from the Menu", Toast.LENGTH_LONG).show();
                             break;
                         case 6:
                             startActivity(new Intent(getApplicationContext(), Settings_Admin.class));
@@ -157,9 +157,11 @@ public class AdminMainActivity extends AppCompatActivity {
 
                     }
 
-            }
-        });
+                }
+            });
+        }
         mAuth = FirebaseAuth.getInstance();
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

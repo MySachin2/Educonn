@@ -54,10 +54,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPagerAdapter adapter;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    private DatabaseReference mRef;
-    private String institution_name;
-    String year_selected,standard_selected,division_selected;
-    ValueEventListener standard_listener;
+    DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
-        institution_name = sharedPreferences.getString("Institution Name","");
-        sharedPreferences = getSharedPreferences("prefs",MODE_PRIVATE);
         editor = sharedPreferences.edit();
         setSupportActionBar(toolbar);
        // img_send =(ImageView) findViewById(R.id.send_message);
@@ -84,35 +79,12 @@ public class MainActivity extends AppCompatActivity {
         */
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(0);
         tabLayout = (TabLayout) findViewById(tabs);
-
-        if(!sharedPreferences.contains("Academic Year"))
-        {
-            mRef.child("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.hasChild("Academic Year")) {
-                        String year = dataSnapshot.child("Academic Year").getValue(String.class);
-                        editor.putString("Academic Year", year);
-                        editor.commit();
-                    }
-                    setupViewPager(viewPager);
-                    tabLayout.setupWithViewPager(viewPager);
-                    setupTabIcons();
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        }
-        else
-        {
-            setupViewPager(viewPager);
-            tabLayout.setupWithViewPager(viewPager);
-            setupTabIcons();
-        }
+        Log.d("HEllo",sharedPreferences.getString("Academic Year",""));
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
 
     }
 
@@ -230,185 +202,8 @@ public class MainActivity extends AppCompatActivity {
                 });
                 return true;*/
             case R.id.details:
-                final Dialog mMaterialDialog = new Dialog(MainActivity.this);
-                mMaterialDialog.setContentView(R.layout.dialog_admin_select_year);
-                final MaterialSpinner spinner_year = (MaterialSpinner) mMaterialDialog.findViewById(R.id.spinner_year);
-                final MaterialSpinner spinner_standard = (MaterialSpinner) mMaterialDialog.findViewById(R.id.spinner_standard);
-                final MaterialSpinner spinner_division = (MaterialSpinner) mMaterialDialog.findViewById(R.id.spinner_division);
-
-                mMaterialDialog.getWindow().setBackgroundDrawableResource(R.color.white);
-                mMaterialDialog.show();
-                final HelveticaButton add_staff =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_add);
-                final HelveticaButton cancel_staff_add =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_cancel);
-                standard_listener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<String> data_standard = new ArrayList<String>();
-                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
-                            data_standard.add(postSnapshot.child("Name").getValue(String.class));
-                        if(data_standard.size()!=0) {
-                            spinner_standard.setItems(data_standard);
-                            spinner_standard.setError(null);
-                            standard_selected = data_standard.get(0);
-                            mRef.child("School").child(institution_name).child("Division").child(year_selected).child(standard_selected).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    List<String> data_division = new ArrayList<String>();
-                                    for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
-                                        data_division.add(postSnapshot.child("Name").getValue(String.class));
-                                    if(data_division.size()!=0) {
-                                        spinner_division.setItems(data_division);
-                                        spinner_division.setError(null);
-                                    }
-                                    else
-                                    {
-                                        spinner_division.setItems(data_division);
-                                        spinner_division.setError("No Divisions available");
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-                        else
-                        {
-                            spinner_standard.setItems(data_standard);
-                            spinner_standard.setError("No Standards available");
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                };
-
-                // First Time
-                mRef.child("School").child(institution_name).child("Academic Year").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<String> data_year = new ArrayList<String>();
-                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
-                            data_year.add(postSnapshot.child("Name").getValue(String.class));
-                        if(data_year.size()!=0) {
-                            spinner_year.setItems(data_year);
-                            spinner_year.setError(null);
-                            year_selected = data_year.get(0);
-                            mRef.child("School").child(institution_name).child("Standard").child(year_selected).orderByChild("Name").addListenerForSingleValueEvent(standard_listener);
-                        }
-                        else
-                        {
-                            spinner_year.setItems(data_year);
-                            spinner_year.setError("No Years available");
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-                spinner_year.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-                    @Override
-                    public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                        year_selected = item;
-                        mRef.child("School").child(institution_name).child("Academic Year").orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                List<String> data_year = new ArrayList<String>();
-                                for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
-                                    data_year.add(postSnapshot.child("Name").getValue(String.class));
-                                if(data_year.size()!=0) {
-                                    spinner_year.setItems(data_year);
-                                    spinner_year.setError(null);
-                                    mRef.child("School").child(institution_name).child("Standard").child(year_selected).orderByChild("Name").addListenerForSingleValueEvent(standard_listener);
-                                }
-                                else
-                                {
-                                    spinner_year.setItems(data_year);
-                                    spinner_year.setError("No Years available");
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
-                });
-                spinner_standard.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-                    @Override
-                    public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                        standard_selected=item;
-                        mRef.child("School").child(institution_name).child("Division").child(year_selected).child(standard_selected).orderByChild("Name").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                List<String> data_division = new ArrayList<String>();
-                                for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
-                                    data_division.add(postSnapshot.child("Name").getValue(String.class));
-                                if(data_division.size()!=0) {
-                                    spinner_division.setItems(data_division);
-                                    spinner_division.setError(null);
-                                }
-                                else
-                                {
-                                    spinner_division.setItems(data_division);
-                                    spinner_division.setError("No Divisions available");
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
-                });
-                spinner_division.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-                    @Override
-                    public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                        division_selected = item;
-                    }
-                });
-                add_staff.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        sharedPreferences = getSharedPreferences("prefs",MODE_PRIVATE);
-                        editor = sharedPreferences.edit();
-                        if(sharedPreferences.contains("Academic Year") && sharedPreferences.contains("Standard") && sharedPreferences.contains("Division"))
-                        {
-                            String year = sharedPreferences.getString("Academic Year","").replaceAll("[^a-zA-Z0-9]","");
-                            String standard = sharedPreferences.getString("Standard","").replaceAll("[^a-zA-Z0-9]","");
-                            String division = sharedPreferences.getString("Division","").replaceAll("[^a-zA-Z0-9]","");
-
-                            FirebaseMessaging.getInstance().unsubscribeFromTopic(institution_name + "_" + year);
-                            FirebaseMessaging.getInstance().unsubscribeFromTopic(institution_name + "_" + year + "_" + standard);
-                            FirebaseMessaging.getInstance().unsubscribeFromTopic(institution_name + "_" + year + "_" + standard + "_" + division);
-
-                        }
-                        editor.putString("Academic Year",year_selected);
-                        editor.putString("Standard",standard_selected);
-                        editor.putString("Division",division_selected);
-                        editor.commit();
-                        FirebaseMessaging.getInstance().subscribeToTopic(institution_name + "_" + year_selected);
-                        FirebaseMessaging.getInstance().subscribeToTopic(institution_name + "_" + year_selected + "_" + standard_selected);
-                        FirebaseMessaging.getInstance().subscribeToTopic(institution_name + "_" + year_selected + "_" + standard_selected + "_" + division_selected);
-                        mMaterialDialog.dismiss();
-                    }
-                });
-                cancel_staff_add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mMaterialDialog.cancel();
-                    }
-                });
+                startActivity(new Intent(this,SelectionActivity.class));
+                finish();
 
                 return true;
             case R.id.logout:
@@ -431,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
                 mAuth.signOut();
 
                 startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

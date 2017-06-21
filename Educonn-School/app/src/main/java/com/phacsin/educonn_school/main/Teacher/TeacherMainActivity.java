@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -84,12 +85,20 @@ public class TeacherMainActivity extends AppCompatActivity {
                 switch (position)
                 {
                     case 0:
-                        startActivity(new Intent(getApplicationContext(),EditActivity.class));
-                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        if(sharedPreferences.contains("Academic Year")) {
+                            startActivity(new Intent(getApplicationContext(), EditActivity.class));
+                            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(),"Select an Academic Year from the Menu",Toast.LENGTH_LONG).show();
                         break;
                     case 1:
-                        startActivity(new Intent(getApplicationContext(),InputMark.class));
-                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        if(sharedPreferences.contains("Academic Year")) {
+                            startActivity(new Intent(getApplicationContext(), InputMark.class));
+                            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(),"Select an Academic Year from the Menu",Toast.LENGTH_LONG).show();
                         break;
                     case 2:
                         startActivity(new Intent(getApplicationContext(),Message_Admin.class));
@@ -114,6 +123,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                 sharedPreferences = getSharedPreferences("prefs",MODE_PRIVATE);
                 editor = sharedPreferences.edit();
                 editor.remove("Type");
+                editor.remove("Academic Year");
                 editor.commit();
                 mAuth.signOut();
 

@@ -195,12 +195,12 @@ public class Messages_Send_Admin extends AppCompatActivity {
                 if(standard.equals("All Standards"))
                     map.put("topic_name", institution_name.replaceAll("[^a-zA-Z0-9]", "") + "_" + year.replaceAll("[^a-zA-Z0-9]", ""));
                 else
-                    map.put("topic_name", institution_name.replaceAll("[^a-zA-Z0-9]", "") + "_" + year.replaceAll("[^a-zA-Z0-9]", "") + standard.replaceAll("[^a-zA-Z0-9]", ""));
+                    map.put("topic_name", institution_name.replaceAll("[^a-zA-Z0-9]", "") + "_" + year.replaceAll("[^a-zA-Z0-9]", "") + "_" + standard.replaceAll("[^a-zA-Z0-9]", ""));
 
                 if(division.equals("All Divisions"))
-                    map.put("topic_name", institution_name.replaceAll("[^a-zA-Z0-9]", "") + "_" + year.replaceAll("[^a-zA-Z0-9]", "") + standard.replaceAll("[^a-zA-Z0-9]", ""));
+                    map.put("topic_name", institution_name.replaceAll("[^a-zA-Z0-9]", "") + "_" + year.replaceAll("[^a-zA-Z0-9]", "") + "_" + standard.replaceAll("[^a-zA-Z0-9]", ""));
                 else
-                    map.put("topic_name", institution_name.replaceAll("[^a-zA-Z0-9]", "") + "_" + year.replaceAll("[^a-zA-Z0-9]", "") + standard.replaceAll("[^a-zA-Z0-9]", "") + division.replaceAll("[^a-zA-Z0-9]", ""));
+                    map.put("topic_name", institution_name.replaceAll("[^a-zA-Z0-9]", "") + "_" + year.replaceAll("[^a-zA-Z0-9]", "") + "_" + standard.replaceAll("[^a-zA-Z0-9]", "") + "_" + division.replaceAll("[^a-zA-Z0-9]", ""));
 
                 mRef.child("Notification Requests").child("Group").push().setValue(map);
                 DBHandler dbHandler = new DBHandler(getApplicationContext());

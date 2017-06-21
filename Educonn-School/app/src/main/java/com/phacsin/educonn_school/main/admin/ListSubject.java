@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -60,6 +61,7 @@ public class ListSubject extends AppCompatActivity {
     ActionMode mActionMode;
     boolean isMultiSelect = false;
     private String year;
+    boolean valid_division;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,12 +113,14 @@ public class ListSubject extends AppCompatActivity {
                             if(data_div.size()!=0) {
                                 spinner_division.setError(null);
                                 spinner_division.setItems(data_div);
+                                valid_division = true;
                             }
                             else
                             {
                                 data_div.add("No Divisions available");
                                 spinner_standard.setItems(data_div);
                                 spinner_standard.setError("No Divisions available");
+                                valid_division = false;
                             }
                         }
 
@@ -155,12 +159,14 @@ public class ListSubject extends AppCompatActivity {
                         if(data_div.size()!=0) {
                             spinner_division.setError(null);
                             spinner_division.setItems(data_div);
+                            valid_division = true;
                         }
                         else
                         {
                             data_div.add("No Divisions available");
                             spinner_standard.setItems(data_div);
                             spinner_standard.setError("No Divisions available");
+                            valid_division = false;
                         }
                     }
 
@@ -175,27 +181,31 @@ public class ListSubject extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String standard = spinner_standard.getItems().get(spinner_standard.getSelectedIndex()).toString();
-                String division = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
-                data.clear();
-                mRef.child("School").child(institution_name).child("Subject_Taken").child(year).child(standard).child(division).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren())
-                        {
-                            DataSubject dataSubject = new DataSubject();
-                            dataSubject.name = postSnapshot.child("Subject").getValue(String.class);
-                            dataSubject.teacher = postSnapshot.child("Staff").getValue(String.class);
-                            data.add(dataSubject);
+                if(valid_division) {
+                    String standard = spinner_standard.getItems().get(spinner_standard.getSelectedIndex()).toString();
+                    String division = spinner_division.getItems().get(spinner_division.getSelectedIndex()).toString();
+                    data.clear();
+                    mRef.child("School").child(institution_name).child("Subject_Taken").child(year).child(standard).child(division).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.d("DS", dataSnapshot.toString());
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                DataSubject dataSubject = new DataSubject();
+                                dataSubject.name = postSnapshot.child("Subject").getValue(String.class);
+                                dataSubject.teacher = postSnapshot.child("Staff").getValue(String.class);
+                                data.add(dataSubject);
+                            }
+                            adapter.notifyDataSetChanged();
                         }
-                        adapter.notifyDataSetChanged();
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"Invalid Division",Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.phacsin.educonn_school">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,80 +12,118 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-        <activity android:name=".LoginActivity"
+
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Forgot_Password"
-            android:theme="@style/MyMaterialTheme"/>
-        <!--admin_phase_begins-->
-        <activity android:name=".main.admin.AdminMainActivity"
-            android:theme="@style/MyMaterialTheme"/>
-        <!-- Profile phase begin-->
-        <activity android:name=".main.admin.Settings_Admin"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.admin.Add_Subject"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.admin.Help_Desk_Admin"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.admin.Profile_Admin_Edit"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.admin.Payment_Admin_Details"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.admin.Admin_Change_Password"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.admin.Admin_Add_Multiple_Items"
-            android:theme="@style/MyMaterialTheme"/>
-        <!-- Profile phase end-->
+        <activity
+            android:name=".Forgot_Password"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".SelectionActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/MyMaterialTheme" />
+        <!-- admin_phase_begins -->
+        <activity
+            android:name=".main.admin.AdminMainActivity"
+            android:theme="@style/MyMaterialTheme" />
+        <!-- Profile phase begin -->
+        <activity
+            android:name=".main.admin.Settings_Admin"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.admin.Add_Subject"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.admin.Help_Desk_Admin"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.admin.Profile_Admin_Edit"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.admin.Payment_Admin_Details"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.admin.Admin_Change_Password"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.admin.Admin_Add_Multiple_Items"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/MyMaterialTheme" />
+        <!-- Profile phase end -->
         <!-- Message Phase -->
-        <activity android:name=".main.admin.Messages_Send_Admin"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.admin.Message_Admin"
-            android:theme="@style/MyMaterialTheme"/>
+        <activity
+            android:name=".main.admin.Messages_Send_Admin"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.admin.Message_Admin"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/MyMaterialTheme" />
         <!-- LIST STAFF -->
-        <activity android:name=".main.admin.ListStaff"
-            android:theme="@style/MyMaterialTheme"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity
+            android:name=".main.admin.ListStaff"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MyMaterialTheme" />
         <!-- LIST SUBJECTS -->
-        <activity android:name=".main.admin.ListSubject"
-            android:theme="@style/MyMaterialTheme"/>
+        <activity
+            android:name=".main.admin.ListSubject"
+            android:theme="@style/MyMaterialTheme" />
         <!-- LIST STUDENTS -->
-        <activity android:name=".main.admin.ListStudents"
+        <activity
+            android:name=".main.admin.ListStudents"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.admin.Download_Data"
+            android:theme="@style/MyMaterialTheme" />
+        <!-- admin_phase_end -->
+        <!-- teacher_phase_begins -->
+        <activity
+            android:name=".main.Teacher.TakeAttendance"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.Teacher.InputMark"
             android:theme="@style/MyMaterialTheme"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
-        <activity android:name=".main.admin.Download_Data"
-            android:theme="@style/MyMaterialTheme"/>
-        <!--admin_phase_end-->
-        <!--teacher_phase_begins-->
-        <activity android:name=".main.Teacher.TakeAttendance"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.Teacher.InputMark"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.Teacher.InputMarkList"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.Teacher.TeacherMainActivity"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".MainActivity"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.Teacher.EditActivity"
-            android:theme="@style/MyMaterialTheme"/>
-        <service
-            android:name=".MyFirebaseMessagingService">
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.Teacher.InputMarkList"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.Teacher.TeacherMainActivity"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".main.Teacher.EditActivity"
+            android:theme="@style/MyMaterialTheme" />
+
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <service
-            android:name=".MyInstanceIDListenerService">
+        <service android:name=".MyInstanceIDListenerService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <receiver
+            android:name=".PaymentReceiver"
+            android:enabled="true"/>
     </application>
 
 </manifest>

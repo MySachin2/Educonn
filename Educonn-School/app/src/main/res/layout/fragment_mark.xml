@@ -20,14 +20,14 @@
         <com.phacsin.educonn_school.customfonts.NiceFont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Test"
+            android:text="Select Subject"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_marginTop="20sp"
             android:textColor="@color/green"/>
         <com.phacsin.educonn_school.customfonts.CustomSpinnerFont
-            android:id="@+id/spinner"
+            android:id="@+id/spinner_subject"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"

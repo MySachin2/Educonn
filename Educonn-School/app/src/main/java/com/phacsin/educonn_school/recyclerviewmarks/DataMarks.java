@@ -6,6 +6,6 @@ package com.phacsin.educonn_school.recyclerviewmarks;
 
 public class DataMarks {
 
-    public String subject_name;
+    public String test_name;
     public String marks;
 }
