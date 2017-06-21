@@ -233,23 +233,24 @@ public class Admin_Add_Multiple_Items extends AppCompatActivity {
                 final HelveticaEditText name_editText = (HelveticaEditText) mMaterialDialog.findViewById(R.id.admin_year_name);
                 mMaterialDialog.getWindow().setBackgroundDrawableResource(R.color.white);
                 mMaterialDialog.show();
-                HelveticaButton add_staff =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_add);
+                HelveticaButton add_year =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_add);
                 HelveticaButton cancel_staff_add =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_cancel);
-                add_staff.setOnClickListener(new View.OnClickListener() {
+                final String year = name_editText.getText().toString();
+                add_year.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final String name = name_editText.getText().toString();
-                        mRef.child("School").child(institution_name).child("Academic Year").push().child("Name").setValue(name);
-                        if(!valid_year)
-                        {
-                            data_year.clear();
-                            valid_year = true;
-                            spinner_year.setError(null);
-                        }
-                        data_year.add(name);
-                        Log.d("FirebaseError",data_year.toString());
-                        spinner_year.setItems(data_year);
-                        mMaterialDialog.dismiss();
+                            final String name = name_editText.getText().toString();
+                            mRef.child("School").child(institution_name).child("Academic Year").push().child("Name").setValue(name);
+                            if (!valid_year) {
+                                data_year.clear();
+                                valid_year = true;
+                                spinner_year.setError(null);
+                            }
+                            data_year.add(name);
+                            Log.d("FirebaseError", data_year.toString());
+                            spinner_year.setItems(data_year);
+                            mMaterialDialog.dismiss();
+                            //  end
                     }
                 });
                 cancel_staff_add.setOnClickListener(new View.OnClickListener() {
@@ -271,6 +272,7 @@ public class Admin_Add_Multiple_Items extends AppCompatActivity {
                     mMaterialDialog.show();
                     HelveticaButton add_staff = (HelveticaButton) mMaterialDialog.findViewById(R.id.btn_add);
                     HelveticaButton cancel_staff_add = (HelveticaButton) mMaterialDialog.findViewById(R.id.btn_cancel);
+                    final String standard = name_editText.getText().toString();
                     add_staff.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -513,6 +515,27 @@ public class Admin_Add_Multiple_Items extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Invalid Year",Toast.LENGTH_LONG).show();
             }
         });
+    }
+    private boolean validate_year(String edittext){
+        String year = edittext;
+        if(year.isEmpty()){
+            return false;
+        }
+        else return  true;
+    }
+    private boolean validate_standard(String edittext){
+        String std = edittext;
+        if(std.isEmpty()){
+            return false;
+        }
+        else return  true;
+    }
+    private boolean validate_division(String edittext){
+        String div = edittext;
+        if(div.isEmpty()){
+            return false;
+        }
+        else return  true;
     }
     @Override
     public void onBackPressed() {

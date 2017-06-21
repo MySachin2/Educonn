@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Forgot_Password"
+            android:parentActivityName=".LoginActivity"
             android:theme="@style/MyMaterialTheme"/>
         <!--admin_phase_begins-->
         <activity android:name=".main.admin.AdminMainActivity"

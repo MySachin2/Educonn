@@ -145,15 +145,17 @@ public class Admin_Batches extends AppCompatActivity {
                 mMaterialDialog.show();
                 HelveticaButton add_batch =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_add_batch);
                 HelveticaButton cancel_batch_add =(HelveticaButton) mMaterialDialog.findViewById(R.id.btn_cancel_batch_adding);
+                final String name = name_editText.getText().toString();
                 add_batch.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final String name = name_editText.getText().toString();
-                        mRef.child("College").child(institution_name).child("Batch").push().child("Name").setValue(name);
-                        data.add(name);
-                        adapter.notifyDataSetChanged();
-                        mMaterialDialog.dismiss();
-                    }
+                            final String name = name_editText.getText().toString();
+                            mRef.child("College").child(institution_name).child("Batch").push().child("Name").setValue(name);
+                            data.add(name);
+                            adapter.notifyDataSetChanged();
+                            mMaterialDialog.dismiss();
+                        }
+
                 });
                 cancel_batch_add.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -167,7 +169,13 @@ public class Admin_Batches extends AppCompatActivity {
         }
 
     }
-
+    /*private boolean validate(String edittext){
+        String title = edittext;
+        if(title.isEmpty()){
+            return true;
+        }
+        else return  false;
+    }*/
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
         @Override
@@ -190,7 +198,7 @@ public class Admin_Batches extends AppCompatActivity {
                 case R.id.action_delete:
                     new SweetAlertDialog(Admin_Batches.this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("Are you sure?")
-                            .setContentText("Delete all selections")
+                            .setContentText("Delete selected batches")
                             .setConfirmText("Ok")
                             .setCancelText("Cancel")
                             .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -257,13 +265,9 @@ public class Admin_Batches extends AppCompatActivity {
                 mActionMode.setTitle("" + multiselect_list.size());
             else
                 mActionMode.setTitle("");
-
             refreshAdapter();
-
         }
     }
-
-
     public void refreshAdapter()
     {
         adapter.selectedList=multiselect_list;

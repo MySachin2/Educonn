@@ -270,7 +270,7 @@ public class ListStaff extends AppCompatActivity {
                 case R.id.action_delete:
                     new SweetAlertDialog(ListStaff.this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("Are you sure?")
-                            .setContentText("Delete all selections")
+                            .setContentText("Delete Selected Staffs")
                             .setConfirmText("Ok")
                             .setCancelText("Cancel")
                             .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {

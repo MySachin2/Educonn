@@ -121,21 +121,28 @@ public class Messages_Send_Admin extends AppCompatActivity {
         send_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String batch = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString().replace(" ","");
-                String title = title_edittext.getText().toString();
-                String message = message_edittext.getText().toString();
-                Map<String,String> map = new HashMap<String, String>();
-                map.put("title",title);
-                map.put("message",message);
-                map.put("topic_name",institution_name.replaceAll("[^a-zA-Z0-9]","")+ "_" + batch.replaceAll("[^a-zA-Z0-9]",""));
-                mRef.child("Notification Requests").child("Group").push().setValue(map);
-                DBHandler dbHandler = new DBHandler(getApplicationContext());
-                Calendar c = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                String formattedDate = df.format(c.getTime());
-                dbHandler.insertNotification(title,message,formattedDate);
-                Toast.makeText(getApplicationContext(),"Message Sent Successfully",Toast.LENGTH_LONG).show();
-                finish();
+                if (validate_()) {
+                    String batch = spinner_batch.getItems().get(spinner_batch.getSelectedIndex()).toString().replace(" ", "");
+                    String title = title_edittext.getText().toString();
+                    String message = message_edittext.getText().toString();
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("title", title);
+                    map.put("message", message);
+                    map.put("topic_name", institution_name.replaceAll("[^a-zA-Z0-9]", "") + "_" + batch.replaceAll("[^a-zA-Z0-9]", ""));
+                    mRef.child("Notification Requests").child("Group").push().setValue(map);
+                    DBHandler dbHandler = new DBHandler(getApplicationContext());
+                    Calendar c = Calendar.getInstance();
+                    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                    String formattedDate = df.format(c.getTime());
+                    dbHandler.insertNotification(title, message, formattedDate);
+                    Toast.makeText(getApplicationContext(), "Message Sent Successfully", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    new SweetAlertDialog(Messages_Send_Admin.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Failed")
+                            .setContentText("Some Fields are empty")
+                            .show();
+                }
             }
         });
 
@@ -165,7 +172,14 @@ public class Messages_Send_Admin extends AppCompatActivity {
             }
         });
     }
-
+    private boolean validate_(){
+        String title = title_edittext.getText().toString();
+        String message = message_edittext.getText().toString();
+        if(title.isEmpty()||message.isEmpty()){
+            return false;
+        }
+        else return  true;
+    }
     @Override
     public void onBackPressed() {
         new SweetAlertDialog(Messages_Send_Admin.this, SweetAlertDialog.WARNING_TYPE)
