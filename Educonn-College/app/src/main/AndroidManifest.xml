@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.phacsin.student">
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
@@ -34,7 +34,7 @@
             android:theme="@style/MyMaterialTheme"/>
         <activity android:name=".main.admin.Add_Subject"
             android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".main.admin.Help_Desk_Admin"
+        <activity android:name=".Help_Desk_Admin"
             android:theme="@style/MyMaterialTheme"/>
             <activity android:name=".main.admin.Profile_Admin_Edit"
                 android:theme="@style/MyMaterialTheme"/>
