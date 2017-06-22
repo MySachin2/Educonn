@@ -1,7 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dark_green"
     android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/tabanim_appbar"
+        android:background="@color/green"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@color/green"
+            android:layout_width="match_parent"
+            android:title="Admin"
+            android:titleTextColor="#ffffff"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark_green"
+        android:layout_gravity="center">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/contact_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
+                    card_view:cardBackgroundColor="@color/white"
+                    android:alpha="0.95"
+                    card_view:cardElevation="5dp"
+                    app:cardCornerRadius="5sp"
+                    android:layout_margin="5sp"
+                    card_view:cardCornerRadius="4dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center">
+                        <ImageView
+                            android:layout_width="60sp"
+                            android:layout_height="60sp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/phone"/>
+                        <com.phacsin.student.customfonts.NiceFont
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/green"
+                            android:layout_gravity="center"
+                            android:textSize="20sp"
+                            android:text="Contact No" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/contact_mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardBackgroundColor="@color/white"
+                    android:alpha="0.95"
+                    android:minHeight="100dp"
+                    android:layout_margin="5sp"
+                    card_view:cardElevation="5dp"
+                    app:cardCornerRadius="5sp"
+                    card_view:cardCornerRadius="4dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+                        <ImageView
+                            android:layout_width="60sp"
+                            android:layout_height="60sp"
+                            android:src="@drawable/email"/>
+                        <com.phacsin.student.customfonts.NiceFont
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/green"
+                            android:layout_gravity="center"
+                            android:textSize="20sp"
+                            android:text="Email" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/contact_website"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="5sp"
+                    android:alpha="0.95"
+                    android:minHeight="100dp"
+                    android:layout_margin="5sp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardCornerRadius="4dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+                        <ImageView
+                            android:layout_width="60sp"
+                            android:layout_height="60sp"
+                            android:src="@drawable/www"/>
+                        <com.phacsin.student.customfonts.NiceFont
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/green"
+                            android:layout_gravity="center"
+                            android:textSize="20sp"
+                            android:text="Website" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

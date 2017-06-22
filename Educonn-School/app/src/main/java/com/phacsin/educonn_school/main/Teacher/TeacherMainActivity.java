@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.phacsin.educonn_school.Help_Desk_Admin;
 import com.phacsin.educonn_school.LoginActivity;
 import com.phacsin.educonn_school.R;
 import com.phacsin.educonn_school.customfonts.HelveticaButton;
@@ -102,6 +103,10 @@ public class TeacherMainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         startActivity(new Intent(getApplicationContext(),Message_Admin.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                    case 3:
+                        startActivity(new Intent(getApplicationContext(),Help_Desk_Admin.class));
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         break;
                 }

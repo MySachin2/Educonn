@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.phacsin.student.Help_Desk_Admin;
 import com.phacsin.student.LoginActivity;
 import com.phacsin.student.R;
 import com.phacsin.student.customfonts.HelveticaButton;
@@ -78,6 +79,10 @@ public class TeacherMainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         startActivity(new Intent(getApplicationContext(),Message_Admin.class));
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        break;
+                    case 3:
+                        startActivity(new Intent(getApplicationContext(),Help_Desk_Admin.class));
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         break;
                 }
