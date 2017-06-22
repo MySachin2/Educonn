@@ -30,13 +30,18 @@ public class Forgot_Password extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Edit Profile");
         email_edit = (HelveticaEditText) findViewById(R.id.input_email);
         button = (Button) findViewById(R.id.btn_submit);
-
+        toolbar.setTitle("Forgot Password");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_left_arrow);
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -380,7 +380,7 @@ public class ListStudents extends AppCompatActivity {
                 case R.id.action_delete:
                     new SweetAlertDialog(ListStudents.this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("Are you sure?")
-                            .setContentText("Delete all selections")
+                            .setContentText("Delete selected students")
                             .setConfirmText("Ok")
                             .setCancelText("Cancel")
                             .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {

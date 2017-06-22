@@ -365,7 +365,7 @@ public class ListSubject extends AppCompatActivity {
                 case R.id.action_delete:
                     new SweetAlertDialog(ListSubject.this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("Are you sure?")
-                            .setContentText("Delete all selections")
+                            .setContentText("Delete selected subjects")
                             .setConfirmText("Ok")
                             .setCancelText("Cancel")
                             .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {

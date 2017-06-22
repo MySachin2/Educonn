@@ -270,7 +270,7 @@ public class ListStaff extends AppCompatActivity {
                 case R.id.action_delete:
                     new SweetAlertDialog(ListStaff.this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("Are you sure?")
-                            .setContentText("Delete all selections")
+                            .setContentText("Delete selected staffs")
                             .setConfirmText("Ok")
                             .setCancelText("Cancel")
                             .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -307,7 +307,7 @@ public class ListStaff extends AppCompatActivity {
                                         if (mActionMode != null) {
                                             mActionMode.finish();
                                         }
-                                        Toast.makeText(getApplicationContext(), "Deleted Selections", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Deleted Staffs", Toast.LENGTH_LONG).show();
                                     }
                                     back_to.dismissWithAnimation();
                                 }
