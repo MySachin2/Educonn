@@ -86,7 +86,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/MyMaterialTheme" />
         <activity
-            android:name=".main.admin.Download_Data"
+            android:name=".Help_Desk_Admin"
             android:theme="@style/MyMaterialTheme" />
         <!-- admin_phase_end -->
         <!-- teacher_phase_begins -->
